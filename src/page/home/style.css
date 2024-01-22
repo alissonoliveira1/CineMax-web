@@ -1,0 +1,97 @@
+html {
+  overflow-x: hidden;
+  background-color: rgb(3, 6, 37);
+}
+
+.list-filmes {
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  gap: 30px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 25px;
+  padding-bottom: 25px;
+}
+.list-filmes::-webkit-scrollbar {
+  display: none;
+}
+img {
+    display: flex;
+  border-radius: 10px 10px 0 0;
+  width: 200px;
+  height: 260px;
+
+  
+  overflow: auto;
+}
+
+.paitexto {
+  display: flex;
+  background-color: aquamarine;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  padding: 2px;
+  font-size: 15.5px;
+  font-family: sans-serif;
+}
+article {
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+}
+.botao {
+  background-color: cadetblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  text-decoration: none;
+  color: white;
+  border-radius: 0px 0px 10px 10px;
+  font-family: sans-serif;
+}
+article:hover {
+  transform: scale(1.1);
+  .botao {
+    background-color: red;
+  }
+}
+
+.load {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  height: 91vh;
+}
+.loadd {
+  border: 6px solid #e5e5e5;
+  border-radius: 50%;
+  border-top-color: #51d4db;
+  height: 50px;
+  width: 50px;
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+.tituloFl {
+  display: flex;
+  font-family: sans-serif;
+  color: white;
+  padding: 5px 25px;
+}
+
+.imagem {
+  padding: 0;
+  margin: 0;
+  background-color: rgba(0, 0, 255, 0);
+}

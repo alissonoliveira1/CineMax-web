@@ -1,0 +1,29 @@
+html{
+    overflow-x: hidden;
+}
+
+.mensagem{
+    font-family: sans-serif;
+    color: white;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Home{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    border-radius: 10px;
+}
+.Home:hover{
+filter: brightness(0.9);
+}
+.Home:active{
+    background-color: aquamarine;
+}

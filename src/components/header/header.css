@@ -1,0 +1,31 @@
+html{
+    margin: 0;
+    padding: 0;
+}
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(4, 9, 61);
+    padding: 10px;
+}
+.logo{
+font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(218, 16, 16);
+    font-size: 40px;
+}
+span{
+    color: rgb(255, 196, 0);
+}
+.fav{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid white;
+    font-family: 'Courier New', Courier, monospace;
+}
