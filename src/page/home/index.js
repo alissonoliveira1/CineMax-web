@@ -1,140 +1,217 @@
+import { Await } from "react-router-dom";
+import Filme from "../filme";
+import { useEffect, useState } from "react";
+import api from "../../services/";
+import { Link } from "react-router-dom";
+import "./style.css";
+import { Slide } from "react-toastify";
+import axios from "axios";
 
-import { Await } from 'react-router-dom';
-import Filme from '../filme';
-import { useEffect, useState } from 'react';
-import api from '../../services/';
-import Menu from "../menu/index.js";
-import { Link } from 'react-router-dom';
-
-import './style.css'
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
-function Home(){
-const [Filmes, setFilmes] = useState([])
-const [load, setLoad] = useState(true)
-const genero = 28
-const [filmesPorGenero, setFilmesPorGenero] = useState([]);
-const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b';
-const generoId = 28;
-const anima = 16
+function Home() {
+  const [Filmes, setFilmes] = useState([]);
+  const [load, setLoad] = useState(true);
+  const [resumo, setresumo] = useState("");
+  const genero = 28;
+  const [filmesPorGenero, setFilmesPorGenero] = useState([]);
+  const [animaFilmes, setAnimaFilmes] = useState([]);
+  const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
+  const generoId = 28;
+  const anima = 27;
+  const [filmeAleatorio, setFilmeAleatorio] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?api_key=9f4ef628222f7685f32fc1a8eecaae0b&with_genres=${generoId}&language=pt-br`
+        );
+        const response2 = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?api_key=9f4ef628222f7685f32fc1a8eecaae0b&with_genres=${anima}&language=pt-br`
+        );
 
-
-
-
-
-     
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=9f4ef628222f7685f32fc1a8eecaae0b&with_genres=${generoId}&language=pt-br`
-          );
-          const response2 = await fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=9f4ef628222f7685f32fc1a8eecaae0b&with_genres=${anima}&language=pt-br`
-          );
-  
-          if (!response.ok) {
-            throw new Error('Erro ao buscar dados da API');
-          }
-  
-          const data = await response.json();
-          setFilmesPorGenero(data.results); // Armazena os resultados na variável de estado
-        } catch (error) {
-          console.error('Erro ao buscar dados da API:', error);
+        if (!response.ok) {
+          throw new Error("Erro ao buscar dados da API");
         }
-      };
-        
-      fetchData();
-    }, [apiKey, generoId,anima]);
-  
+        const data2 = await response2.json();
+        const data = await response.json();
 
+        setFilmesPorGenero(data.results);
+        setAnimaFilmes(data2.results); // Armazena os resultados na variável de estado
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    };
 
+    fetchData();
+  }, [apiKey, generoId, anima]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("movie/now_playing", {
+          params: {
+            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            language: "pt-BR",
+            page: 1,
+          },
+        });
 
-useEffect(()=> {
-    async function loadFilmes(){
-  
-const response = await api.get("movie/now_playing", {
-    params:{
-        api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-        language:"pt-BR",
-        page:1
-        
-    }
+        setLoad(false);
+        setFilmes(response.data.results);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    };
 
-})
+    const obterFilmeAleatorio = async () => {
+      try {
+        const resposta = await axios.get(
+          "https://api.themoviedb.org/3/discover/movie",
+          {
+            params: {
+              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+              sort_by: "popularity.desc",
+              language: "pt-BR",
+              page: Math.floor(Math.random() * 100) + 1,
+            },
+          }
+        );
 
-setLoad(false)
- setFilmes(response.data.results)
-    }
+        const { results } = resposta.data;
+        if (results && results.length > 0) {
+          const filmeAleatorio = results[0]; // Pega o primeiro filme aleatório
+          setFilmeAleatorio(filmeAleatorio);
+        } else {
+          console.error("Nenhum filme aleatório encontrado.");
+        }
+      } catch (erro) {
+        console.error("Erro ao obter filme aleatório:", erro);
+      }
+    };
 
+    fetchData();
+    obterFilmeAleatorio();
+  }, []); // Este efeito é executado apenas uma vez ao carregar o componente
+  const [isScrolled, setIsScrolled] = useState(false);
 
-    loadFilmes()
-  
-},[])
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const shouldScroll = scrollTop > 50;
 
+      setIsScrolled(shouldScroll);
+    };
 
-if(load){
-    return(
-        <div className='load'><div className='loadd'></div></div>
-    )
-}
+    window.addEventListener('scroll', handleScroll);
 
-    return(
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
+ 
 
-        <div className='container2'>
-            <div>
-            <div className='tituloFl'><h1>Lançamentos</h1></div>
-            <div className='list-filmes'>
-            {Filmes.slice().map((filmes)=>{
-               
-                return(
-                       
-                    <article key={filmes.id}>
-                     
-                        <div className='imagem'>
-                        <img alt={filmes.title} src={`https://image.tmdb.org/t/p//original/${filmes.poster_path}`}/>
-                        </div>
-                        <div className='paitexto'>
-                           <strong className='titulo'>
-                            {filmes.title}
-                        </strong> 
-                        </div>
-                        
-                        <Link className='botao' to={`/filme/${filmes.id}`}>Play</Link>
-                    </article>
-                )
-                
-                
-            })}
+    
+  if (load) {
+    return (
+      <div className="load">
+        <div className="loadd"></div>
+      </div>
+    );
+  }
+ 
+  return (
+   
+    <div  className="container2">
+      <div className="slide">
+        <div className="ConjuntoSlide">
+          <div className="textoConjuntoSlide">
+            <div className="tituloSlide">
+              <div>{filmeAleatorio.title}</div>
+            </div>
+            <div className="resumoSlide">{filmeAleatorio.overview}</div>
+            <div className="botoesSlide">
+                <div><a href={`https://superflixapi.top/filme/${filmeAleatorio.id}`}><button className="assistirSlide">Assisir</button></a></div><div><Link to={`/filme/${filmeAleatorio.id}`}><button className="verSlide">Ver Mais</button></Link></div>
+            </div>
+            </div>
+            <div className="imgSlideDiv">
             
+              <img
+                className="imgSlide"
+                src={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`}
+              />
+              <div className="sombra"></div>
             </div>
-            <div className='tituloFl'><h1>Filmes de Ação</h1></div>
-            <div className='list-filmes'>
-            {filmesPorGenero.slice().map((filme)=>{
-               
-               return(
-                      
-                   <article key={filme.id}>
-                    
-                       <div className='imagem'>
-                       <img alt={filme.title} src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}/>
-                       </div>
-                       <div className='paitexto'>
-                          <strong className='titulo'>
-                           {filme.title}
-                       </strong> 
-                       </div>
-                       
-                       <Link className='botao' to={`/filme/${filme.id}`}>Acessar</Link>
-                   </article>
-               )
-            })}
-            </div>
-                </div>
+          </div>
+        
+      </div>
+
+      <div className="listaPaiFilmes">
+        <div className="tituloFl">
+          <h1>Lançamentos</h1>
         </div>
-    )
+        <div className="list-filmes">
+          {Filmes.map((filmes) => {
+            return (
+              <article className="capa-Filme" key={filmes.id}>
+                <Link to={`/filme/${filmes.id}`}>
+                  <div className="conjutoimg">
+                    <img
+                      className="imagem"
+                      alt={filmes.title}
+                      src={`https://image.tmdb.org/t/p//original/${filmes.poster_path}`}
+                    />
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+        <div className="tituloFl">
+          <h1>Filmes de Ação</h1>
+        </div>
+        <div className="list-filmes">
+          {filmesPorGenero.slice().map((filme) => {
+            return (
+              <article className="capa-Filme" key={filme.id}>
+                <Link className="botao" to={`/filme/${filme.id}`}>
+                  <div>
+                    <img
+                      className="imagem"
+                      alt={filme.title}
+                      src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+                    />
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="tituloFl">
+          <h1>Filmes de Animação</h1>
+        </div>
+        <div className="list-filmes">
+          {animaFilmes.slice().map((filme) => {
+            return (
+              <article className="capa-Filme" key={filme.id}>
+                <Link className="botao" to={`/filme/${filme.id}`}>
+                  <div>
+                    <img
+                      className="imagem"
+                      alt={filme.title}
+                      src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+                    />
+                  </div>
+                </Link>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+    
+  );
 }
 export default Home;

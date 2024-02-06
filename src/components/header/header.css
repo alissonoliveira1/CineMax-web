@@ -2,19 +2,40 @@ html{
     margin: 0;
     padding: 0;
 }
+.conjuntomenu{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.App.scrolled header {
+    transition:  1s ease-in-out;
+    background-color: rgb(27, 28, 34); /* Cor de fundo padrão ao rolar para baixo */
+  }
+
 header{
+    position: fixed;
+    width: 100%;
+    gap: 200px;
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: rgb(4, 9, 61);
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    padding:  4px 0px;
+    transition: 1s ease-in-out;
+}
+
+.logo img{
+ 
+width:  60px;
+height: 60px;
+ 
 }
 .logo{
-font-family: sans-serif;
-    font-weight: bold;
-    text-decoration: none;
-    color: rgb(218, 16, 16);
-    font-size: 40px;
+    display: flex;
+    overflow: hidden;
+    
 }
 span{
     color: rgb(255, 196, 0);
@@ -28,4 +49,16 @@ span{
     padding: 5px;
     border: 1px solid white;
     font-family: 'Courier New', Courier, monospace;
+}
+@media (max-width:420px) {
+    .logo{
+        font-family: sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            color: rgb(218, 16, 16);
+            font-size: 20px;
+        }
+        span{
+            color: rgb(255, 196, 0);
+        } 
 }

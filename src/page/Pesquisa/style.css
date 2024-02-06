@@ -1,0 +1,36 @@
+.pesquisa2{
+      padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+  
+  
+    width: 100%;  
+
+}
+
+.msg-notfould{
+    color: white;
+}
+.titulo-results{
+    color: white;
+}
+.msg-n{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.img-erros{
+    width: 300px;
+}
+.filmes-ul{
+    display: flex;
+  justify-content:start;
+  gap: 10px;
+  row-gap: 60px;
+  flex-wrap: wrap;
+}
+
+
+.lista-filmes{
+    list-style: none;
+}

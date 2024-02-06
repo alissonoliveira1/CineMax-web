@@ -31,21 +31,25 @@ function excluirf(id){
 {filme.length === 0 && <span className='vaziofav'>Voce não adicionou nenhum filme aos favoritos</span>}
 
 <div>
-    <ul>
+    <ul className='pai-fav-ul'>
         {filme.map((item) =>{
             return(
                
-           <li className='paifav' key={item.id}>
-            
+           <li  key={item.id}>
+            <div className='paifav'>
             <div className='imgfav'><img src={`https://image.tmdb.org/t/p//original/${item.backdrop_path}`}/></div>
             <span className='titulofav'>{item.title}</span>
             <div className='detalhesfav'>
                <div><Link className='detalhesfavbutton' to={`/filme/${item.id}`}>Detalhes</Link></div> 
               <div><button onClick={()=> excluirf(item.id)} className='buttonfav'>Excluir</button></div>
             </div>
+          </div>
+            <div className='barra-fav'></div>
            </li>
+
             )
             })}
+            
     </ul>
 </div>
 </div>

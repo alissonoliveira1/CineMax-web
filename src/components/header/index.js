@@ -1,12 +1,43 @@
 import './header.css'
 import { Link } from 'react-router-dom';
-import Menu from '../../page/menu';
+import Menu from '../Menu';
+import { useState, useEffect} from 'react';
+import Pesquisas from '../Pesquisas';
+import Logo from './logo (2) (1).png'
 function Header(){
+
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        const scrollTop = window.scrollY;
+        const shouldScroll = scrollTop > 50;
+  
+        setIsScrolled(shouldScroll);
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
+    const appClasses = isScrolled ? 'App scrolled' : 'Header';
+  
+      
+
+
     return(
-       <header>
-        <Link className='logo' to="/">Ba<span >Fli</span>x</Link>
-        <div><Menu/></div>
-       </header>
+        <div className={appClasses}>
+       <header >
+        <Link className='logo' to="/"><img src={Logo}/></Link>
+        <div className='conjuntomenu'>
+          <div><Pesquisas/></div>
+        <div><Menu/></div>  
+        </div>
+       
+       </header> </div>
     )
 }
 export default Header;
