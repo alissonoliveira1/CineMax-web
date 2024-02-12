@@ -14,6 +14,7 @@
 .titulo-results{
     color: white;
 }
+
 .msg-n{
     display: flex;
     flex-direction: column;
@@ -33,4 +34,7 @@
 
 .lista-filmes{
     list-style: none;
+}
+.start{
+
 }
