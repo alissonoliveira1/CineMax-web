@@ -6,10 +6,13 @@ import api from "../../services";
 import { toast } from "react-toastify";
 import {ReactComponent as Core} from '../filme/icon/heart.svg'
 import {ReactComponent as Play} from '../filme/icon/play-fill.svg'
-
+import axios from "axios";
 
 function Filme() {
+  const [rating,setTeste] = useState([]);
   const [genes,setgenes] = useState([]);
+  const [certificacao, setCertificacao] = useState('');
+const [erro, setErro] = useState('');
   const [genes2,setgenes2] = useState();
   const { id } = useParams();
   const navegate = useNavigate();
@@ -17,6 +20,8 @@ function Filme() {
   const [filme, setfilme] = useState([]);
   const [semelhantes, setsemelhantes] = useState([])
 const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
+
+
   useEffect(() => {
     async function loadFilme() {
       await api
@@ -24,13 +29,20 @@ const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
           params: {
             api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
             language: "pt-BR",
+            append_to_response: "release_dates"
           },
         })
 
         .then((response) => {
-          setfilme(response.data);
           
+
+          setfilme(response.data); 
+          
+      
           setload(false);
+         
+          
+         
         })
         .catch(() => {
           console.log("filme não encontrado");
@@ -39,7 +51,7 @@ const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
         });
       
     }
-    
+
     
     loadFilme();
      
@@ -65,6 +77,33 @@ console.log("filme genero nao encontrado")
 
 
 }, [genreIds])
+
+
+
+useEffect(() => {
+  async function buscarCertificacao() {
+    try {
+      const response = await axios.get(`https://api.themoviedb.org/3/movie/${id}/release_dates`, {
+        params: {
+          api_key: '9f4ef628222f7685f32fc1a8eecaae0b',
+        },
+      });
+
+      const { results } = response.data;
+      const certificacoes = results.find(result => result.iso_3166_1 === 'BR'); // Aqui estamos buscando a certificação para o Brasil
+      
+      if (certificacoes) {
+        const certificacaoEncontrada = certificacoes.release_dates.find(date => date.certification !== '');
+        if (certificacaoEncontrada) {
+          setCertificacao(certificacaoEncontrada.certification);
+        } }
+    } catch (error) {
+      setErro('Erro ao buscar a classificação indicativa.');
+    }
+  }
+
+  buscarCertificacao();
+}, []);
 
   const releaseYear = filme.release_date ? filme.release_date.substring(0, 4) : '';
   const durationInMinutes = filme.runtime || 0;
@@ -92,9 +131,15 @@ console.log("filme genero nao encontrado")
   }
 
   if (load) {
-    return <div className="detalhes">Carregando detalhes...</div>;
+    return (
+ <div className="load">
+    <div className="loadd"></div>
+  </div>
+    )
+   
   }
 
+//e.release_dates.map((e)=>{return <div>{e.certification}</div>}
   return (
     <div className="filme_info2">
       <div className="conjunto">
@@ -108,8 +153,17 @@ console.log("filme genero nao encontrado")
 
         <div>
           <h1 className="tituloFilme">{filme.title}</h1>
+          <div className="dateClassf">
+       
+        <div className="idadeIndicativa">{certificacao === 'L' && <div className="BoxL">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao === '10' && <div className="Box10">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao === '12' && <div className="Box12">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao === '14' && <div className="Box14">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao === '16' && <div className="Box16">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao === '18' && <div className="Box18">{certificacao}</div>}</div>
+        <div className="idadeIndicativa">{certificacao < 1 && <div className="BoxI"> Classificação Indisponivel</div>}</div>
         <h3 className="data">{releaseYear} {hours}hrs {minutes}min</h3>
-        </div>
+       </div> </div>
         
 
         <h3 className="sinopse"><strong>Sinopse</strong></h3>

@@ -1,20 +1,33 @@
+.PaideTodesFav{
+padding-top: 80px;
+}
 .paifav{
     display: flex;
+    background-color: rgb(58, 58, 58);
+    border-radius: 10px;
+    width: 25vw;
     align-items: center;
-    justify-content: space-evenly;
-    gap: 50px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    padding: 10px;
 }
 .pai-fav-ul{
+   
    display: flex; 
-   gap: 50px;
-   flex-direction: column;
+   flex-flow: wrap;
+   align-items: center;
+   gap: 20px;
+  row-gap: 60px;
+}
+.pai-fav-ul li{
+    list-style: none;
 }
 
-.titulofav{
+.titulofav2{
     color: white;
     font-size: 20px;
-    display: flex;
-    width: 300px;
+    width: 100%;
     font-family: sans-serif;
 }
 .detalhesfav{
@@ -24,9 +37,10 @@
 
 }
 .fav2{
-    color: white;
+    color: rgb(107, 107, 107);
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    margin-left: 50px;
     align-items: center;
     font-family: sans-serif;
 }
@@ -39,24 +53,33 @@
     font-family: sans-serif;
     font-size: 30px;
 }
-.detalhesfavbutton{
-    padding: 10px;
-    border: 1px solid white;
+.detalhesfavbutton2{
+    display: flex;
+    width: 130px;
+     height: 40px;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+   color: white;
+    background-color: rgb(58, 58, 58);
+    border: 1px solid rgb(179, 179, 179);
     border-radius: 10px;
+    font-size: 15px;
 }
 .buttonfav{
-    padding: 10px;
-    border: 1px solid white;
+    display: flex;
+    font-family: sans-serif;
+    width: 130px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
 }
 .imgfav img{
-    width: 250px;
-    
-    border-radius:0;
-}
-.barra-fav{
-    display: flex;
     width: 100%;
-    height: 5px;
-    background-color: white;
+    
+    border-radius:10px ;
 }

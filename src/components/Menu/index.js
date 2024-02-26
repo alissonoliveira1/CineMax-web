@@ -24,7 +24,7 @@ cont.classList.toggle('blur')
     <div className='MenuLat'>
     <Link  to='/'><div className='icons-menu'><House2 className='icon-menu2'  /><span className='opcoes-menu'>Home</span></div></Link>
     <Link  to='/favoritos'><div className='icons-menu'><Like className='icon-menu2'  /><span className='opcoes-menu'>Favoritos</span></div></Link>
-    <div className='icons-menu'><Filmes className='icon-menu2'  /><span className='opcoes-menu opcoes-menu2'>Filmes</span></div>
+    <Link to='/FilmePag'><div className='icons-menu'><Filmes className='icon-menu2'  /><span className='opcoes-menu opcoes-menu2'>Filmes</span></div></Link>
     <Link to='/Serie'><div className='icons-menu'><Serie className='icon-menu2'   /><span className='opcoes-menu opcoes-menu2'>Series</span></div></Link>
 
 
@@ -33,7 +33,7 @@ cont.classList.toggle('blur')
 <ul className='listaMenu'>
   <Link className='lista-menu' to='/favoritos'><Like className='icon-hamb'  /><span className='opcoes-menu3'>Favoritos</span></Link>
   <Link className='lista-menu' to='/Serie'><Serie className='icon-hamb'   /><span className='opcoes-menu3'>Series</span></Link>
-  <li className='lista-menu'><Filmes className='icon-hamb'  /><span className=' opcoes-menu3'>Filmes</span></li>
+  <Link className='lista-menu' to='/FilmePag'><Filmes className='icon-hamb'  /><span className=' opcoes-menu3'>Filmes</span></Link>
 </ul>
 </div>
 

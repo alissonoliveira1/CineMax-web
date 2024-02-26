@@ -60,6 +60,9 @@ html::-webkit-scrollbar-thumb{
     
     min-width: 100%;
 }
+.imagemFilmes:hover{
+    transform: scale(1.1);
+}
 .FilmePaiSg{
    display: flex;
    align-items: center;
@@ -206,6 +209,88 @@ gap: 30px;
     color: white;
     font-family: sans-serif;
     font-size: 30px;
+}
+.BoxL{
+width: 25px;
+height: 25px;
+font-family: sans-serif;
+font-size: 25px;
+font-weight: 600;
+color: white;
+align-items: center;
+display: flex;
+justify-content: center;
+background-color: rgb(16, 165, 29);
+}
+.Box10{
+    width: 25px;
+    height: 25px;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(32, 144, 209);
+}
+.Box12{
+    width: 25px;
+    height: 25px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    align-items: center;
+    display: flex;
+    padding: 2px;
+    justify-content: center;
+    background-color: rgb(228, 213, 0);
+    
+}
+.Box14{
+    width: 25px;
+    height: 25px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    align-items: center;
+    display: flex;
+    padding: 2px;
+    justify-content: center;
+    background-color: rgb(228, 137, 0);
+}
+.Box16{
+    width: 25px;
+    height: 25px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    padding: 2px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(228, 34, 0);
+}
+.dateClassf{
+    display: flex;
+    gap: 2px;
+    align-items: center;
+}
+.Box18{
+    width: 25px;
+    height: 25px;
+    font-family: sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 2px;
+    color: white;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
 }
 @media (max-width:780px){
     .filme-info{

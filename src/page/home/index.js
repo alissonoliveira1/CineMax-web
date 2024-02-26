@@ -3,9 +3,15 @@ import Filme from "../filme";
 import { useEffect, useState } from "react";
 import api from "../../services/";
 import { Link } from "react-router-dom";
+import { ReactComponent as Left } from "./icon/left.svg";
+import { ReactComponent as Right } from "./icon/right.svg";
 import "./style.css";
 import { Slide } from "react-toastify";
 import axios from "axios";
+import React from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
@@ -80,7 +86,7 @@ function Home() {
 
         const { results } = resposta.data;
         if (results && results.length > 0) {
-          const filmeAleatorio = results[0]; // Pega o primeiro filme aleatório
+          const filmeAleatorio = results[0]; 
           setFilmeAleatorio(filmeAleatorio);
         } else {
           console.error("Nenhum filme aleatório encontrado.");
@@ -110,7 +116,35 @@ function Home() {
     };
   }, []);
 
- 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 8,
+    slidesToScroll: 4,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />
+  };
+
+  function CustomPrevArrow({ onClick }) {
+    return (
+      <button className="custom-prev-arrow" onClick={onClick}>
+        {<Left className="setas"/>}
+       
+      </button>
+    );
+  }
+
+  function CustomNextArrow({ onClick }) {
+    return (
+      <button className="custom-next-arrow" onClick={onClick}>
+        {<Right className="setas"/>}
+     
+      </button>
+    );
+  }
+  
+  
 
     
   if (load) {
@@ -151,27 +185,30 @@ function Home() {
         <div className="tituloFl">
           <h1>Lançamentos</h1>
         </div>
-        <div className="list-filmes">
+        
+        
+       <Slider className="slides1" {...settings}>
           {Filmes.map((filmes) => {
             return (
               <article className="capa-Filme" key={filmes.id}>
                 <Link to={`/filme/${filmes.id}`}>
-                  <div className="conjutoimg">
                     <img
                       className="imagem"
                       alt={filmes.title}
                       src={`https://image.tmdb.org/t/p//original/${filmes.poster_path}`}
                     />
-                  </div>
                 </Link>
               </article>
             );
           })}
-        </div>
+          </Slider>
+       
+        
         <div className="tituloFl">
           <h1>Filmes de Ação</h1>
         </div>
-        <div className="list-filmes">
+       
+        <Slider className="slides1" {...settings}>
           {filmesPorGenero.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>
@@ -187,12 +224,13 @@ function Home() {
               </article>
             );
           })}
-        </div>
+          </Slider>
+        
 
         <div className="tituloFl">
-          <h1>Filmes de Animação</h1>
+          <h1>Filmes de Terror</h1>
         </div>
-        <div className="list-filmes">
+        <Slider className="slides1" {...settings}>
           {animaFilmes.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>
@@ -208,7 +246,7 @@ function Home() {
               </article>
             );
           })}
-        </div>
+        </Slider>
       </div>
     </div>
     
