@@ -1,0 +1,181 @@
+.container-menu-Mobile{
+    z-index: 60;
+    display: none;
+}
+@media (max-width:480px) {
+    .container-menu-Mobile{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      align-items: end;
+        top: 0;
+        left: 0;
+      
+        display: flex;
+    }
+    .Pai-menu-mobile{
+        display: flex;
+     width: 100%;
+     height: 100%;
+     align-items: center;
+     justify-content: space-around;
+     max-height: 40px;
+        background-color: rgb(44, 44, 44);
+    }
+    .div-opcoes-mobile{
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+    }
+    .div-opcoes-mobile a, button {
+
+        font-family: sans-serif;
+       color: white;
+       
+    }
+    .div-opcoes-mobile a, button:hover{
+
+    }
+    .icon-menu-Mobile{
+        width: 18px;
+        height: 18px;
+    }
+    .home-mobile{
+        
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+        border-radius: 50%;
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        background-color: black;
+    }
+    .button-Sair-Mobile{
+        background-color: transparent;
+        border: none;
+    }
+}
+@media (min-width:481px) and (max-width:767px){
+    .container-menu-Mobile{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      align-items: end;
+        top: 0;
+        left: 0;
+      
+        display: flex;
+    }
+    .Pai-menu-mobile{
+        display: flex;
+     width: 100%;
+     height: 100%;
+     align-items: center;
+     justify-content: space-around;
+     max-height: 40px;
+        background-color: rgb(44, 44, 44);
+    }
+    .div-opcoes-mobile{
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+    }
+    .div-opcoes-mobile a, button {
+
+        font-family: sans-serif;
+       color: white;
+       
+    }
+    .div-opcoes-mobile a, button:hover{
+
+    }
+    .icon-menu-Mobile{
+        width: 18px;
+        height: 18px;
+    }
+    .home-mobile{
+        
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+        border-radius: 50%;
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        background-color: black;
+    }
+    .button-Sair-Mobile{
+        background-color: transparent;
+        border: none;
+    }   
+}
+@media (min-width:768px) and (max-width:991px){
+    .container-menu-Mobile{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+      align-items: end;
+        top: 0;
+        left: 0;
+      
+        display: flex;
+    }
+    .Pai-menu-mobile{
+        display: flex;
+     width: 100%;
+     height: 100%;
+     align-items: center;
+     justify-content: space-around;
+     max-height: 40px;
+        background-color: rgb(44, 44, 44);
+    }
+    .div-opcoes-mobile{
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+    }
+    .div-opcoes-mobile a, button {
+
+        font-family: sans-serif;
+       color: white;
+       
+    }
+    .div-opcoes-mobile a, button:hover{
+
+    }
+    .icon-menu-Mobile{
+        width: 18px;
+        height: 18px;
+    }
+    .home-mobile{
+        
+        align-items: center;
+        justify-content: center;
+        display:flex ;
+        border-radius: 50%;
+        max-width:39px ;
+        max-height:39px ;
+        width:100% ;
+        height:100% ;
+        background-color: black;
+    }
+    .button-Sair-Mobile{
+        background-color: transparent;
+        border: none;
+    }  
+}

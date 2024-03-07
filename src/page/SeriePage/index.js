@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import api from "../../services";
 import './style.css'
 import axios from "axios";
+import Header from "../../components/header";
+import MenuMobile from "../../components/MenuMobile";
+import { Link } from "react-router-dom";
 function SeriePage() {
   const { id } = useParams();
   const navegate = useNavigate();
@@ -54,6 +57,7 @@ function SeriePage() {
             language: "pt-BR",
           }
         });
+       
         setSeasons(response.data.seasons);
       } catch (error) {
         console.error('Erro ao carregar as temporadas:', error);
@@ -90,8 +94,16 @@ console.log(selectedSeason)
   if (load) {
     return <div className="detalhes">Carregando detalhes...</div>;
   }
+
+
+  const iframeContainer = document.querySelector(".listaEps");
+const iframe = document.querySelector(".videoF");
+
+
+
   return (
     <div key={filme.id}>
+      <Header/>
       <div className="conjunto">
       <img
         className="capa"
@@ -101,7 +113,8 @@ console.log(selectedSeason)
       <div className="info">
       <h1 className="tituloFilme">{filme.name}</h1>
       <span className="subtitulo">{filme.overview}</span>
-      <select value={selectedSeason} onChange={handleSeasonChange}>
+      <div className="paiSelect">
+      <select className="selectTemp" value={selectedSeason} onChange={handleSeasonChange}>
         {filme.seasons.map((i) => {
           return( 
             <option value={i.season_number}  key={i.id}>
@@ -111,11 +124,14 @@ console.log(selectedSeason)
             </option>
           )
         })}
-      </select>
-      <h2>Episódios:</h2>
-      <ul>
+      </select></div>
+      <div className="titleEps"><h2>Episodios</h2></div>
+      
+      <ul className="paiEps">
         {episodes.map((episode) => (
-          <li key={episode.id}><img className="imagemSerie" src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}/>{episode.name}</li>
+          <Link to={`/Play/${filme.id}/${episode.season_number}/${episode.episode_number}`}>
+          <li className="listaEps" key={episode.id}><img className="imagemSerie" src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}/><div><div className="pai_ep_time"><span className="nomeEps">{episode.name}</span><span className="timeEps">{episode.runtime}min</span></div><div className="descEps"><span>{episode.overview}</span></div></div></li>
+        </Link>
         ))}
       </ul>
       </div>
@@ -123,6 +139,7 @@ console.log(selectedSeason)
       <div>
      
       </div>
+<MenuMobile/>
     </div>
   );
 }

@@ -13,16 +13,7 @@
 .TituloPag{
     padding-bottom: 20px;
 }
-.tituloCat span{
-    font-weight:400;
-    color: white;
-    font-size: 19px;
-    font-family: sans-serif;
-    padding-left: 24px;
-}
-.tituloCat{
-    padding-bottom: 10px;
-}
+
 .idadeIndicativa{
     color: aliceblue;
     font-family: sans-serif;

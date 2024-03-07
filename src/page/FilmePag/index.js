@@ -2,6 +2,13 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import api from '../../services/'
 import './style.css'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { ReactComponent as Left } from "./icon/left.svg";
+import { ReactComponent as Right } from "./icon/right.svg";
+import Header from "../../components/header";
+import MenuMobile from "../../components/MenuMobile";
 
 function FilmePag(){
 const [desc,setdesc] = useState([])
@@ -123,10 +130,36 @@ if (load) {
       </div>
     ) 
   }
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 8,
+    slidesToScroll: 4,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
+
+  function CustomPrevArrow({ onClick }) {
+    return (
+      <button className="custom-prev-arrow" onClick={onClick}>
+        {<Left className="setas" />}
+      </button>
+    );
+  }
+
+  function CustomNextArrow({ onClick }) {
+    return (
+      <button className="custom-next-arrow" onClick={onClick}>
+        {<Right className="setas" />}
+      </button>
+    );
+  }
 
     return(
 
-        <div className="PaiFilmesPag">
+        <div className="container2">
+            <Header/>
              <div className="slide">
         <div className="ConjuntoSlide">
           <div className="textoConjuntoSlide">
@@ -149,10 +182,10 @@ if (load) {
           </div>
         
       </div>
-               <div className="TituloPag"><span>Filmes</span></div>
+               <div className="tituloCat"><span>Filmes</span></div>
 
             <div className="tituloCat"><span>Descubra seu novo filme favorito</span></div>
-        <div className="list-filmes">
+            <Slider className="slides1" {...settings}>
         {desc.map((e)=>{
             return(
                 <div key={e.id}>
@@ -161,9 +194,9 @@ if (load) {
                 </div>
             )
         })}
-        </div>
+        </Slider>
         <div className="tituloCat"><span>Filmes de ficção científica e fantasia</span></div>
-        <div className="list-filmes">
+        <Slider className="slides1" {...settings}>
          {fantasia.map((e)=>{
              return(
                  <div key={e.id}>
@@ -172,9 +205,9 @@ if (load) {
                  </div>
              )
          })}
-         </div>
+       </Slider>
         <div className="tituloCat"><span>Filmes de Ação e Aventura</span></div>
-         <div className="list-filmes">
+        <Slider className="slides1" {...settings}>
          {acao.map((e)=>{
              return(
                  <div key={e.id}>
@@ -183,9 +216,9 @@ if (load) {
                  </div>
              )
          })}
-         </div>
+     </Slider>
          <div className="tituloCat"><span>Animação</span></div>
-         <div className="list-filmes">
+         <Slider className="slides1" {...settings}>
          {animation.map((e)=>{
              return(
                  <div key={e.id}>
@@ -194,9 +227,9 @@ if (load) {
                  </div>
              )
          })}
-         </div>
+        </Slider>
          <div className="tituloCat"><span>Filmes de comedia</span></div>
-         <div className="list-filmes">
+         <Slider className="slides1" {...settings}>
          {comedia.map((e)=>{
              return(
                  <div key={e.id}>
@@ -205,9 +238,9 @@ if (load) {
                  </div>
              )
          })}
-         </div>
+         </Slider>
          <div className="tituloCat"><span>romance</span></div>
-         <div className="list-filmes">
+         <Slider className="slides1" {...settings}>
          {romance.map((e)=>{
              return(
                  <div key={e.id}>
@@ -216,10 +249,10 @@ if (load) {
                  </div>
              )
          })}
-         </div>
+        </Slider>
          <div className="tituloCat"><span>Filmes de Suspense e terror</span></div>
 
-         <div className="list-filmes">
+         <Slider className="slides1" {...settings}>
         {horror.map((e)=>{
             return(
                 <div key={e.id}>
@@ -228,7 +261,8 @@ if (load) {
                 </div>
             )
         })}
-        </div>
+        </Slider>
+        <MenuMobile/>
          </div>
          
     )

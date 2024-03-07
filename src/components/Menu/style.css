@@ -53,6 +53,7 @@ body {
 .paiMenu {
   display: flex;
   align-items: center;
+  z-index: 40;
 }
 .boxMenu {
   position: absolute;
@@ -95,50 +96,13 @@ body {
   margin-left: 10px;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px)  {
   .MenuLat {
     display: none;
   }
-  .menuHamb {
-    display: block;
-    width: 30px;
-    height: 30px;
-    color: rgb(255, 255, 255);
-  }
-  .paiMenu {
-    display: flex;
-    align-items: center;
-  }
-  .boxMenu {
-    position: absolute;
-    display: flex;
-    width: 30px;
-    height: 30px;
-    opacity: 1;
-  }
-  .listaMenu {
-    margin: 0;
-    padding: 0;
-    padding-top: 20px;
-    border-radius: 10px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    background-color: rgb(4, 9, 61);
-    width: 40vw;
-    height: 100vh;
-    max-height: 50%;
-    position: absolute;
-    left: 0;
-    top: 3rem;
-    z-index: 5;
-    transform: translateX(50rem);
-    transition: 0.3s all;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  .listaMenu2 {
-    transform: translateX(15rem);
-    transition: 0.3s all;
+}
+@media (min-width:481px) and (max-width:991px){
+  .MenuLat {
+    display: none;
   }
 }

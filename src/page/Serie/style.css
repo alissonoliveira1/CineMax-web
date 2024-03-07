@@ -1,0 +1,15 @@
+.container3{
+    overflow: hidden;
+    padding-top: 80px;
+}
+.videoF{
+   padding-top: 80px;
+    width: 100%;
+    height: 99vh;
+}
+.videoD{
+       z-index: 50;
+}
+.low{
+    display: none;
+}

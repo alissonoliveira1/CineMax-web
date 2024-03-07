@@ -16,7 +16,7 @@ import { toast } from 'react-toastify'
         const pesquisa = valorPesquisa.split(' ').join('+');
         try {
           const response = await fetch(
-            `https://api.themoviedb.org/3/search/movie?query=${pesquisa}&api_key=${keyApi}&language=pt-br`
+            `https://api.themoviedb.org/3/search/multi?query=${pesquisa}&api_key=${keyApi}&language=pt-br`
           );
     
           if (!response.ok) {

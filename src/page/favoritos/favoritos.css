@@ -1,6 +1,4 @@
-.PaideTodesFav{
-padding-top: 80px;
-}
+
 .paifav{
     display: flex;
     background-color: rgb(58, 58, 58);
@@ -37,6 +35,7 @@ padding-top: 80px;
 
 }
 .fav2{
+    padding-top: 80px;
     color: rgb(107, 107, 107);
     display: flex;
     justify-content: start;

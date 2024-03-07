@@ -9,25 +9,34 @@ import Pesquisas from "./components/Pesquisas";
 import Serie from "./page/Serie"
 import SeriePage from "./page/SeriePage";
 import FilmePag from "./page/FilmePag";
+import Play from "./page/Play";
+import Login from "./page/Login";
+import Cadastro from "./page/Cadastro";
+import Priv from "./Priv"
 function Rotas(){
     return(
        
         <BrowserRouter>
-        <Header/>
-     
+       
+        
+    
         <Routes>
-         
-            <Route path="/" element={ <Home/> }/>   
-            <Route path="/Serie" element={<Serie/>}/>
-            <Route path="/SeriePage/:id" element={<SeriePage/>}/>
-            <Route path="/filme/:id" element={ <Filme/> }/>
-            <Route path="/FilmePag/" element={ <FilmePag/> }/>
-            <Route path="/Pesquisa" element={<Pesquisa/>}/>
-            <Route path="/favoritos" element={<Favoritos/>}/>
-            <Route path="/pesquisas" element={<Pesquisas />} />
-           <Route path="/pesquisa" element={<Pesquisa />} /> 
+        
+            <Route path="/" element={ <Login/> }/> 
+             <Route path="/Cadastro" element={<Cadastro/>}/> 
+            <Route path="/Home" element={<Priv><Home/></Priv>}/> 
+            <Route path="/Serie" element={<Priv><Serie/></Priv>}/>
+            <Route path="/Play/:id/:season_number/:episode_number" element={<Priv><Play/></Priv>}/>
+            <Route path="/SeriePage/:id" element={<Priv><SeriePage/></Priv>}/>
+            <Route path="/filme/:id" element={<Priv><Filme/> </Priv> }/>
+            <Route path="/FilmePag/" element={<Priv><FilmePag/></Priv>  }/>
+            <Route path="/Pesquisa" element={<Priv><Pesquisa/></Priv>}/>
+            <Route path="/favoritos" element={<Priv><Favoritos/></Priv>}/>
+            <Route path="/pesquisas" element={<Priv><Pesquisas /></Priv>} />
+           <Route path="/pesquisa" element={<Priv><Pesquisa /></Priv>} /> 
             <Route path="*" element={<Erro/>}/>
         </Routes>
+      
         </BrowserRouter>
     )
 }

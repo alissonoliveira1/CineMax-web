@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import Menu from '../Menu';
 import { useState, useEffect} from 'react';
 import Pesquisas from '../Pesquisas';
-import Logo from './logo (2) (1).png'
+import Logo from './fav.png'
+
 function Header(){
 
     const [isScrolled, setIsScrolled] = useState(false);
@@ -25,16 +26,17 @@ function Header(){
   
     const appClasses = isScrolled ? 'App scrolled' : 'Header';
   
-      
+  
 
 
     return(
         <div className={appClasses}>
        <header >
-        <Link className='logo' to="/"><img src={Logo}/></Link>
+        <Link className='logo' to="/home"><img src={Logo}/></Link>
         <div className='conjuntomenu'>
           <div><Pesquisas/></div>
         <div><Menu/></div>  
+   
         </div>
        
        </header> </div>
