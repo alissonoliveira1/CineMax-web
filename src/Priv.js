@@ -32,7 +32,9 @@ useEffect(()=>{
 },[])
 if(loading){
     return(
-       <div>Loading</div> 
+        <div className="load">
+        <div className="loadd"></div>
+      </div>
     )
   
     

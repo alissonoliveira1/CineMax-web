@@ -1,7 +1,6 @@
 import "./favoritos.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { db } from "../../firebaseConnect";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
@@ -10,31 +9,28 @@ import {
   where,
   onSnapshot,
   collection,
-  orderBy,
+  deleteDoc,
+  doc
 } from "firebase/firestore";
 
 function Favoritos() {
   const [novo, setnovo] = useState([]);
-  const [filme, setfilme] = useState([]);
-  const [users, setusers] = useState({});
-  useEffect(() => {
-    const minhalista = localStorage.getItem("@baflix");
-    setfilme(JSON.parse(minhalista) || []);
-  }, []);
 
-  function excluirf(id) {
-    let filtrofilmes = filme.filter((item) => {
-      return item.id !== id;
-    });
-    setfilme(filtrofilmes);
-    localStorage.setItem("@baflix", JSON.stringify(filtrofilmes));
-    toast.success("Filme removido com sucesso!");
-  }
+ 
+
+  async function excluirf(id) { 
+    console.log(id)
+    const docRef = doc(db,"cineData", id)
+   await deleteDoc(docRef)
+  
+    };
+    
+  
 
   useEffect(() => {
     async function dadosFav() {
       const userdatalhes = localStorage.getItem("@usuario");
-      setusers(JSON.parse(userdatalhes));
+   
 
       if (userdatalhes) {
         const data = JSON.parse(userdatalhes);
@@ -54,20 +50,20 @@ function Favoritos() {
           let lista = [];
           Snapshot.forEach((doc) => {
             lista.push({
-
+              id: doc.id,
               favorito: doc.data().favorito
       
             });
             
           });
          setnovo(lista);
-         console.log(novo)
+    
         }); 
       }
     }
     dadosFav();
   }, []);
-console.log(novo);
+
   return (
     <div className="PaideTodesFav">
       <Header/>
@@ -81,7 +77,7 @@ console.log(novo);
         </span>
       )}
 
-      <div>
+      <div className="center">
         <ul className="pai-fav-ul">
           {novo.map((item) => {
             return (
@@ -125,4 +121,5 @@ console.log(novo);
     </div>
   );
 }
+
 export default Favoritos;

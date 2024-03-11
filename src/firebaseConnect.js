@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {getFirestore} from 'firebase/firestore'
 import {getAuth} from "firebase/auth"
+import { GoogleAuthProvider } from "firebase/auth";
+import { GithubAuthProvider } from "firebase/auth";
+
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyAr3Bml2M0-2mW2Jv1lLolpz01bgrw8jCo",
@@ -12,8 +16,10 @@ const firebaseConfig = {
     measurementId: "G-03V9B70VFF"
     
   };
-  
+ 
+  const git = new GithubAuthProvider();
+  const provider = new GoogleAuthProvider();
   const firebaseApp = initializeApp(firebaseConfig)
   const auth = getAuth(firebaseApp)
   const db = getFirestore(firebaseApp)
-  export {db,auth}
+  export {db,auth,provider,git,firebaseConfig}

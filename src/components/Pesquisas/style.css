@@ -8,8 +8,18 @@ font-family: sans-serif;
 font-size: 16px;
 outline: none;
 padding-left: 10px;
-background-color: rgba(0, 0, 0, 0.897);
+background-color: transparent;
 color: white;
+}
+.div-input{
+    overflow: hidden;
+    width: 0px;
+    transition: 0.5s all;
+}
+.width1{
+    width: 250px;
+    transition: 0.5s all;
+
 }
 ::placeholder{
     color: rgb(209, 209, 209);
@@ -20,35 +30,37 @@ width: 42px;
 height: 32px;
 cursor: pointer;
 border: none;
-background-color: rgb(0, 0, 0);
+background-color: transparent;
 align-items: center;
 justify-content: center;
 }
 .pesquisa{
     display: flex;
     align-items: center;
-    border: 1px solid rgb(255, 255, 255);
+  
 }
 .lupa {
-    background-color: rgb(0, 0, 0);
     color: white;
     width: 25px;
     height:auto;
-    
+}
+.pesquisaAtiva{
+  background-color: rgba(0, 0, 0, 0.726); 
+  border: 1px solid rgb(95, 95, 95);  
 }
 @media (max-width:480px) {
     .pesquisa{
         display: flex;
         border-radius:  4px;
         align-items: center;
-        border: 1px solid rgb(175, 175, 175);
+        border: 1px solid rgb(95, 95, 95);
     }
     .input-pesquisa{
         z-index: 40;
-        max-width: 130px;
-        max-height: 30px;
+       
+   
         width: 100%;
-        height: 100%;
+        height: 23px;
         display: flex;
     border: none;
     border-radius: 4px 0 0px 4px;
@@ -63,9 +75,9 @@ justify-content: center;
         border-radius: 0px 4px 4px 0px;
         display: flex;
         max-width:42px ;
-        max-height: 29px;
+        max-height: 25px;
         width:100% ;
-        height:100% ;
+        
         cursor: pointer;
         border: none;
         background-color: rgb(39, 39, 39);
@@ -87,12 +99,11 @@ justify-content: center;
         height: 100%;
         border-radius:  4px;
         align-items: center;
-        border: 1px solid rgb(175, 175, 175);
+        border: 1px solid rgb(95, 95, 95);
     }
     .input-pesquisa{
         z-index: 40;
-        max-width: 170px;
-      
+     
         width: 100%;
         height: 20px;
         display: flex;

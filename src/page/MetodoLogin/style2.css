@@ -1,0 +1,64 @@
+
+
+.containerMetodo{
+display: flex;
+background-color: rgb(255, 255, 255);
+height: 100vh;
+align-items: center;
+justify-content: center;
+}
+.FormMetodo{
+    background-color: aliceblue;
+    display: flex;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px 5px rgb(121, 121, 121);
+    flex-direction: column;
+    width: 100%;
+    padding: 30px 10px;
+    max-width: 400px;
+    
+    
+}
+.liMt{
+    background-color: rgb(228, 228, 228);
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 2px rgb(160, 160, 160);
+    display: flex;
+    cursor: pointer;
+    gap: 10px;
+    width: 85%;
+    align-items: center;
+    list-style: none;
+    height: 20px;
+    padding: 20px;
+}
+.liMt2{
+
+    display: flex;
+    
+    gap: 10px;
+    
+    
+    
+    height: 20px;
+
+}
+.iconMT{
+    width: 30px;
+}
+.formMT{
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.liMt:active{
+    filter: brightness(0.9);
+}
+.spanMT{
+    color: black;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+}

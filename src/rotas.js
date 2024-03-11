@@ -1,7 +1,6 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import Filme from "./page/filme";
 import Home from "./page/home";
-import Header from "./components/header";
 import Erro from "./page/erro";
 import Favoritos from "./page/favoritos";
 import Pesquisa from "./page/Pesquisa";
@@ -10,9 +9,11 @@ import Serie from "./page/Serie"
 import SeriePage from "./page/SeriePage";
 import FilmePag from "./page/FilmePag";
 import Play from "./page/Play";
+import FilmePlay from "./page/FilmePlay";
 import Login from "./page/Login";
 import Cadastro from "./page/Cadastro";
 import Priv from "./Priv"
+import MetodoLogin from "./page/MetodoLogin";
 function Rotas(){
     return(
        
@@ -23,10 +24,12 @@ function Rotas(){
         <Routes>
         
             <Route path="/" element={ <Login/> }/> 
+             <Route path="/MetodoLogin" element={<MetodoLogin/>}/> 
              <Route path="/Cadastro" element={<Cadastro/>}/> 
-            <Route path="/Home" element={<Priv><Home/></Priv>}/> 
+            <Route path="/home" element={<Priv><Home/></Priv>}/> 
             <Route path="/Serie" element={<Priv><Serie/></Priv>}/>
             <Route path="/Play/:id/:season_number/:episode_number" element={<Priv><Play/></Priv>}/>
+            <Route path="/FilmePlay/:id" element={<Priv><FilmePlay/> </Priv> }/>
             <Route path="/SeriePage/:id" element={<Priv><SeriePage/></Priv>}/>
             <Route path="/filme/:id" element={<Priv><Filme/> </Priv> }/>
             <Route path="/FilmePag/" element={<Priv><FilmePag/></Priv>  }/>

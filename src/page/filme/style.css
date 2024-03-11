@@ -4,11 +4,11 @@ html {
 html::-webkit-scrollbar {
   border-radius: 10px;
   background-color: rgb(27, 28, 34);
-  width: 10px;
+  width: 5px;
 }
 
 html::-webkit-scrollbar-thumb {
-  background-color: rgb(71, 71, 71);
+  background-color: rgb(73, 73, 73);
   border-radius: 10px;
 }
 
@@ -279,69 +279,43 @@ a {
   justify-content: center;
   background-color: rgb(0, 0, 0);
 }
-@media (max-width: 780px) {
-  .filme-info {
+@media (max-width: 480px) {
+  .capa {
+    z-index: -1;
+    width: 100vw;
+    max-width: 100%;
+    height: auto;
+    position: relative;
+    filter: brightness(0.6);
+  }
+  .info {
+    overflow-x: auto;
     display: flex;
-    align-items: start;
+    border-radius: 8px;
+    margin:5px;
+    padding: 0px;
+    width: 100%;
+    height: auto;
     flex-direction: column;
-    gap: 0px;
-    margin-top: 20px;
+    background-color: rgba(27, 28, 34, 0.87);
   }
   .sinopse {
-    font-size: 17px;
-    font-family: sans-serif;
-    color: white;
-  }
-  .pai_info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
     width: 100%;
-    gap: 30px;
+    font-size: 15px;
+    font-family: sans-serif;
+    color: rgb(173, 173, 173);
   }
   .subtitulo {
     color: white;
-    font-size: 17px;
+    font-size: 13px;
     font-family: sans-serif;
-    width: 450px;
-    max-width: 100%;
+    width: 90%;
     display: flex;
-  }
-  .conjunto2 {
-    display: flex;
-    gap: 30px;
   }
   .data {
     color: rgb(173, 173, 173);
     font-family: sans-serif;
-    font-size: 17px;
+    font-weight: 300;
+    font-size: 15px;
   }
-  .avalia {
-    color: white;
-    font-family: sans-serif;
-    font-size: 17px;
-  }
-  .info {
-    margin: 10px;
-  }
-  .tituloFilme {
-    font-family: sans-serif;
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    color: white;
-  }
-}
-.salvar:hover {
-  transform: scale(1.1);
-}
-.trailer:hover {
-  transform: scale(1.1);
-}
-.trailer:active {
-  filter: brightness(0.9);
-}
-.salvar:active {
-  filter: brightness(0.9);
 }

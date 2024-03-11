@@ -1,6 +1,4 @@
-import Pesquisas from "../../components/Pesquisas";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/header";
 import Erros from "./erro.png";
@@ -9,7 +7,6 @@ import MenuMobile from "../../components/MenuMobile";
 function Pesquisa() {
   const location = useLocation();
   const { resultados } = location.state || [];
-
   return (
     <>
   <Header/>

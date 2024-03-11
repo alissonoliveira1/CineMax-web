@@ -1,4 +1,4 @@
-import Serie from "../Serie";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services";
@@ -7,19 +7,16 @@ import axios from "axios";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
 import { Link } from "react-router-dom";
+
 function SeriePage() {
+
   const { id } = useParams();
   const navegate = useNavigate();
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
-  const [temp, settemp] = useState([]);
-  const [eps, seteps] = useState([]);
-  const [numerotemp, setnumerotemp] = useState([]);
-  
-  const [episodios, setEpisodios] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState('');
-  const [seasons, setSeasons] = useState([]);
   const [episodes, setEpisodes] = useState([]);
+  
   useEffect(() => {
     async function loadFilme() {
       await api
@@ -31,8 +28,8 @@ function SeriePage() {
         })
         .then((response) => {
           setfilme(response.data);
-          settemp(response.data);
-          setnumerotemp(response.season_number);
+         
+    
           setload(false);
         })
         .catch(() => {
@@ -47,26 +44,7 @@ function SeriePage() {
     return () => {};
   }, [navegate, id]);
 
-  useEffect(() => {
-    // Função para carregar as temporadas da série
-    const loadSeasons = async () => {
-      try {
-    const response = await axios.get(`https://api.themoviedb.org/3/tv/${id}`, {
-          params: {
-            api_key: '9f4ef628222f7685f32fc1a8eecaae0b',
-            language: "pt-BR",
-          }
-        });
-       
-        setSeasons(response.data.seasons);
-      } catch (error) {
-        console.error('Erro ao carregar as temporadas:', error);
-      }
-    };
-
-    loadSeasons();
-  }, []);
-
+  
 
 
   const loadEpisodes = async (seasonNumber) => {
@@ -83,11 +61,11 @@ function SeriePage() {
     }
   };
 
-  // Função para lidar com a mudança de temporada selecionada
+ 
   const handleSeasonChange = (event) => {
     const selectedSeason = event.target.value;
     setSelectedSeason(selectedSeason);
-    loadEpisodes(selectedSeason); // Carregar os episódios da temporada selecionada
+    loadEpisodes(selectedSeason); 
   };
 console.log(selectedSeason)
 
@@ -96,8 +74,8 @@ console.log(selectedSeason)
   }
 
 
-  const iframeContainer = document.querySelector(".listaEps");
-const iframe = document.querySelector(".videoF");
+  
+
 
 
 

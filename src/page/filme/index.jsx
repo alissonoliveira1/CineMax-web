@@ -1,35 +1,42 @@
-import Home from "../home";
+
 import "./style.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
 import { ReactComponent as Core } from "../filme/icon/heart.svg";
-import { ReactComponent as Play } from "../filme/icon/play-fill.svg";
+import { ReactComponent as Play } from "../filme/icon/play-fill.svg"; 
+import { ReactComponent as Left } from "./icon/left.svg";
+import { ReactComponent as Right } from "./icon/right.svg";
 import axios from "axios";
 import { db } from "../../firebaseConnect";
-import { doc, addDoc, collection } from "firebase/firestore";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
-
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import {
+  query,
+  where,
+  onSnapshot,
+  collection,
+  addDoc,
+} from "firebase/firestore";
 
 
 function Filme() {
-
-  const [rating, setTeste] = useState([]);
   const [genes, setgenes] = useState([]);
   const [certificacao, setCertificacao] = useState("");
   const [erro, setErro] = useState("");
-  const [genes2, setgenes2] = useState();
   const { id } = useParams();
+  
   const navegate = useNavigate();
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
-  const [semelhantes, setsemelhantes] = useState([]);
   const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
   const [user, settuser] = useState({});
   const [user2, settuser2] = useState({});
+  const [novo, setnovo] = useState([]);
   useEffect(() => {
     async function loadFilme() {
       await api
@@ -114,11 +121,46 @@ function Filme() {
     : "";
   const durationInMinutes = filme.runtime || 0;
 
-  // Calcula as horas e minutos
+
   const hours = Math.floor(durationInMinutes / 60);
   const minutes = durationInMinutes % 60;
 
+  useEffect(() => {
+    async function dadosFav() {
+      const userdatalhes = localStorage.getItem("@usuario");
+   
 
+      if (userdatalhes) {
+        const data = JSON.parse(userdatalhes);
+
+        
+
+        const tarefaRef = collection(db, "cineData");
+
+        const q = query(
+          tarefaRef,
+     
+          where("userUid", "==", data?.uid)
+        );
+
+        const unsub = onSnapshot(q, (Snapshot) => {
+
+          let lista = [];
+          Snapshot.forEach((doc) => {
+            lista.push({
+              id: doc.id,
+              favorito: doc.data().favorito
+      
+            });
+            
+          });
+         setnovo(lista);
+    
+        }); 
+      }
+    }
+    dadosFav();
+  }, []);
 
    useEffect(()=>{
     async function dados(){
@@ -129,19 +171,17 @@ function Filme() {
    },[])
  async function salvarfilme() {
  
-    const minhalista = localStorage.getItem("@baflix");
+  
 
-    let filmessalvos = JSON.parse(minhalista) || [];
-
-    const hasfilme = filmessalvos.some(
-      (filmessalvo) => filmessalvo.id === filme.id
+    const hasfilme = novo.some(
+      (novo) => novo.favorito.id === filme.id
     );
 
     if (hasfilme) {
       toast.warn("Este filme ja esta Salvo!");
       return;
     }
-    filmessalvos.push(filme);
+  
 
     toast.success("Filme salvo com sucesso!");
     await addDoc(collection(db,"cineData"),{
@@ -157,6 +197,62 @@ function Filme() {
     .catch((error) => {
       console.log("error ao registrar" + error);
     });
+  }
+  const settings = {
+    className: "Sliders2",
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          variableWidth: true,
+          centerMode: false,
+          slidesToShow: 3,
+          prevArrow: <CustomPrevArrow />,
+          nextArrow: <CustomNextArrow />,
+          slidesToScroll: 3
+        }
+      }
+    ]
+  };
+  function CustomPrevArrow({ onClick }) {
+    return (
+      <button className="custom-prev-arrow" onClick={onClick}>
+        {<Left className="setas" />}
+      </button>
+    );
+  }
+
+  function CustomNextArrow({ onClick }) {
+    return (
+      <button className="custom-next-arrow" onClick={onClick}>
+        {<Right className="setas" />}
+      </button>
+    );
   }
 
   if (load) {
@@ -241,16 +337,14 @@ function Filme() {
           </div>
         </div>
 
-        <div className="buttons">
-          <a
-            target="blank"
-            rel="external"
-            href={`https://superflixapi.top/filme/${filme.imdb_id}`}
+        <div  className="buttons">
+          <Link
+            to={`/FilmePlay/${filme.imdb_id}`}
           >
             <button className="trailer">
               <Play className="playFilme" />
             </button>
-          </a>
+          </Link>
           <button onClick={salvarfilme} className="salvar">
             <Core className="salvarFilme" />
           </button>
@@ -259,21 +353,24 @@ function Filme() {
         <div className="titulosSeme2">
           <span>Titulos Semelhantes</span>
         </div>
-        <div className="FilmePaiSg">
+      
+        <Slider className="slides1" {...settings}>
+          
           {genes.slice(0, 10).map((e) => {
             return (
-              <div className="loucura" key={e.id}>
+              <article className="capa-Filme" key={e.id}>
                 <Link to={`/filme/${e.id}`}>
                   <img
-                    className="imagemFilmes"
+                    className="imagem"
                     alt={e.title}
                     src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}
                   />
                 </Link>
-              </div>
+              </article>
             );
           })}
-        </div>
+          </Slider>
+   
       </div>
       <MenuMobile/>
     </div>

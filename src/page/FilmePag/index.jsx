@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import api from '../../services/'
+import api from '../../services'
 import './style.css'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -20,19 +20,25 @@ const [comedia,setcomedia] = useState([])
 const [animation,setanimation] = useState([])
 const [fantasia,setfantasia] = useState([])
 const [romance,setromance] = useState([])
-
+const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
 const ac_av = [12,28]
 const ro_su = [10749,18]
 const fc_fn = [14,878]
 const tr_su = [9648,27]
-const anima = 16
+let dataAtual = new Date();
+let ano = dataAtual.getFullYear().toString();
+let mes = ('0' + (dataAtual.getMonth() + 1)).slice(-2); 
+let dia = ('0' + dataAtual.getDate()).slice(-2); 
+let dataCompleta = `${ano}-${mes}-${dia}`;
+
 useEffect(()=>{
     const data = async () =>{
         try{
             const dados = await api.get('discover/movie',{
                 params:{
-                  api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                  api_key:apiKey,
                   with_genres: 16,
+                  'primary_release_date.lte': dataCompleta,
                   language: 'pt-br',
                   page:1
                 }
@@ -41,7 +47,8 @@ useEffect(()=>{
            
             const dados2 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
+                    'primary_release_date.lte': dataCompleta,
                     with_genres:ac_av.join(','),
                     language: 'pt-br',
                     page:1,
@@ -52,8 +59,9 @@ useEffect(()=>{
 
             const dados3 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
                     language: 'pt-br',
+                    'primary_release_date.lte': dataCompleta,
                     sort_by: "popularity.desc",
                     page:Math.floor(Math.random() * 100) + 1,
                 }
@@ -68,8 +76,9 @@ useEffect(()=>{
 
             const dados4 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
                     with_genres:tr_su.join(','),
+                    'primary_release_date.lte': dataCompleta,
                     language: 'pt-br',
                     page:1,
                 }
@@ -79,8 +88,9 @@ useEffect(()=>{
 
             const dados5 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
                     with_genres:fc_fn.join(','),
+                    'primary_release_date.lte': dataCompleta,
                     language: 'pt-br',
                     page:1,
                 }
@@ -89,7 +99,8 @@ useEffect(()=>{
 
             const dados6 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
+                    'primary_release_date.lte': dataCompleta,
                     with_genres:35,
                     language: 'pt-br',
                     page:1,
@@ -99,8 +110,9 @@ useEffect(()=>{
 
             const dados7 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
                     with_genres:16, 
+                    'primary_release_date.lte': dataCompleta,
                     language: 'pt-br',
                     page:1,
                 }
@@ -109,8 +121,9 @@ useEffect(()=>{
             
             const dados8 = await api.get('discover/movie',{
                 params:{
-                    api_key:'9f4ef628222f7685f32fc1a8eecaae0b',
+                    api_key:apiKey,
                     with_genres:ro_su.join(','),
+                    'primary_release_date.lte': dataCompleta,
                     language: 'pt-br',
                     page:1,
                 }

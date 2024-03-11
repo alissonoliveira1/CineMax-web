@@ -1,26 +1,4 @@
-.GoogleLoginIcon{
-    
-    
-    width: 40px;
-}
-.textLoginGG{
-    font-size: 16px;
-    color: rgb(255, 255, 255);
-    font-family: sans-serif;
-    padding-bottom: 15px;
-}
-.iconGoogleDiv{
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border-radius: 50%;
-   
-}
+
 .image-login{
     width: 100vw;
     height: 100vh;
@@ -31,13 +9,7 @@
     justify-content: center;
 
 }
-.containerLoginGg{
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.form-login-div{
+.form-login-div7{
     align-items: center;
     
    display: flex;
@@ -47,22 +19,22 @@ width: 100%;
 color: rgb(97, 97, 97);
 max-width: 300px;
 height: 100vh;
-max-height: 370px;
-background-color: rgba(0, 0, 0, 0.801);
+max-height: 300px;
+background-color: rgba(107, 107, 107, 0.801);
 
 }
 .form-login{
 height: 100%;
 
 }
-.entrar{
+.entrar2{
   margin-bottom: 30px;  
 }
-.entrar span{
+.entrar2 span{
     
 font-size: 30px;
 font-weight: 700;
-color: white;
+color: rgb(255, 255, 255);
 font-family: sans-serif;
 }
 .form-login input::placeholder{
@@ -93,24 +65,26 @@ max-height: 35px;
     border: none;
     font-family: sans-serif;
     margin-top: 20px;
+    font-size: 17px;
  width: 100%;
 margin-bottom: 10px;
 max-width: 315px;
 height: 100%;
 max-height: 40px;
 }
-.cad-login{
-    margin-top: 30px;
+.cad-login2{
+    margin-top: 70px;
 }
-.cad-login span{
+.cad-login2 span{
     font-size: 16px;
     font-family: sans-serif;
 }
-.link-span{
-    color: rgb(228, 112, 34);
+.link-span2{
+    color: rgb(228, 150, 34);
 }
-.texto-link{
- color: rgb(255, 255, 255);   
+.texto-link2{
+    font-weight: 600;
+ color: rgb(196, 196, 196);   
 }
 .button-sair {
     width: 100%;

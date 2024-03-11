@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { Await } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./style.css";
-import api from "../../services/";
-import axios from "axios";
+import api from "../../services";
 import Header from "../../components/header";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -12,46 +10,62 @@ import MenuMobile from "../../components/MenuMobile";
 import { ReactComponent as Left } from "../home/icon/left.svg";
 import { ReactComponent as Right } from "../home/icon/right.svg";
 function Serie() {
-  const [Serie, setserie] = useState([]);
-  const [SerieAnime, setserieAnime] = useState([]);
+  const [serie, setserie] = useState([]);
+  const [serieAnime, setserieAnime] = useState([]);
+  const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
+  const ac_av = [12,28]
+  let dataAtual = new Date();
+  let ano = dataAtual.getFullYear().toString();
+  let mes = ('0' + (dataAtual.getMonth() + 1)).slice(-2); 
+  let dia = ('0' + dataAtual.getDate()).slice(-2); 
+  let dataCompleta = `${ano}-${mes}-${dia}`;
+
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("discover/tv?", {
+        const response = await api.get("discover/tv", {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
+            with_genres: 28, 
+            'primary_release_date.lte': dataCompleta,
             language: "pt-br",
             page: 1,
-            with_genres: 16,
           },
         });
         setserie(response.data.results);
-      } catch (error) {
-        console.log("erro");
+      } 
+      catch (error) {
+        console.log(error);
       }
     };
     fetchData();
 
+   
+  }, []);
+
+  useEffect(()=>{
     const fetchData2 = async () => {
       try {
-        const response2 = await api.get("discover/tv?", {
+        const response2 = await api.get("discover/tv", {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
+            with_genres: ac_av.join(','),
+            'primary_release_date.lte': dataCompleta,
             language: "pt-br",
             page: 1,
-            with_genres: 10759,
           },
         });
         setserieAnime(response2.data.results);
       } catch (error) {
-        console.log("error");
+        console.log(error);
       }
     };
     fetchData2();
-  }, []);
+  },[])
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 8,
@@ -87,7 +101,7 @@ function Serie() {
         <span>Serie de animação</span>
       </div>
       <Slider className="slides1" {...settings}>
-        {Serie.map((item) => {
+        {serie.map((item) => {
           return (
             <div className="capa-Filme" key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
@@ -104,7 +118,7 @@ function Serie() {
         <span>Serie de animação</span>
       </div>
       <Slider className="slides1" {...settings}>
-        {SerieAnime.map((item) => {
+        {serieAnime.map((item) => {
           return (
             <div className="capa-Filme" key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
