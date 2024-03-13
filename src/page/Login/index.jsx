@@ -48,18 +48,9 @@ export default function Login() {
   }   
 
 
-    useEffect(()=>{
-      async function lua(){
-        await addDoc(collection(db, "cineData"), {
-          UsuarioGg: user1
-      
-      })
-      }
-
-      
-    })
+   
     const auth = getAuth();
-const[user1,setuser] = useState([])
+
 
 
 
@@ -71,18 +62,11 @@ async function loginGoogle() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    setuser(result.user)
+ 
    navegador('/home');
    
   }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
-    // ...
+console.log(error)
   });
 }
   

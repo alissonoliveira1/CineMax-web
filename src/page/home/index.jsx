@@ -5,37 +5,27 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Left } from "./icon/left.svg";
 import { ReactComponent as Right } from "./icon/right.svg";
 import "./style.css";
-import axios from "axios";
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
-import { db } from "../../firebaseConnect";
-
-import {
-  query,
-  where,
-  onSnapshot,
-  collection,
-} from "firebase/firestore";
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
   const [Filmes, setFilmes] = useState([]);
   const [load, setLoad] = useState(true);
-  const [users, setusers] = useState({});
-  const [filmesPorGenero, setFilmesPorGenero] = useState([]);
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
+  const [filmesPorGenero, setFilmesPorGenero] = useState([]);
+  const [filmeAleatorio, setFilmeAleatorio] = useState([]);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [animaFilmes, setAnimaFilmes] = useState([]);
   const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
   const generoId = 28;
   const acion = 27;
-
   const anima2 = 16;
-  const [filmeAleatorio, setFilmeAleatorio] = useState([]);
-  const [novo, setnovo] = useState([]);
+  
   
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
@@ -43,43 +33,6 @@ function Home() {
   let dia = ('0' + dataAtual.getDate()).slice(-2); 
   let dataCompleta = `${ano}-${mes}-${dia}`;
   
-  useEffect(() => {
-    async function dadosFav() {
-      const userdatalhes = localStorage.getItem("@usuario");
-      setusers(JSON.parse(userdatalhes));
-  
-      if (userdatalhes) {
-        const data = JSON.parse(userdatalhes);
-        const tarefaRef = collection(db, "cineData");
-        const q = query(
-          tarefaRef,
-          where("userUid", "==", data?.uid)
-        );
-  
-        const unsub = onSnapshot(q, (Snapshot) => {
-          let lista = [];
-  
-          Snapshot.forEach((doc) => {
-            const favorito = doc.data().favorito;
-  
-            // Verificar se o filme já está na lista antes de adicionar
-            if (!lista.find(item => item.itens.id === favorito.id)) {
-              lista.push({
-                itens: favorito
-              });
-            }
-          });
-  
-          setnovo(lista);
-        }); 
-      }
-    }
-    dadosFav();
-  }, []);
-
-
-
-  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,6 +49,31 @@ function Home() {
     };
   }, []);
 
+const [series,setseries] = useState([])
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await api.get("discover/tv", {
+        params: {
+          api_key: apiKey,
+          language: "pt-BR",
+
+   
+        
+          
+        },
+      });
+
+      setseries(response.data.results);
+      
+  
+    } catch (error) {
+      console.error("Erro ao buscar dados da API:", error);
+    }
+    fetchData()
+  }})
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -106,9 +84,20 @@ function Home() {
             language: "pt-BR",
             'primary_release_date.lte': dataCompleta,
             page: 1,
+            
           },
         });
-
+        const response2 = await api.get("", {
+          params: {
+            api_key: apiKey,
+            with_genres: 28, 
+           
+            
+            
+          },
+        });
+        setseries(response2.data.results);
+        
         setFilmes(response.data.results);
 
       } catch (error) {
@@ -118,9 +107,7 @@ function Home() {
 
     const obterFilmeAleatorio = async () => {
       try {
-        const resposta = await axios.get(
-          "https://api.themoviedb.org/3/discover/movie",
-          {
+        const resposta = await api.get("/discover/movie",{
             params: {
               api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
               sort_by: "popularity.desc",
@@ -216,49 +203,6 @@ try{
   terror()
 })
 
-  const settings2 = {
-    className: "Sliders22",
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 8,
-    slidesToScroll: 4,
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
-    variableWidth: true,
-    centerMode: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings2: {
-          centerMode: false,
-          slidesToShow: 8,
-          slidesToScroll: 4,
-          infinite: true,
-          dots: false,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings2: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings2: {
-          variableWidth: true,
-          centerMode: false,
-          slidesToShow: 3,
-          prevArrow: <CustomPrevArrow />,
-          nextArrow: <CustomNextArrow />,
-          slidesToScroll: 3,
-        },
-      },
-    ],
-  };
 
   const settings = {
     className: "Sliders2",
@@ -369,7 +313,7 @@ try{
         </div>
         <div className="slide3">
           <Slider className="slides1" {...settings}>
-            {Filmes.map((filmes) => {
+            {series.map((filmes) => {
               return (
                 <article className="capa-Filme" key={filmes.id}>
                   <Link to={`/filme/${filmes.id}`}>
@@ -385,34 +329,6 @@ try{
           </Slider>
         </div>
 
-
-        {novo.length < 0 ? (
-          <>
-
-          <div className="tituloCat">
-          <span>Seus favoritos</span>
-        </div>
-
-        <Slider className="slides1" {...settings2}>
-          {novo.map((filme) => {
-            return (
-              <article className="capa-Filme2" key={filme.id}>
-                <Link className="botao" to={`/filme/${filme.itens.id}`}>
-               
-                    <img
-                      className="imagem"
-                      alt={filme.itens.title}
-                      src={`https://image.tmdb.org/t/p//original/${filme.itens.poster_path}`}
-                    />
-                
-                </Link>
-              </article>
-            );
-          })}
-        </Slider></>
-      ):(
-        <></>
-      )}
     
         <div className="tituloCat">
           <span>Filmes de Ação</span>

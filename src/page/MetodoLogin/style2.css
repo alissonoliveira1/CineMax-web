@@ -2,13 +2,13 @@
 
 .containerMetodo{
 display: flex;
-background-color: rgb(255, 255, 255);
+background-color: rgb(0, 0, 0);
 height: 100vh;
 align-items: center;
 justify-content: center;
 }
 .FormMetodo{
-    background-color: aliceblue;
+    background-color: rgb(72, 4, 128);
     display: flex;
     border-radius: 8px;
     box-shadow: 5px 5px 10px 5px rgb(121, 121, 121);

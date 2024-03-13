@@ -22,21 +22,14 @@ const [user,setuser] = useState([])
 const auth = getAuth();    
 const navegador = useNavigate();
 
-async function loginGoogle(){
-signInWithRedirect(auth, provider);
-
-getRedirectResult(auth)
+async function loginGoogle() {
+  signInWithPopup(auth, provider)
   .then((result) => {
-  
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    
  
-    const user = result.user;
-
-  }).catch(() => {
-
-
+   navegador('/home');
+   
+  }).catch((error) => {
+console.log(error)
   });
 }
 
