@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import api from "../../services";
 import { Link } from "react-router-dom";
 import { ReactComponent as Left } from "./icon/left.svg";
@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
+import { UserContext } from "../../contexts/user";
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
@@ -25,7 +26,9 @@ function Home() {
   const generoId = 28;
   const acion = 27;
   const anima2 = 16;
-  
+  const { user } = useContext(UserContext)
+
+
   
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
@@ -87,16 +90,7 @@ useEffect(() => {
             
           },
         });
-        const response2 = await api.get("", {
-          params: {
-            api_key: apiKey,
-            with_genres: 28, 
-           
-            
-            
-          },
-        });
-        setseries(response2.data.results);
+        
         
         setFilmes(response.data.results);
 
@@ -147,7 +141,7 @@ useEffect(() => {
             page: 1
           }
         })
-         
+        console.log(user)
         setFilmesPorGenero(response.data.results);
 
       } catch (error) {
@@ -313,7 +307,7 @@ try{
         </div>
         <div className="slide3">
           <Slider className="slides1" {...settings}>
-            {series.map((filmes) => {
+            {Filmes.map((filmes) => {
               return (
                 <article className="capa-Filme" key={filmes.id}>
                   <Link to={`/filme/${filmes.id}`}>

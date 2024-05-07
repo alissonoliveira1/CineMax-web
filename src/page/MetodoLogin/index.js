@@ -1,5 +1,9 @@
 import "./style2.css";
-import { getAuth,signInWithRedirect, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
+import { 
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth"
 import { ReactComponent as Email } from "./icon/email.svg";
 import { ReactComponent as Google } from "./icon/google.svg";
 import { ReactComponent as Facebook } from "./icon/facebook.svg";
@@ -11,12 +15,7 @@ import { useEffect, useState } from "react";
 
 
 export default function MetodoLogin(){
-const [user,setuser] = useState([])
-  useEffect(()=>{
-    if(user){
 
-    }
-  })
 
 
 const auth = getAuth();    

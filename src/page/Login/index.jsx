@@ -1,24 +1,18 @@
 import "./style.css";
-import { useState,useEffect } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Google } from "./icon/google.svg";
-import { signInWithEmailAndPassword,} from "firebase/auth";
-import { provider, db } from "../../firebaseConnect";
-import { 
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from "firebase/auth";
-
-import { addDoc, collection } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { provider } from "../../firebaseConnect";
+import { getAuth, signInWithPopup,GoogleAuthProvider } from "firebase/auth";
+import { UserContext } from "../../contexts/user";
 const Img = require("./imagemNet.jpg");
-
-
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [users, setusers] = useState("");
   const navegador = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,33 +39,29 @@ export default function Login() {
           }
         });
     }
-  }   
+  }
 
-
-   
-    const auth = getAuth();
-
-
-
-
-async function loginGoogle() {
-  signInWithPopup(auth, provider)
+  const auth = getAuth();
+  const { login } = useContext(UserContext)
+  async function loginGoogle() {
+    signInWithPopup(auth, provider)
   .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
+    
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential.accessToken;
-    // The signed-in user info.
+    navegador('/home')
     const user = result.user;
- 
-   navegador('/home');
+    login(user)
    
   }).catch((error) => {
 console.log(error)
   });
-}
-  
-    
+  }
+
+
+
   return (
+
     <div className="container-login">
       <div className="image-login" style={{ backgroundImage: `url(${Img})` }}>
         <div className="form-login-div">
@@ -95,22 +85,22 @@ console.log(error)
 
             <button type="submit">Entrar</button>
           </form>
-<div className="containerLoginGg">
-  <span className="textLoginGG">Login com:</span>
-  <div onClick={loginGoogle} className="iconGoogleDiv"><Google className="GoogleLoginIcon"/></div>
-</div>
+          <div className="containerLoginGg">
+            <span className="textLoginGG">Login com:</span>
+            <div onClick={loginGoogle} className="iconGoogleDiv">
+              <Google className="GoogleLoginIcon" />
+            </div>
+          </div>
           <div className="cad-login">
             <span className="texto-link">
               É novo aqui?
               <Link to={"/MetodoLogin"}>
-                <span className="link-span">Assine agora!</span>
+                <span className="link-span"> assine agora!</span>
               </Link>
             </span>
           </div>
-          
         </div>
       </div>
     </div>
   );
-
 }
