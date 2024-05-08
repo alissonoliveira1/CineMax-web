@@ -1,6 +1,7 @@
 
 import { useEffect, useState, useContext } from "react";
 import api from "../../services";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { ReactComponent as Left } from "./icon/left.svg";
 import { ReactComponent as Right } from "./icon/right.svg";
@@ -12,9 +13,18 @@ import "slick-carousel/slick/slick-theme.css";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
 import { UserContext } from "../../contexts/user";
+import { auth } from "../../firebaseConnect";
+
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
+
+
+
+
+
+
+
   const [Filmes, setFilmes] = useState([]);
   const [load, setLoad] = useState(true);
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
@@ -27,6 +37,23 @@ function Home() {
   const acion = 27;
   const anima2 = 16;
   const { user } = useContext(UserContext)
+ const {autentc} = useContext(UserContext)
+ 
+
+useEffect (()=>{
+    if(auth){
+if(autentc === false){
+  toast.warn("verifique seu email!");
+}
+    
+    return;
+  }
+})
+
+
+
+
+
 
 
   
@@ -141,7 +168,7 @@ useEffect(() => {
             page: 1
           }
         })
-        console.log(user)
+        
         setFilmesPorGenero(response.data.results);
 
       } catch (error) {
@@ -190,6 +217,7 @@ try{
   })
   setAnimaFilmes(response2.data.results)
   setLoad(false);
+  console.log(user)
 }catch (error) {
   console.log("Erro ao buscar dados da API:", error);
 }

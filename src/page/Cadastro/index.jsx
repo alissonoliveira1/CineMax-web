@@ -3,7 +3,7 @@ import "./style.css";
 import { auth } from "../../firebaseConnect";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "firebase/auth";
 const Img = require("./imagemNet.jpg");
 
 export default function Cadastro() {
@@ -13,16 +13,20 @@ export default function Cadastro() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+   
     if (email === "" && senha === "") {
       toast.warn("Email e senha não preenchidos!");
     } else if (senha === "") {
       toast.warn("Senha não preenchida!");
     } else if (email === "") {
       toast.warn("Email não preenchido!");
-    } else {
+    } else { 
+      const auth = getAuth();
       await createUserWithEmailAndPassword(auth, email, senha)
         .then(() => {
+          
+          sendEmailVerification(auth.currentUser)
+        
           setEmail("");
           setSenha("");
           toast.success("Conta Cadastrada!");

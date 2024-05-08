@@ -1,18 +1,17 @@
 import "./style.css";
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Google } from "./icon/google.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { provider } from "../../firebaseConnect";
 import { getAuth, signInWithPopup,GoogleAuthProvider } from "firebase/auth";
-import { UserContext } from "../../contexts/user";
+
 const Img = require("./imagemNet.jpg");
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [users, setusers] = useState("");
   const navegador = useNavigate();
   async function handleSubmit(e) {
     e.preventDefault();
@@ -42,7 +41,7 @@ export default function Login() {
   }
 
   const auth = getAuth();
-  const { login } = useContext(UserContext)
+ 
   async function loginGoogle() {
     signInWithPopup(auth, provider)
   .then((result) => {
@@ -51,7 +50,7 @@ export default function Login() {
     const token = credential.accessToken;
     navegador('/home')
     const user = result.user;
-    login(user)
+ 
    
   }).catch((error) => {
 console.log(error)
