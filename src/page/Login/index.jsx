@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Google } from "./icon/google.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { provider } from "../../firebaseConnect";
-import { getAuth, signInWithPopup,GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup} from "firebase/auth";
 
 const Img = require("./imagemNet.jpg");
 
@@ -44,14 +44,9 @@ export default function Login() {
  
   async function loginGoogle() {
     signInWithPopup(auth, provider)
-  .then((result) => {
-    
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
+  .then(() => {
     navegador('/home')
-    const user = result.user;
- 
-   
+
   }).catch((error) => {
 console.log(error)
   });

@@ -25,7 +25,7 @@
 }
 .filmes-ul{
     display: flex;
-  justify-content:start;
+  justify-content:flex-start;
   gap: 10px;
   row-gap: 60px;
   flex-wrap: wrap;
@@ -42,7 +42,7 @@ transform: scale(1.1);
     .filmes-ul{
         display: flex;
         width: 90%;
-      justify-content:start;
+      justify-content:flex-start;
       gap: 10px;
       row-gap: 60px;
       flex-wrap: wrap;

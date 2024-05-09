@@ -1,7 +1,7 @@
 html {
 
  
-  background-color: rgb(27, 28, 34);
+  background-color: rgb(3,12,22);
 }
 
 
@@ -174,7 +174,7 @@ text-align: left;
 }
 .sombraTop{
   z-index: 39;
-  box-shadow: 0px 20px 12px 45px rgba(0, 0, 0, 0.24);
+  box-shadow: 0px 20px 12px 45px rgba(3, 12, 22, 0.24);
 }
 .slides1{
   padding-bottom: 50px;
@@ -221,12 +221,12 @@ text-align: left;
 
 .sombra {
  
-  box-shadow: 0px -10px 20px 30px  rgb(27, 28, 34);
+  box-shadow: 0px -10px 20px 30px  rgb(3,12,22);
   width: 100%;
  
   z-index: -1;
  
-  background-color: black;
+  background-color: transparent;
 }
 .imgSlideDiv {
   

@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useContext } from "react";
 import api from "../../services";
 import { toast } from "react-toastify";
@@ -18,92 +17,60 @@ import { auth } from "../../firebaseConnect";
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
-
-
-
-
-
-
-
   const [Filmes, setFilmes] = useState([]);
   const [load, setLoad] = useState(true);
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
   const [filmesPorGenero, setFilmesPorGenero] = useState([]);
   const [filmeAleatorio, setFilmeAleatorio] = useState([]);
-  const [isScrolled, setIsScrolled] = useState(false);
+
   const [animaFilmes, setAnimaFilmes] = useState([]);
   const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
   const generoId = 28;
   const acion = 27;
   const anima2 = 16;
-  const { user } = useContext(UserContext)
- const {autentc} = useContext(UserContext)
- 
-
-useEffect (()=>{
-    if(auth){
-if(autentc === false){
-  toast.warn("verifique seu email!");
-}
-    
-    return;
-  }
-})
-
-
-
-
-
-
-
+  const { user } = useContext(UserContext);
+  const { authStatus } = useContext(UserContext);
+  const [series, setseries] = useState([]);
   
+  useEffect(() => {
+    if (auth) {
+      if (authStatus === false) {
+        toast.warn("verifique seu email!");
+      }
+
+      return;
+    }
+  },[authStatus]);
+  console.log(user);
+
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
-  let mes = ('0' + (dataAtual.getMonth() + 1)).slice(-2); 
-  let dia = ('0' + dataAtual.getDate()).slice(-2); 
+  let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+  let dia = ("0" + dataAtual.getDate()).slice(-2);
   let dataCompleta = `${ano}-${mes}-${dia}`;
+
   
+
+
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const shouldScroll = scrollTop > 50;
+    const fetchData = async () => {
+      try {
+        const response = await api.get("discover/tv", {
+          params: {
+            api_key: apiKey,
+            language: "pt-BR",
+          },
+        });
 
-      setIsScrolled(shouldScroll);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-const [series,setseries] = useState([])
-
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await api.get("discover/tv", {
-        params: {
-          api_key: apiKey,
-          language: "pt-BR",
-
-   
-        
-          
-        },
-      });
-
-      setseries(response.data.results);
+        setseries(response.data.results);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
       
-  
-    } catch (error) {
-      console.error("Erro ao buscar dados da API:", error);
-    }
-    fetchData()
-  }})
-
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,15 +79,12 @@ useEffect(() => {
           params: {
             api_key: apiKey,
             language: "pt-BR",
-            'primary_release_date.lte': dataCompleta,
+            "primary_release_date.lte": dataCompleta,
             page: 1,
-            
           },
         });
-        
-        
-        setFilmes(response.data.results);
 
+        setFilmes(response.data.results);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
@@ -128,16 +92,15 @@ useEffect(() => {
 
     const obterFilmeAleatorio = async () => {
       try {
-        const resposta = await api.get("/discover/movie",{
-            params: {
-              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-              sort_by: "popularity.desc",
-              language: "pt-BR",
-              'primary_release_date.lte': dataCompleta,
-              page: Math.floor(Math.random() * 100) + 1,
-            },
-          }
-        );
+        const resposta = await api.get("/discover/movie", {
+          params: {
+            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            sort_by: "popularity.desc",
+            language: "pt-BR",
+            "primary_release_date.lte": dataCompleta,
+            page: Math.floor(Math.random() * 100) + 1,
+          },
+        });
 
         const { results } = resposta.data;
         if (results && results.length > 0) {
@@ -153,78 +116,71 @@ useEffect(() => {
 
     fetchData();
     obterFilmeAleatorio();
-  }, []);
-
+  }, [dataCompleta]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("/discover/movie",{
-          params:{
-            api_key:apiKey,
-            with_genres:generoId,
-            language:"pt-br",
-            'primary_release_date.lte': dataCompleta,
-            page: 1
-          }
-        })
-        
-        setFilmesPorGenero(response.data.results);
+        const response = await api.get("/discover/movie", {
+          params: {
+            api_key: apiKey,
+            with_genres: generoId,
+            language: "pt-br",
+            "primary_release_date.lte": dataCompleta,
+            page: 1,
+          },
+        });
 
+        setFilmesPorGenero(response.data.results);
       } catch (error) {
         console.error("Erro ao buscar dados da API:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [dataCompleta]);
 
+  useEffect(() => {
+    const animation = async () => {
+      try {
+        const response2 = await api.get("/discover/movie", {
+          params: {
+            with_genres: anima2,
+            api_key: apiKey,
+            language: "pt-BR",
+            "primary_release_date.lte": dataCompleta,
+            page: 1,
+          },
+        });
+        setFilmesPorGenero2(response2.data.results);
+      } catch (error) {
+        console.log("Erro ao buscar dados da API:", error);
+      }
+    };
+    animation();
+  },[dataCompleta]);
 
- 
+  useEffect(() => {
+    const terror = async () => {
+      try {
+        const response2 = await api.get("/discover/movie", {
+          params: {
+            with_genres: acion,
+            api_key: apiKey,
+            language: "pt-BR",
+            "primary_release_date.lte": dataCompleta,
+            page: 1,
+          },
+        });
+        setAnimaFilmes(response2.data.results);
+        setLoad(false);
 
-  
-useEffect(()=>{
-  const animation = async ()=>{
-try{
-  const response2 = await api.get("/discover/movie",{
- params:{
-  with_genres:anima2,
-  api_key: apiKey,
-  language: "pt-BR",
-  'primary_release_date.lte': dataCompleta,
-  page: 1
- }
-  })
-  setFilmesPorGenero2(response2.data.results);
-}catch (error) {
-  console.log("Erro ao buscar dados da API:", error);
-}
-  }
-  animation()
-})
-
-useEffect(()=>{
-  const terror = async ()=>{
-try{
-  const response2 = await api.get("/discover/movie",{
- params:{
-  with_genres:acion,
-  api_key: apiKey,
-  language: "pt-BR",
-  'primary_release_date.lte': dataCompleta,
-  page: 1
- }
-  })
-  setAnimaFilmes(response2.data.results)
-  setLoad(false);
-  console.log(user)
-}catch (error) {
-  console.log("Erro ao buscar dados da API:", error);
-}
-  }
-  terror()
-})
-
+      } catch (error) {
+        console.log("Erro ao buscar dados da API:", error);
+      }
+    };
+    terror();
+  },[dataCompleta]);
 
   const settings = {
     className: "Sliders2",
@@ -236,7 +192,7 @@ try{
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     variableWidth: true,
-   
+
     responsive: [
       {
         breakpoint: 1024,
@@ -308,7 +264,6 @@ try{
                 <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
                   <button className="assistirSlide">Assisir</button>
                 </Link>
-                  
               </div>
               <div>
                 <Link to={`/filme/${filmeAleatorio.id}`}>
@@ -320,6 +275,7 @@ try{
           <div className="imgSlideDiv">
             <div className="sombra"></div>
             <img
+            alt="filmeSlide"
               className="imgSlide"
               src={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`}
             />
@@ -329,7 +285,6 @@ try{
       </div>
 
       <div className="listaPaiFilmes">
-
         <div className="tituloCat">
           <span>Em alta</span>
         </div>
@@ -351,7 +306,6 @@ try{
           </Slider>
         </div>
 
-    
         <div className="tituloCat">
           <span>Filmes de Ação</span>
         </div>
@@ -403,13 +357,30 @@ try{
             return (
               <article className="capa-Filme" key={filme.id}>
                 <Link className="botao" to={`/filme/${filme.id}`}>
-                
-                    <img
-                      className="imagem"
-                      alt={filme.title}
-                      src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
-                    />
-                
+                  <img
+                    className="imagem"
+                    alt={filme.title}
+                    src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+                  />
+                </Link>
+              </article>
+            );
+          })}
+        </Slider>
+
+        <div className="tituloCat">
+          <span>Filmes de terror</span>
+        </div>
+        <Slider className="slides1" {...settings}>
+          {series.slice().map((filme) => {
+            return (
+              <article className="capa-Filme" key={filme.id}>
+                <Link className="botao" to={`/filme/${filme.id}`}>
+                  <img
+                    className="imagem"
+                    alt={filme.title}
+                    src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+                  />
                 </Link>
               </article>
             );

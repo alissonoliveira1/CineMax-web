@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./style.css";
-import { auth } from "../../firebaseConnect";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "firebase/auth";

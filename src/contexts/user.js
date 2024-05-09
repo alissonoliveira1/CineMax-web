@@ -5,11 +5,11 @@ const UserContext = createContext();
 
 const UserProvider = ({children}) => {
     const [user,setuser] = useState(null)
-    const [autentc, setauth] = useState(true)
+ 
 useEffect(()=>{
       onAuthStateChanged(auth, (usuario) => {
        setuser(usuario)
-      setauth(false)
+ 
        
     })
 })
@@ -26,7 +26,7 @@ const authStatus = user ? user.emailVerified : null;
      setuser(null)
     }
     return(
-        <UserContext.Provider value={{autentc, user ,login,loginout}}>
+        <UserContext.Provider value={{authStatus, user ,login,loginout}}>
           {children}
         </UserContext.Provider>
     )

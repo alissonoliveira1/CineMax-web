@@ -38,7 +38,7 @@
     padding-top: 80px;
     color: rgb(107, 107, 107);
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     margin-left: 50px;
     align-items: center;
     font-family: sans-serif;

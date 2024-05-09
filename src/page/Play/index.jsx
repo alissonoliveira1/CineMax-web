@@ -1,5 +1,5 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useParams } from "react-router-dom";
+
 import './style.css'
 //<iframe className="videoF" src={`https://superflixapi.top/serie/${id}/${selectedSeason}/${eps2}#noLink#noEpList#color:919191`}  ></iframe>
 
@@ -10,6 +10,7 @@ function Play() {
     <div>
       <iframe
         className="videoF"
+        title="play"
         src={`https://superflixapi.top/serie/${id}/${season_number}/${episode_number}#noEpList#noLink#color:919191`}
         scrolling="no"
         frameborder="0"
