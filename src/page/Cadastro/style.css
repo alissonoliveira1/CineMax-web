@@ -1,17 +1,47 @@
-
+.GoogleLoginIcon{
+    
+    
+    width: 40px;
+}
+.textLoginGG{
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+    font-family: sans-serif;
+    padding-bottom: 15px;
+}
+.iconGoogleDiv{
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 50%;
+   
+}
 .image-login{
     width: 100vw;
     height: 100vh;
     display: flex;
-    background-size: cover;
-    background-repeat: no-repeat;
+ 
+  background-size: cover;
+   
     align-items: center;
     justify-content: center;
 
 }
+.containerLoginGg{
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .form-login-div7{
     align-items: center;
-    
+    border-radius: 100px;
+    border: 1px solid white;
    display: flex;
    flex-direction: column;
 padding: 60px;
@@ -19,8 +49,8 @@ width: 100%;
 color: rgb(97, 97, 97);
 max-width: 300px;
 height: 100vh;
-max-height: 300px;
-background-color: rgba(107, 107, 107, 0.801);
+max-height: 370px;
+background-color: rgba(0, 0, 0, 0.123);
 
 }
 .form-login{
@@ -32,9 +62,9 @@ height: 100%;
 }
 .entrar2 span{
     
-font-size: 30px;
+font-size: 20px;
 font-weight: 700;
-color: rgb(255, 255, 255);
+color: white;
 font-family: sans-serif;
 }
 .form-login input::placeholder{
@@ -43,7 +73,7 @@ font-family: sans-serif;
 .form-login input{
     border-radius: 8px;
     padding: 5px;
-    background-color: rgb(56, 56, 56);
+    background-color: rgb(0, 17, 53);
     border: none;
     outline: none;
     color: rgb(255, 255, 255);
@@ -59,13 +89,14 @@ max-height: 35px;
 
 .form-login button{
     cursor: pointer;
-    background-color: red;
+    background-color: rgb(2, 70, 134);
     color: white;
     font-weight: 500;
     border: none;
+    border-radius: 8px;
     font-family: sans-serif;
-    margin-top: 20px;
     font-size: 17px;
+    margin-top: 20px;
  width: 100%;
 margin-bottom: 10px;
 max-width: 315px;
@@ -73,18 +104,18 @@ height: 100%;
 max-height: 40px;
 }
 .cad-login2{
-    margin-top: 70px;
+    margin-top: 20px;
 }
 .cad-login2 span{
     font-size: 16px;
     font-family: sans-serif;
 }
 .link-span2{
-    color: rgb(228, 150, 34);
+    font-weight: 600;
+    color: rgb(45, 82, 202);
 }
 .texto-link2{
-    font-weight: 600;
- color: rgb(196, 196, 196);   
+ color: rgb(255, 255, 255);   
 }
 .button-sair {
     width: 100%;

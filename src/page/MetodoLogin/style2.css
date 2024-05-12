@@ -2,35 +2,42 @@
 
 .containerMetodo{
 display: flex;
-background-color: rgb(0, 0, 0);
+background: url(imagemNet.jpg);
+background-size: cover;
 height: 100vh;
 align-items: center;
 justify-content: center;
 }
 .FormMetodo{
-    background-color: rgb(72, 4, 128);
+    border: 1px solid white;
     display: flex;
-    border-radius: 8px;
-    box-shadow: 5px 5px 10px 5px rgb(121, 121, 121);
+    border-radius: 0 100px;
+   
     flex-direction: column;
     width: 100%;
+    height: 100vh;
+    max-height: 300px;
     padding: 30px 10px;
     max-width: 400px;
     
     
 }
 .liMt{
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
-    box-shadow: 5px 5px 10px 2px rgb(160, 160, 160);
+  
     display: flex;
+    color: rgb(0, 24, 68);
     cursor: pointer;
     gap: 10px;
-    width: 85%;
+    width: 70%;
     align-items: center;
     list-style: none;
     height: 20px;
     padding: 20px;
+}
+.liMt:hover{
+    filter: brightness(0.9);
 }
 .liMt2{
 
@@ -57,7 +64,7 @@ justify-content: center;
     filter: brightness(0.9);
 }
 .spanMT{
-    color: black;
+    color: rgb(0, 25, 94);
     font-family: sans-serif;
     font-weight: 600;
     font-size: 17px;
