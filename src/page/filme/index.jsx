@@ -27,9 +27,7 @@ import {
 function Filme() {
   const [genes, setgenes] = useState([]);
   const [certificacao, setCertificacao] = useState("");
-  const [erro, setErro] = useState("");
   const { id } = useParams();
-  
   const navegate = useNavigate();
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
@@ -37,6 +35,8 @@ function Filme() {
   const [user, settuser] = useState({});
   const [user2, settuser2] = useState({});
   const [novo, setnovo] = useState([]);
+
+
   useEffect(() => {
     async function loadFilme() {
       await api
@@ -109,12 +109,12 @@ function Filme() {
           }
         }
       } catch (error) {
-        setErro("Erro ao buscar a classificação indicativa.");
+        console.log("Erro ao buscar a classificação indicativa.");
       }
     }
 
     buscarCertificacao();
-  }, []);
+  }, [id]);
 
   const releaseYear = filme.release_date
     ? filme.release_date.substring(0, 4)
@@ -143,7 +143,7 @@ function Filme() {
           where("userUid", "==", data?.uid)
         );
 
-        const unsub = onSnapshot(q, (Snapshot) => {
+         onSnapshot(q, (Snapshot) => {
 
           let lista = [];
           Snapshot.forEach((doc) => {

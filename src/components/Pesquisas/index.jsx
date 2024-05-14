@@ -7,7 +7,7 @@ import api from '../../services';
 
     function Pesquisas() {
       const [valorPesquisa, setValorPesquisa] = useState('');
-      const [dados, setDados] = useState([]);
+ 
       const navigate = useNavigate();
       const [larguraInput, setLarguraInput] = useState(0);
       const keyApi = '9f4ef628222f7685f32fc1a8eecaae0b';
@@ -28,6 +28,7 @@ import api from '../../services';
             params:{
               'query':pesquisa,
               'api_key':keyApi,
+              'primary_release_date.lte': dataCompleta,
               'language':"pt-br",
               
             }
@@ -41,20 +42,9 @@ import api from '../../services';
           navigate('/pesquisa', { state: { resultados: response.data.results } });
     
       
-        const response1 = await api.get("discover/multi",{
-          params:{
-            'api_key':keyApi,
-            'primary_release_date.lte': dataCompleta,
-            'language':"pt-br",
-            
-          }
-          
-        });
-        const filmesLancados = response1.data.results.filter(filme =>
-          response.data.results.some(encontrado => encontrado.id === filme.id)
-      );   
+        
       
-      setDados(filmesLancados);
+    
     } catch (error) {
           console.error('Erro ao buscar dados da API:', error);
         }

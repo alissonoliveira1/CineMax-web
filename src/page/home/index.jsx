@@ -22,13 +22,12 @@ function Home() {
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
   const [filmesPorGenero, setFilmesPorGenero] = useState([]);
   const [filmeAleatorio, setFilmeAleatorio] = useState([]);
-
+  //const { user } = useContext(UserContext);
   const [animaFilmes, setAnimaFilmes] = useState([]);
   const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
   const generoId = 28;
   const acion = 27;
   const anima2 = 16;
-  const { user } = useContext(UserContext);
   const { authStatus } = useContext(UserContext);
   const [series, setseries] = useState([]);
   
@@ -41,7 +40,7 @@ function Home() {
       return;
     }
   },[authStatus]);
-  console.log(user);
+
 
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
@@ -183,7 +182,6 @@ function Home() {
   },[dataCompleta]);
 
   const settings = {
-    className: "Sliders2",
     dots: false,
     infinite: true,
     speed: 500,
@@ -288,11 +286,11 @@ function Home() {
         <div className="tituloCat">
           <span>Em alta</span>
         </div>
-        <div className="slide3">
-          <Slider className="slides1" {...settings}>
+        <div >
+          <Slider  {...settings}>
             {Filmes.map((filmes) => {
               return (
-                <article className="capa-Filme" key={filmes.id}>
+                <article  key={filmes.id}>
                   <Link to={`/filme/${filmes.id}`}>
                     <img
                       className="imagem"
@@ -369,7 +367,7 @@ function Home() {
         </Slider>
 
         <div className="tituloCat">
-          <span>Filmes de terror</span>
+          <span>Filmes de talkshow</span>
         </div>
         <Slider className="slides1" {...settings}>
           {series.slice().map((filme) => {

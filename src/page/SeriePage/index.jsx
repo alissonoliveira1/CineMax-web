@@ -108,7 +108,7 @@ console.log(selectedSeason)
       <ul className="paiEps">
         {episodes.map((episode) => (
           <Link to={`/Play/${filme.id}/${episode.season_number}/${episode.episode_number}`}>
-          <li className="listaEps" key={episode.id}><img className="imagemSerie" src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}/><div><div className="pai_ep_time"><span className="nomeEps">{episode.name}</span><span className="timeEps">{episode.runtime}min</span></div><div className="descEps"><span>{episode.overview}</span></div></div></li>
+          <li className="listaEps" key={episode.id}><img className="imagemSerie" alt="capa-epsode" src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}/><div><div className="pai_ep_time"><span className="nomeEps">{episode.name}</span><span className="timeEps">{episode.runtime}min</span></div><div className="descEps"><span>{episode.overview}</span></div></div></li>
         </Link>
         ))}
       </ul>

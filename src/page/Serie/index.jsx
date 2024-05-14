@@ -43,7 +43,7 @@ function Serie() {
     fetchData();
 
    
-  }, []);
+  }, [dataCompleta]);
 
   useEffect(()=>{
     const fetchData2 = async () => {
@@ -63,7 +63,7 @@ function Serie() {
       }
     };
     fetchData2();
-  },[])
+  },[dataCompleta,ac_av])
   const settings = {
     dots: false,
     infinite: true,
@@ -106,6 +106,7 @@ function Serie() {
             <div className="capa-Filme" key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
                 <img
+                alt="capa-serie"
                   className="imagem"
                   src={`https://image.tmdb.org/t/p//original/${item.poster_path}`}
                 />
@@ -123,6 +124,7 @@ function Serie() {
             <div className="capa-Filme" key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
                 <img
+                alt="capa-serie"
                   className="imagem"
                   src={`https://image.tmdb.org/t/p//original/${item.poster_path}`}
                 />

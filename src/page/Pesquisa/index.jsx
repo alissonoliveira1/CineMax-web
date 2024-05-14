@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Header from "../../components/header";
-import Erros from "./erro.png";
+import erros from "./erro.png";
 import "./style.css";
 import MenuMobile from "../../components/MenuMobile";
 function Pesquisa() {
@@ -30,7 +30,7 @@ function Pesquisa() {
           </ul>
         ) : (
           <div className="msg-n">
-            <img className="img-erros" src={Erros} />
+            <img className="img-erros" alt="error" src={erros} />
             <p className="msg-notfould">Nenhum resultado encontrado.</p>
           </div>
         )}

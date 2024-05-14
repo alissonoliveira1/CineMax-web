@@ -187,6 +187,7 @@ if (load) {
             <div className="imgSlideDiv">
             
               <img
+              alt="capa-filme"
                 className="imgSlide"
                 src={`https://image.tmdb.org/t/p//original/${slide.backdrop_path}`}
               />
@@ -203,7 +204,7 @@ if (load) {
             return(
                 <div key={e.id}>
 
-               <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+               <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="filme-capa" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                 </div>
             )
         })}
@@ -214,7 +215,7 @@ if (load) {
              return(
                  <div key={e.id}>
  
-                <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+                <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                  </div>
              )
          })}
@@ -225,7 +226,7 @@ if (load) {
              return(
                  <div key={e.id}>
  
-                <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+                <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                  </div>
              )
          })}
@@ -236,7 +237,7 @@ if (load) {
              return(
                  <div key={e.id}>
  
-                <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+                <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                  </div>
              )
          })}
@@ -247,7 +248,7 @@ if (load) {
              return(
                  <div key={e.id}>
  
-                <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+                <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                  </div>
              )
          })}
@@ -258,7 +259,7 @@ if (load) {
              return(
                  <div key={e.id}>
  
-                <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+                <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                  </div>
              )
          })}
@@ -270,7 +271,7 @@ if (load) {
             return(
                 <div key={e.id}>
 
-               <Link to={`/filme/${e.id}`}><div ><img className="imagem" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
+               <Link to={`/filme/${e.id}`}><div ><img className="imagem" alt="capa-filme" src={`https://image.tmdb.org/t/p//original/${e.poster_path}`}/></div></Link>
                 </div>
             )
         })}

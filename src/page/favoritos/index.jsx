@@ -45,7 +45,7 @@ function Favoritos() {
           where("userUid", "==", data?.uid)
         );
 
-        const unsub = onSnapshot(q, (Snapshot) => {
+        onSnapshot(q, (Snapshot) => {
 
           let lista = [];
           Snapshot.forEach((doc) => {
@@ -87,6 +87,7 @@ function Favoritos() {
                 
                   <div className="imgfav">
                     <img
+                    alt="capa-favorito"
                       src={`https://image.tmdb.org/t/p//original/${item.favorito.backdrop_path}`}
                     />
                   </div>

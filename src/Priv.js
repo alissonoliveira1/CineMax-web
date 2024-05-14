@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import {auth} from "./firebaseConnect"
 import { onAuthStateChanged } from "firebase/auth"
 import { Navigate } from "react-router-dom"
-import { json } from "react-router-dom"
+
 
 
 export default function Priv({children}){
@@ -12,7 +12,7 @@ const[login,setlogin] = useState(false)
 
 useEffect(()=>{
     async function logado(){
-        const subs = onAuthStateChanged(auth, (user)=>{
+         onAuthStateChanged(auth, (user)=>{
             if(user){
                 const userdata={
                     uid:user.uid,

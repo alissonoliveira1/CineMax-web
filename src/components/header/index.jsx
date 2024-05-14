@@ -32,7 +32,7 @@ function Header(){
     return(
         <div className={appClasses}>
        <header >
-        <Link className='logo' to="/home"><img src={Logo}/></Link>
+        <Link className='logo' to="/home"><img alt='logo' src={Logo}/></Link>
         <div className='conjuntomenu'>
           <div><Pesquisas/></div>
         <div><Menu/></div>  

@@ -2,15 +2,11 @@ import "./style2.css";
 import { 
   getAuth,
   signInWithPopup,
-  GoogleAuthProvider,
 } from "firebase/auth"
 import { ReactComponent as Email } from "./icon/email.svg";
 import { ReactComponent as Google } from "./icon/google.svg";
-import { ReactComponent as Facebook } from "./icon/facebook.svg";
-import { ReactComponent as Github } from "./icon/github.svg";
 import { provider  } from "../../firebaseConnect";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 
 
