@@ -13,7 +13,7 @@ import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
 import { UserContext } from "../../contexts/user";
 import { auth } from "../../firebaseConnect";
-
+import MenuSuspenso from "../../components/MenuSuspenso";
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
@@ -30,15 +30,16 @@ function Home() {
   const anima2 = 16;
   const { authStatus } = useContext(UserContext);
   const [series, setseries] = useState([]);
-  
+ 
   useEffect(() => {
     if (auth) {
       if (authStatus === false) {
         toast.warn("verifique seu email!");
       }
 
-      return;
+      
     }
+    console.log(auth)
   },[authStatus]);
 
 
@@ -250,6 +251,7 @@ function Home() {
   return (
     <div className="container2">
       <Header />
+      <MenuSuspenso/>
       <div className="slide">
         <div className="ConjuntoSlide">
           <div className="textoConjuntoSlide">

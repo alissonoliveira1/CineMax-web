@@ -27,7 +27,7 @@ export default function Login() {
         .then(() => {
           setEmail("");
           setSenha("");
-          navegador("/home", { replace: true });
+          navegador("/perfil", { replace: true });
         })
         .catch((error) => {
           if (error.code === "auth/invalid-credential") {

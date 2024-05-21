@@ -14,6 +14,7 @@ import Login from "./page/Login";
 import Cadastro from "./page/Cadastro";
 import Priv from "./Priv"
 import MetodoLogin from "./page/MetodoLogin";
+import Perfil from "./page/perfil";
 function Rotas(){
     return(
        
@@ -24,6 +25,7 @@ function Rotas(){
         <Routes>
         
             <Route path="/" element={ <Login/> }/> 
+            <Route path="/perfil" element={<Priv><Perfil/></Priv>}/>
              <Route path="/MetodoLogin" element={<MetodoLogin/>}/> 
              <Route path="/Cadastro" element={<Cadastro/>}/> 
             <Route path="/home" element={<Priv><Home/></Priv>}/> 

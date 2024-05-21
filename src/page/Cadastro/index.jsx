@@ -29,7 +29,7 @@ export default function Cadastro() {
           setEmail("");
           setSenha("");
           toast.success("Conta Cadastrada!");
-          navegador("/home", { replace: true });
+          navegador("/perfil", { replace: true });
         })
         .catch((error) => {
           if (error.code === "auth/email-already-in-use") {
