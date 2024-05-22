@@ -36,7 +36,8 @@ height: 40px;
 .logo{
     display: flex;
     overflow: hidden;
-    
+    position: relative;
+    left: -20px;
 }
 span{
     color: rgb(255, 196, 0);

@@ -1,17 +1,17 @@
 .containerMSuspenso{
-    position: absolute;
-    top: 90px;
-    left: 40vw;
+    position: fixed;
+    top: 70px;
+    right: -400px;
     width: 100vw;
     height: 100vh;
-    max-width: 300px;
+    max-width: 400px;
     height: 300px;
     padding: 5px;
     border-radius: 10px;
     background-color: rgb(3,12,22);
     z-index: 70;
     margin: 0;
- 
+ transition: 0.3s all;
     box-sizing: border-box;
 }
 .recovery-div-suspenso{
@@ -36,6 +36,7 @@ display: block;
     display: flex;
     flex-direction: column;
     row-gap: 20px;
+    width: 83%;
 }
 .menu-ul-suspenso li{
     margin: 0;
