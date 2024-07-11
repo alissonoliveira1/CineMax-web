@@ -1,104 +1,114 @@
 import "./favoritos.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../../firebaseConnect";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
+import { UserContext } from "../../contexts/user";
 import {
   query,
   where,
   onSnapshot,
   collection,
-  deleteDoc,
-  doc
+  updateDoc,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 
 function Favoritos() {
-  const [novo, setnovo] = useState([]);
-
- 
-
-  async function excluirf(id) { 
-    console.log(id)
-    const docRef = doc(db,"cineData", id)
-   await deleteDoc(docRef)
-  
-    };
-    
-  
+  const [novo, setNovo] = useState([]);
+  const { user } = useContext(UserContext);
+  const [dados, setDados] = useState([]);
 
   useEffect(() => {
-    async function dadosFav() {
-      const userdatalhes = localStorage.getItem("@usuario");
-   
+    const fetchData = async () => {
+      try {
+        if (user) {
+          const docRef = doc(db, "cineData", user.uid);
+          const docSnap = await getDoc(docRef);
 
-      if (userdatalhes) {
-        const data = JSON.parse(userdatalhes);
-
-        
-
-        const tarefaRef = collection(db, "cineData");
-
-        const q = query(
-          tarefaRef,
-     
-          where("userUid", "==", data?.uid)
-        );
-
-        onSnapshot(q, (Snapshot) => {
-
-          let lista = [];
-          Snapshot.forEach((doc) => {
-            lista.push({
-              id: doc.id,
-              favorito: doc.data().favorito
-      
-            });
-            
-          });
-         setnovo(lista);
-    
-        }); 
+          if (docSnap.exists()) {
+            const dadosDoFirestore = docSnap.data();
+            setDados(dadosDoFirestore.favorito || []);
+          } else {
+            console.log("Documento não encontrado");
+          }
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
       }
-    }
-    dadosFav();
-  }, []);
+    };
+    fetchData();
+  }, [user]);
 
+  async function excluirf(itemId) {
+    try {
+      const novoArray = dados.filter((item) => item.id !== itemId);
+      const docRef = doc(db, "cineData", user.uid);
+      await updateDoc(docRef, { favorito: novoArray });
+      setDados(novoArray);
+      console.log("Item excluído com sucesso");
+    } catch (error) {
+      console.error("Erro ao excluir item do array:", error);
+    }
+  }
+
+  useEffect(() => {
+    if (user) {
+      const tarefaRef = collection(db, "cineData");
+
+      const q = query(tarefaRef, where("userUid", "==", user.uid));
+
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        let lista = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data().favorito || [];
+          lista.push({ id: doc.id, data });
+        });
+        setNovo(lista);
+      });
+
+      return () => unsubscribe();
+    }
+  }, [user]);
+  console.log(novo);
   return (
     <div className="PaideTodesFav">
-      <Header/>
+      <Header />
       <div className="fav2">
         <h1>Filmes Salvos</h1>
       </div>
 
-      {novo.length === 0 && (
+      {novo.length === 1 && (
         <span className="vaziofav">
           Voce não adicionou nenhum filme aos favoritos
         </span>
       )}
 
       <div className="center">
-        <ul className="pai-fav-ul">
-          {novo.map((item) => {
-            return (
-              <li key={item.favorito.id}>
-               
-                <div className="paifav"> 
-                
+        {novo.map((n) => (
+          <ul className="pai-fav-ul" key={n.id}>
+            {n.data.map((item) => (
+              <li key={item.id}>
+                <div className="paifav">
                   <div className="imgfav">
-                    <img
-                    alt="capa-favorito"
-                      src={`https://image.tmdb.org/t/p//original/${item.favorito.backdrop_path}`}
-                    />
+                    {item.backdrop_path ? (
+                      <img
+                        alt="capa-favorito"
+                        src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`}
+                      />
+                    ) : (
+                      <p>Imagem não disponível</p>
+                    )}
                   </div>
                   <div>
-                    <span className="titulofav2">{item.favorito.title}</span>
+                    <span className="titulofav2">{item.title}</span>
                   </div>
                   <div className="detalhesfav">
                     <div>
                       <Link
                         className="detalhesfavbutton2"
-                        to={`/filme/${item.favorito.id}`}
+                        to={`/filme/${item.id}`}
                       >
                         Detalhes
                       </Link>
@@ -114,11 +124,11 @@ function Favoritos() {
                   </div>
                 </div>
               </li>
-            );
-          })}
-        </ul>
+            ))}
+          </ul>
+        ))}
       </div>
-      <MenuMobile/>
+      <MenuMobile />
     </div>
   );
 }

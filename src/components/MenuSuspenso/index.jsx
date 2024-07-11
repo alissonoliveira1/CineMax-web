@@ -7,8 +7,8 @@ import DeleteConta from "../DeleteConta";
 import './style.css';
 function MenuSuspenso() {
     const { photo } = useContext(UserContext)
-    const { authStatus } = useContext(UserContext)
-    console.log(photo)
+    
+   
     function handdleDelete(){
       const deletar = document.querySelector('.deletar-conta22')
       deletar.classList.add('active')
@@ -20,25 +20,35 @@ function MenuSuspenso() {
         const recovery = document.querySelector('.recovery-div-suspenso')
         recovery.classList.add('active')
       }
+      function haddleExit2(){
+        document.querySelector('.containerMSuspenso').classList.remove('activeSuspenso')
+
+    }
   
   return (
     <div className="containerMSuspenso">
+         <div onClick={haddleExit2} className='exit-recovery2'><span>Voltar</span></div>
         <div className="recovery-div-suspenso"><Recoverysenha /></div>
         <div className="deletar-conta22"><DeleteConta/></div>
         
       <div>{photo.map((e, index)=>{
         return(
-            <div key={index} className="name-usuario">{e.nome}</div>
+          <div key={index} className="icon-name-menuSusp">
+            <img className='img-perfil-menuSusp' src={e.usuario} alt="avatar" />
+            <div  className="name-usuario">{e.nome}</div>
+          </div>
+            
         )
       })}</div>
+      <div className="menu-ul-suspenso-div">
       <ul className="menu-ul-suspenso">
+      <li >Editar perfil</li>
         <li onClick={handdleDelete}>Deletar conta</li>
         <li onClick={handdleRecovery}>redefinir a senha</li>
-        <li className="li-veri-email"><div>verificar email</div><div className="barra"></div><div className="msg-verificao">{authStatus ? <span>email verificado</span> : <span>email não verificado</span>}</div></li>
         <li onClick={handleSair} >Sair</li>
         
       </ul>
-      
+      </div>
     </div>
   )
 }   

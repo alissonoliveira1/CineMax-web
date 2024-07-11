@@ -76,9 +76,13 @@ html::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 .generosid {
-  padding: 10px 0;
+ 
   display: flex;
-  gap: 7px;
+  
+}
+.date-classf-genere{
+  display: flex;
+  align-items: center;
 }
 .generosid span {
   color: rgb(141, 141, 141);
@@ -87,12 +91,17 @@ html::-webkit-scrollbar-thumb {
 }
 .generos {
   display: flex;
+  cursor: default;
   gap: 5px;
 }
 .nameGenere {
   font-family: sans-serif;
-  color: rgb(126, 126, 126);
-  font-size: 13px;
+  border-radius: 20px;
+  padding: 6px;
+  background-color: rgb(24, 29, 51);
+  color: rgb(197, 197, 197);
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .info {

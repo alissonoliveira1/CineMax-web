@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import './style.css'
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import  Anng  from './icons/Anng-Avatar.jpeg'
-import Naruto from './icons/naruto-Avatar.jpeg'
-import Onepiece from './icons/one-piece-Avatar.jpeg'
+import { UserContext } from "../../contexts/user";
+import { useContext } from "react";
 import { 
     doc,
+    setDoc,
     addDoc,
     collection,
     onSnapshot,
@@ -17,42 +17,45 @@ import {
  } from "firebase/firestore";
 function Perfil() {
     const navegador = useNavigate()
-    const [samurai, setsamurai] = useState([]);
-    const [onepiece, setonepiece] = useState([]);
-    const [naruto, setnaruto] = useState([]);
     const [end, setend] = useState(null)
-    const [user, settuser] = useState([]);
+    const [user1, settuser] = useState([]);
     const [user2, settuser2] = useState({});
     const [criacao, setcriacao] = useState("")
-   
-    useEffect(() =>{
-     async function perfils(){
-        onSnapshot(doc(db, "cineUser", "samurai"), (doc) => {
+   const [user3, settuser3] = useState([])
+
+   const {user} = useContext(UserContext)
+   const {photo} = useContext(UserContext)
+   console.log(photo)
+
+
+
+         if(photo.length > 0){
+    navegador("/home")
+    
+   }  
         
-            setsamurai(doc.data())
-        });
-        onSnapshot(doc(db, "cineUser", "one piece"), (doc) => {
-          
-             setonepiece(doc.data())
-         });
-         onSnapshot(doc(db, "cineUser", "naruto"), (doc) => {
-           
-             setnaruto(doc.data())
-         });
+    
 
+useEffect(()=>{
+const perfil = async () =>{
+   await onSnapshot(doc(db, "cineUser", "avatar"), (doc) => {
+           settuser3(doc.data().icons) 
+         
+      });
+    
+    
 
-    }
-perfils()
+}
+perfil()
 },[])
-
 
 useEffect(() => {
     async function dadosFav() {
-      const userdatalhes = localStorage.getItem("@usuario");
+     
    
 
-      if (userdatalhes) {
-        const data = JSON.parse(userdatalhes);
+      if (user) {
+        
 
         
 
@@ -61,7 +64,7 @@ useEffect(() => {
         const q = query(
           tarefaRef,
      
-          where("userUid", "==", data?.uid)
+          where("userUid", "==", user.uid)
         );
 
          onSnapshot(q, (Snapshot) => {
@@ -89,24 +92,17 @@ useEffect(() => {
     }
     dados()
    },[])
- async function salvarfilme() {
+  function salvarfilme(){
  
-  
-
-    const hasfilme = user.some(
-      (novo) => novo.icon === samurai || naruto || onepiece
+    const hasfilme = user1.some(
+      (novo) => novo.usuario === null
     );
     
 
     if (hasfilme) {
-        navegador("/home")
-      return;
+     
+    
     }
-  
-
-  
- 
-
   }
   salvarfilme()
 
@@ -115,9 +111,9 @@ useEffect(() => {
        if(end === null){
     
     navegador("/home")
-    await addDoc(collection(db,"cineData"),{
-        userUid: user2?.uid,
-        usuario: samurai,
+    await setDoc(doc(db,"cineData", user.uid),{
+        userUid: user.uid,
+        usuario: user3.icons[0].url,
         nome: criacao
         
       })
@@ -130,9 +126,9 @@ useEffect(() => {
           console.log("error ao registrar" + error);
         });
 }else{ 
-    navegador("/home")
-    await addDoc(collection(db,"cineData"),{
-        userUid: user2?.uid,
+  navegador("/home")
+    await setDoc(doc(db,"cineData", user.uid),{
+        userUid: user.uid,
         usuario: end,
         nome: criacao
         
@@ -146,31 +142,43 @@ useEffect(() => {
           console.log("error ao registrar" + error);
         });
       }
+      
     }
 
 function addphoto(e){
     setend(e)
 
 }
+
     return (
         <div className="containerPerfil">
-             <div>
-                    <h1>Perfil</h1>
+             <div className="perfil-titulo">
+                    <span>Perfil</span>
              </div>
              <div>
-                <form onSubmit={addnome}>
+                <form className="form-perfil" onSubmit={addnome}>
                 <input type="text"  value={criacao} onChange={(e) => setcriacao(e.target.value)}/>
                 <button  type="submit">Criar</button>
                 </form>
              </div>
              <div className="combo-perfil">
-            
-             <div><img className="perfil"  onClick={() => addphoto(samurai)} src={Anng} alt="perfil" /></div> 
-             <div><img className="perfil"  onClick={() => addphoto(naruto)} src={Naruto} alt="perfil" /></div> 
-            <div><img className="perfil"  onClick={() => addphoto(onepiece)} src={Onepiece} alt="perfil" /></div> 
-             </div>
+           
+             
+             {user3.length > 0 ? (
+        user3.map((e, index) => (
         
-        </div>
+           <div key={index}><img className="perfil"  onClick={() => addphoto(e.url)} src={e.url} alt="perfil" /></div>
+           
+      
+        ))
+      ) : (
+        <p>Nenhum dado disponível</p>
+      )}
+    </div>
+             </div>
+          
+          
+     
     )
 
 }

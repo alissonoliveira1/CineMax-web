@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Menu from '../Menu';
 import { useState, useEffect} from 'react';
 import Pesquisas from '../Pesquisas';
-import Logo from './fav.png'
-
+import Logo from '../header/CineMax.png'
+import LogoMobile from '../header/logoMobile.png'
 function Header(){
-
+  const [poster, setPoster] = useState("");
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
@@ -26,13 +26,36 @@ function Header(){
   
     const appClasses = isScrolled ? 'App scrolled' : 'Header';
   
+    useEffect(() => {
+      const tela480 = window.matchMedia("(max-width: 480px)");
+  
+      const handleResize = (e) => {
+        if (e.matches) {
+          setPoster("poster_path");
+        } else {
+          setPoster("backdrop_path");
+        }
+      };
+      handleResize(tela480); 
+      tela480.addEventListener('change', handleResize);
+  
+   
+      return () => tela480.removeEventListener('change', handleResize);
+    }, []);
   
 
 
     return(
         <div className={appClasses}>
        <header >
-        <Link  to="/home"><div className='logo'><img alt='logo' src={Logo}/></div></Link>
+        {poster === 'poster_path' && (
+           <Link  to="/home"><div className='logoMobile'><img alt='logo' src={LogoMobile}/></div></Link>
+          )}
+        {poster === 'backdrop_path' && (
+           <Link  to="/home"><div className='logo'><img alt='logo' src={Logo}/></div></Link>
+          )}
+
+        
         <div className='conjuntomenu'>
           <div><Pesquisas/></div>
         <div><Menu/></div>  

@@ -14,27 +14,22 @@ function Serie() {
   const [serieAnime, setserieAnime] = useState([]);
   const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
   const ac_av = [12,28]
-  let dataAtual = new Date();
-  let ano = dataAtual.getFullYear().toString();
-  let mes = ('0' + (dataAtual.getMonth() + 1)).slice(-2); 
-  let dia = ('0' + dataAtual.getDate()).slice(-2); 
-  let dataCompleta = `${ano}-${mes}-${dia}`;
-
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("discover/tv", {
+        const response = await api.get("discover/tv?", {
           params: {
             api_key: apiKey,
             with_genres: 28, 
-            'primary_release_date.lte': dataCompleta,
             language: "pt-br",
-            page: 1,
-          },
+            page: 1
+          }
         });
+        
         setserie(response.data.results);
+        console.log(serie)
       } 
       catch (error) {
         console.log(error);
@@ -43,16 +38,16 @@ function Serie() {
     fetchData();
 
    
-  }, [dataCompleta]);
+  }, []);
 
   useEffect(()=>{
     const fetchData2 = async () => {
       try {
-        const response2 = await api.get("discover/tv", {
+        const response2 = await api.get("discover/tv?", {
           params: {
             api_key: apiKey,
             with_genres: ac_av.join(','),
-            'primary_release_date.lte': dataCompleta,
+  
             language: "pt-br",
             page: 1,
           },
@@ -63,7 +58,7 @@ function Serie() {
       }
     };
     fetchData2();
-  },[dataCompleta,ac_av])
+  },[ac_av])
   const settings = {
     dots: false,
     infinite: true,

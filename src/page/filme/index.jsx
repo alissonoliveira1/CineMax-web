@@ -1,6 +1,5 @@
-
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
@@ -15,72 +14,71 @@ import MenuMobile from "../../components/MenuMobile";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { UserContext } from "../../contexts/user";
 import {
   query,
   where,
   onSnapshot,
   collection,
-  addDoc,
+  doc,
+  updateDoc,
+  arrayUnion
 } from "firebase/firestore";
-
 
 function Filme() {
   const [genes, setgenes] = useState([]);
   const [certificacao, setCertificacao] = useState("");
   const { id } = useParams();
-  const navegate = useNavigate();
+  const navigate = useNavigate();
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
   const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
-  const [user, settuser] = useState({});
-  const [user2, settuser2] = useState({});
-  const [novo, setnovo] = useState([]);
 
+  const [user2, setuser2] = useState({});
+  const [novo, setnovo] = useState([]);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function loadFilme() {
-      await api
-        .get(`/movie/${id}`, {
+      try {
+        const response = await api.get(`/movie/${id}`, {
           params: {
             api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
             language: "pt-BR",
             append_to_response: "release_dates",
           },
-        })
-
-        .then((response) => {
-          setfilme(response.data);
-          settuser2(response.data)
-          setload(false);
-        })
-        .catch(() => {
-          console.log("filme não encontrado");
-          navegate("/", { replace: true });
-          return;
         });
+        setfilme(response.data);
+        setuser2(response.data);
+        setload(false);
+      } catch (error) {
+        console.log("filme não encontrado");
+        navigate("/", { replace: true });
+      }
     }
 
     loadFilme();
-
-    return () => {};
-  }, [navegate, id]);
+  }, [id, navigate]);
 
   useEffect(() => {
-    const semes = async () => {
+    async function fetchSimilarMovies() {
       try {
-        const datas = await api.get("discover/movie", {
+        const response = await api.get("discover/movie", {
           params: {
             api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
             language: "pt-BR",
-            with_genres: await genreIds.join(","),
+            with_genres: genreIds.join(","),
           },
         });
-        setgenes(datas.data.results);
+        setgenes(response.data.results);
       } catch (error) {
         console.log("filme genero nao encontrado");
       }
-    };
-    semes();
+    }
+
+    if (genreIds.length > 0) {
+      fetchSimilarMovies();
+    }
   }, [genreIds]);
 
   useEffect(() => {
@@ -98,7 +96,7 @@ function Filme() {
         const { results } = response.data;
         const certificacoes = results.find(
           (result) => result.iso_3166_1 === "BR"
-        ); // Aqui estamos buscando a certificação para o Brasil
+        );
 
         if (certificacoes) {
           const certificacaoEncontrada = certificacoes.release_dates.find(
@@ -116,88 +114,59 @@ function Filme() {
     buscarCertificacao();
   }, [id]);
 
-  const releaseYear = filme.release_date
-    ? filme.release_date.substring(0, 4)
-    : "";
+  const releaseYear = filme.release_date ? filme.release_date.substring(0, 4) : "";
   const durationInMinutes = filme.runtime || 0;
-
-
   const hours = Math.floor(durationInMinutes / 60);
   const minutes = durationInMinutes % 60;
 
   useEffect(() => {
     async function dadosFav() {
-      const userdatalhes = localStorage.getItem("@usuario");
-   
+      
 
-      if (userdatalhes) {
-        const data = JSON.parse(userdatalhes);
-
-        
-
+      if (user) {
+      
         const tarefaRef = collection(db, "cineData");
 
         const q = query(
           tarefaRef,
-     
-          where("userUid", "==", data?.uid)
+          where("userUid", "==", user.uid)
         );
 
-         onSnapshot(q, (Snapshot) => {
-
+        const unsubscribe = onSnapshot(q, (Snapshot) => {
           let lista = [];
           Snapshot.forEach((doc) => {
             lista.push({
               id: doc.id,
               favorito: doc.data().favorito
-      
             });
-            
           });
-         setnovo(lista);
-    
-        }); 
+          setnovo(lista);
+        });
+
+      
+        return () => unsubscribe();
       }
     }
-    dadosFav();
-  }, []);
 
-   useEffect(()=>{
-    async function dados(){
-      const userdatalhes = localStorage.getItem("@usuario");
-      settuser(JSON.parse(userdatalhes));
+    if (user) {
+      dadosFav();
     }
-    dados()
-   },[])
- async function salvarfilme() {
- 
-  
+  }, [user]);
 
-    const hasfilme = novo.some(
-      (novo) => novo.favorito.id === filme.id
-    );
+  const hasfilme = novo.some((novo) => novo.id === filme.id);
 
+  async function salvarfilme() {
     if (hasfilme) {
       toast.warn("Este filme ja esta Salvo!");
-      return;
+    } else {
+      toast.success("Filme salvo com sucesso!");
+      const documentoRef = doc(db, "cineData", user.uid);
+      await updateDoc(documentoRef, {
+        favorito: arrayUnion(user2)
+      });
     }
-  
-
-    toast.success("Filme salvo com sucesso!");
-    await addDoc(collection(db,"cineData"),{
-      userUid: user?.uid,
-      favorito: user2
-      
-    })
-    .then(() => {
-      console.log("registrado");
-     
-    })
-  
-    .catch((error) => {
-      console.log("error ao registrar" + error);
-    });
   }
+
   const settings = {
     className: "Sliders2",
     dots: false,
@@ -207,7 +176,6 @@ function Filme() {
     slidesToScroll: 4,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
-  
     responsive: [
       {
         breakpoint: 1024,
@@ -239,6 +207,7 @@ function Filme() {
       }
     ]
   };
+
   function CustomPrevArrow({ onClick }) {
     return (
       <button className="custom-prev-arrow" onClick={onClick}>
@@ -263,10 +232,9 @@ function Filme() {
     );
   }
 
-  //e.release_dates.map((e)=>{return <div>{e.certification}</div>}
   return (
     <div className="filme_info2">
-      <Header/>
+      <Header />
       <div className="conjunto">
         <img
           className="capa"
@@ -275,9 +243,8 @@ function Filme() {
         />
       </div>
       <div className="info">
-        <div>
-          <h1 className="tituloFilme">{filme.title}</h1>
-          <div className="dateClassf">
+        <div className="date-classf-genere">
+        <div className="dateClassf">
             <div className="idadeIndicativa">
               {certificacao === "L" && (
                 <div className="BoxL">{certificacao}</div>
@@ -310,13 +277,30 @@ function Filme() {
             </div>
             <div className="idadeIndicativa">
               {certificacao < 1 && (
-                <div className="BoxI"> Classificação Indisponivel</div>
+                <div className="BoxI">Classificação Indisponivel</div>
               )}
             </div>
             <h3 className="data">
               {releaseYear} {hours}hrs {minutes}min
             </h3>
-          </div>{" "}
+          </div>
+          <div className="generosid">
+          
+          <div className="generos">
+            {filme.genres.map((e) => {
+              return (
+                <div className="nameGenere" key={e.id}>
+                  {e.name}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        </div>
+     
+        <div>
+          <h1 className="tituloFilme">{filme.title}</h1>
+         
         </div>
 
         <h3 className="sinopse">
@@ -324,23 +308,10 @@ function Filme() {
         </h3>
 
         <span className="subtitulo">{filme.overview}</span>
-        <div className="generosid">
-          <span>Generos:</span>{" "}
-          <div className="generos">
-            {filme.genres.map((e) => {
-              return (
-                <div className="nameGenere" key={e.id}>
-                  {e.name},{" "}
-                </div>
-              );
-            })}
-          </div>
-        </div>
+   
 
-        <div  className="buttons">
-          <Link
-            to={`/FilmePlay/${filme.imdb_id}`}
-          >
+        <div className="buttons">
+          <Link to={`/FilmePlay/${filme.imdb_id}`}>
             <button className="trailer">
               <Play className="playFilme" />
             </button>
@@ -353,9 +324,8 @@ function Filme() {
         <div className="titulosSeme2">
           <span>Titulos Semelhantes</span>
         </div>
-      
+
         <Slider className="slides1" {...settings}>
-          
           {genes.slice(0, 10).map((e) => {
             return (
               <article className="capa-Filme" key={e.id}>
@@ -369,10 +339,9 @@ function Filme() {
               </article>
             );
           })}
-          </Slider>
-   
+        </Slider>
       </div>
-      <MenuMobile/>
+      <MenuMobile />
     </div>
   );
 }

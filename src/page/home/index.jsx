@@ -14,6 +14,8 @@ import MenuMobile from "../../components/MenuMobile";
 import { UserContext } from "../../contexts/user";
 import { auth } from "../../firebaseConnect";
 import MenuSuspenso from "../../components/MenuSuspenso";
+import ApresentaçãoMobile from "../../components/apresentaçãoMobile";
+import Desktop from "../../components/apresentaçãoDesktop";
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {
@@ -21,8 +23,6 @@ function Home() {
   const [load, setLoad] = useState(true);
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
   const [filmesPorGenero, setFilmesPorGenero] = useState([]);
-  const [filmeAleatorio, setFilmeAleatorio] = useState([]);
-  //const { user } = useContext(UserContext);
   const [animaFilmes, setAnimaFilmes] = useState([]);
   const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
   const generoId = 28;
@@ -30,7 +30,8 @@ function Home() {
   const anima2 = 16;
   const { authStatus } = useContext(UserContext);
   const [series, setseries] = useState([]);
- 
+  const [poster, setPoster] = useState("");
+  
   useEffect(() => {
     if (auth) {
       if (authStatus === false) {
@@ -39,7 +40,7 @@ function Home() {
 
       
     }
-    console.log(auth)
+    
   },[authStatus]);
 
 
@@ -60,6 +61,7 @@ function Home() {
           params: {
             api_key: apiKey,
             language: "pt-BR",
+           
           },
         });
 
@@ -70,7 +72,7 @@ function Home() {
       
     };
     fetchData();
-  }, []);
+  }, [dataCompleta]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,32 +92,9 @@ function Home() {
       }
     };
 
-    const obterFilmeAleatorio = async () => {
-      try {
-        const resposta = await api.get("/discover/movie", {
-          params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-            sort_by: "popularity.desc",
-            language: "pt-BR",
-            "primary_release_date.lte": dataCompleta,
-            page: Math.floor(Math.random() * 100) + 1,
-          },
-        });
-
-        const { results } = resposta.data;
-        if (results && results.length > 0) {
-          const filmeAleatorio = results[0];
-          setFilmeAleatorio(filmeAleatorio);
-        } else {
-          console.error("Nenhum filme aleatório encontrado.");
-        }
-      } catch (erro) {
-        console.error("Erro ao obter filme aleatório:", erro);
-      }
-    };
 
     fetchData();
-    obterFilmeAleatorio();
+   
   }, [dataCompleta]);
 
   useEffect(() => {
@@ -181,7 +160,24 @@ function Home() {
     };
     terror();
   },[dataCompleta]);
+  
+  useEffect(() => {
+    const tela480 = window.matchMedia("(max-width: 480px)");
 
+    const handleResize = (e) => {
+      if (e.matches) {
+        setPoster("poster_path");
+      } else {
+        setPoster("backdrop_path");
+      }
+    };
+    handleResize(tela480); 
+    tela480.addEventListener('change', handleResize);
+
+ 
+    return () => tela480.removeEventListener('change', handleResize);
+  }, []);
+  console.log(poster)
   const settings = {
     dots: false,
     infinite: true,
@@ -214,11 +210,9 @@ function Home() {
         breakpoint: 480,
         settings: {
           variableWidth: true,
-          centerMode: false,
           slidesToShow: 3,
-          prevArrow: <CustomPrevArrow />,
-          nextArrow: <CustomNextArrow />,
-          slidesToScroll: 3,
+          infinite: true,
+          slidesToScroll: 4,
         },
       },
     ],
@@ -247,40 +241,25 @@ function Home() {
       </div>
     );
   }
-
+ 
   return (
     <div className="container2">
       <Header />
       <MenuSuspenso/>
       <div className="slide">
         <div className="ConjuntoSlide">
-          <div className="textoConjuntoSlide">
-            <div className="tituloSlide">
-              <div>{filmeAleatorio.title}</div>
-            </div>
-            <div className="resumoSlide">{filmeAleatorio.overview}</div>
-            <div className="botoesSlide">
-              <div>
-                <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
-                  <button className="assistirSlide">Assisir</button>
-                </Link>
-              </div>
-              <div>
-                <Link to={`/filme/${filmeAleatorio.id}`}>
-                  <button className="verSlide">Ver Mais</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="imgSlideDiv">
-            <div className="sombra"></div>
-            <img
-            alt="filmeSlide"
-              className="imgSlide"
-              src={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`}
-            />
-            <div className="sombra"></div>
-          </div>
+         
+         
+            {poster === "poster_path" &&(
+              <ApresentaçãoMobile/>
+            )}
+             {poster === "backdrop_path" &&(
+              <Desktop/>
+            )}
+            
+            
+            
+       
         </div>
       </div>
 
@@ -289,7 +268,7 @@ function Home() {
           <span>Em alta</span>
         </div>
         <div >
-          <Slider  {...settings}>
+          <Slider className="slides01"  {...settings}>
             {Filmes.map((filmes) => {
               return (
                 <article  key={filmes.id}>
@@ -310,10 +289,10 @@ function Home() {
           <span>Filmes de Ação</span>
         </div>
 
-        <Slider className="slides11" {...settings}>
+        <Slider {...settings}>
           {filmesPorGenero.slice().map((filme) => {
             return (
-              <article className="capa-Filme2" key={filme.id}>
+              <article  key={filme.id}>
                 <Link className="botao" to={`/filme/${filme.id}`}>
                   <div>
                     <img
@@ -331,7 +310,7 @@ function Home() {
           <span>Animação</span>
         </div>
 
-        <Slider className="slides1" {...settings}>
+        <Slider {...settings}>
           {filmesPorGenero2.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>
@@ -352,7 +331,7 @@ function Home() {
         <div className="tituloCat">
           <span>Filmes de terror</span>
         </div>
-        <Slider className="slides1" {...settings}>
+        <Slider {...settings}>
           {animaFilmes.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>
@@ -371,7 +350,7 @@ function Home() {
         <div className="tituloCat">
           <span>Filmes de talkshow</span>
         </div>
-        <Slider className="slides1" {...settings}>
+        <Slider {...settings}>
           {series.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>

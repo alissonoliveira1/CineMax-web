@@ -8,7 +8,7 @@ import { UserContext }  from '../../contexts/user'
 import { useContext } from 'react';
 function Menu() {
    const {photo} = useContext(UserContext)
-   console.log(photo)
+
   async function handleMenu(){
    document.querySelector('.containerMSuspenso').classList.toggle('activeSuspenso')
   }
@@ -24,7 +24,7 @@ function Menu() {
    
 
     </div>
- <div className='icons-menu' onClick={handleMenu} ><div>{photo.map((e,index)=>{return(<div key={index} className='combo-avatar'><div className='div-image-perfil'><img className='img-perfil' src={e.usuario.icon} alt="avatar" /></div></div>)})}</div></div>
+ <div className='icons-menu ' onClick={handleMenu} ><div>{photo.map((e,index)=>{return(<div key={index} className='combo-avatar'><div className='div-image-perfil'><img className='img-perfil' src={e.usuario} alt="avatar" /></div></div>)})}</div></div>
 </div>
 
 

@@ -31,9 +31,6 @@
   flex-wrap: wrap;
 }
 
-.imagem:hover{
-transform: scale(1.1);
-}
 
 .lista-filmes{
     list-style: none;

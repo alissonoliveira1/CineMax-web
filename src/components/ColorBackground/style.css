@@ -1,0 +1,32 @@
+.boxShadow{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+.imgBackground{
+ 
+    width: 100%;
+    height: 90vh;
+    background-size: cover;
+    
+
+}
+@media (max-width: 480px){
+    .imgBackground{
+        border-radius: 20px;
+        border: 2px solid rgb(180, 180, 180);
+        width: 70%;
+        height: 50vh;
+        background-size: cover;
+        background-clip: border-box;
+       
+    }
+    .boxShadow{
+     
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+}

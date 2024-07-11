@@ -2,6 +2,19 @@
     z-index: 60;
     display: none;
 }
+.mobi-name-icon span{
+    font-size: 16px;
+    font-family: sans-serif;
+    color: rgb(218, 218, 218);
+    font-weight: bold;
+
+}
+.mobi-name-icon{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    flex-direction: column;
+}
 @media (max-width:480px) {
     .container-menu-Mobile{
         position: fixed;
@@ -9,13 +22,14 @@
         bottom: 0;
         display: flex;
     }
+    
     .Pai-menu-mobile{
         display: flex;
      width: 100%;
      height: 100vh;
      align-items: center;
      justify-content: space-around;
-     max-height: 37px;
+     max-height: 55px;
         background-color: rgb(5, 5, 5);
     }
     .div-opcoes-mobile{
@@ -50,7 +64,7 @@
         max-height:35px ;
         width:100% ;
         height:100% ;
-        background-color: rgb(54, 54, 54);
+        
     }
     .button-Sair-Mobile{
         background-color: transparent;

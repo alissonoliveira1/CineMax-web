@@ -6,13 +6,19 @@ import { ReactComponent as Google } from "./icon/google.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { provider } from "../../firebaseConnect";
 import { getAuth, signInWithPopup} from "firebase/auth";
-
+import { UserContext }  from '../../contexts/user'
+import { useContext } from 'react';
 const Img = require("./imagemNet.jpg");
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navegador = useNavigate();
+
+  const { user } = useContext(UserContext)
+  if(user){
+    navegador('/home')
+  }
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -45,7 +51,7 @@ export default function Login() {
   async function loginGoogle() {
     signInWithPopup(auth, provider)
   .then(() => {
-    navegador('/home')
+    navegador('/perfil')
 
   }).catch((error) => {
 console.log(error)
