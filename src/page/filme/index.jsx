@@ -1,5 +1,5 @@
 import "./style.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext,useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
@@ -27,24 +27,30 @@ import {
 } from "firebase/firestore";
 
 function Filme() {
+  const [filme, setfilme] = useState([]);
   const [genes, setgenes] = useState([]);
+
   const [certificacao, setCertificacao] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
   const [load, setload] = useState(true);
-  const [filme, setfilme] = useState([]);
-  const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
   const [poster, setPoster] = useState("");
   const [user2, setuser2] = useState({});
   const [novo, setnovo] = useState([]);
   const { user } = useContext(UserContext);
+  const { apiKey } = useContext(UserContext);
+  
+  const genreIds = useMemo(() => 
+    filme.genres ? filme.genres.map((genre) => genre.id) : [],
+    [filme.genres]
+  );
 
   useEffect(() => {
     async function loadFilme() {
       try {
         const response = await api.get(`/movie/${id}`, {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             language: "pt-BR",
             append_to_response: "release_dates",
           },
@@ -59,14 +65,15 @@ function Filme() {
     }
 
     loadFilme();
-  }, [id, navigate]);
+  }, [id, navigate,apiKey]);
 
   useEffect(() => {
     async function fetchSimilarMovies() {
+      
       try {
         const response = await api.get("discover/movie", {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             language: "pt-BR",
             with_genres: genreIds.join(","),
           },
@@ -80,7 +87,7 @@ function Filme() {
     if (genreIds.length > 0) {
       fetchSimilarMovies();
     }
-  }, [genreIds]);
+  }, [genreIds, apiKey]);
 
   useEffect(() => {
     async function buscarCertificacao() {
@@ -89,7 +96,7 @@ function Filme() {
           `https://api.themoviedb.org/3/movie/${id}/release_dates`,
           {
             params: {
-              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+              api_key: apiKey,
             },
           }
         );
@@ -113,7 +120,7 @@ function Filme() {
     }
 
     buscarCertificacao();
-  }, [id]);
+  }, [id, apiKey]);
 
   const releaseYear = filme.release_date ? filme.release_date.substring(0, 4) : "";
   const durationInMinutes = filme.runtime || 0;

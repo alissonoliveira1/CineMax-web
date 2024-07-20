@@ -4,9 +4,8 @@ import { ReactComponent as House2 } from './icon/house.svg';
 import { ReactComponent as Like } from './icon/heart.svg';
 import { ReactComponent as Serie } from './icon/collection-play.svg';
 import { ReactComponent as Filmes } from './icon/film.svg';
-import { ReactComponent as Sair } from './icon/door-open.svg';
-import { auth } from '../../firebaseConnect';
-import { signOut } from 'firebase/auth';
+
+
 import { UserContext }  from '../../contexts/user'
 import { useContext } from 'react';
 export default function MenuMobile(){
@@ -17,9 +16,7 @@ export default function MenuMobile(){
      document.querySelector('.containerMSuspenso').classList.add('activeSuspenso')
     }
 
-    async function handleSair(){
-        await signOut(auth)
-      }
+    
     return(
       <div>  
         <div className="container-menu-Mobile">

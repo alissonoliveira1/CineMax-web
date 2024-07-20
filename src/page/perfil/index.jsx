@@ -3,13 +3,12 @@ import { db } from "../../firebaseConnect";
 import { useState, useEffect } from "react";
 import './style.css'
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/user";
 import { useContext } from "react";
 import { 
     doc,
     setDoc,
-    addDoc,
+  
     collection,
     onSnapshot,
     query,
@@ -19,7 +18,6 @@ function Perfil() {
     const navegador = useNavigate()
     const [end, setend] = useState(null)
     const [user1, settuser] = useState([]);
-    const [user2, settuser2] = useState({});
     const [criacao, setcriacao] = useState("")
    const [user3, settuser3] = useState([])
 
@@ -83,15 +81,9 @@ useEffect(() => {
       }
     }
     dadosFav();
-  }, []);
+  }, [user]);
 
-   useEffect(()=>{
-    async function dados(){
-      const userdatalhes = localStorage.getItem("@usuario");
-      settuser2(JSON.parse(userdatalhes));
-    }
-    dados()
-   },[])
+
   function salvarfilme(){
  
     const hasfilme = user1.some(

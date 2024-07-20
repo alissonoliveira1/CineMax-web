@@ -13,6 +13,7 @@ const UserContext = createContext();
 const UserProvider = ({children}) => {
     const [user,setuser] = useState(null)
     const [photo, setphoto] = useState([])
+    const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b"
 useEffect(()=>{
     const userdatalhes = localStorage.getItem("@usuario");
       onAuthStateChanged(auth, (usuario) => {
@@ -66,7 +67,7 @@ const authStatus = user ? user.emailVerified : null;
      setuser(null)
     }
     return(
-        <UserContext.Provider value={{authStatus, photo ,user ,login,loginout}}>
+        <UserContext.Provider value={{authStatus,apiKey, photo ,user ,login,loginout}}>
           {children}
         </UserContext.Provider>
     )

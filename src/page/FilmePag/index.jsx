@@ -15,7 +15,6 @@ import Desktop from "../../components/apresentaçãoDesktop";
 function FilmePag() {
   const [desc, setdesc] = useState([]);
   const [acao, setacao] = useState([]);
-  const [slide, setslide] = useState([]);
   const [load, setload] = useState(true);
   const [horror, sethorror] = useState([]);
   const [comedia, setcomedia] = useState([]);
@@ -23,10 +22,9 @@ function FilmePag() {
   const [fantasia, setfantasia] = useState([]);
   const [romance, setromance] = useState([]);
   const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
-  const ac_av = [12, 28];
-  const ro_su = [10749, 18];
-  const fc_fn = [14, 878];
-  const tr_su = [9648, 27];
+  
+ 
+ 
   const [poster, setPoster] = useState("");
 
 
@@ -52,6 +50,172 @@ function FilmePag() {
  
     return () => tela480.removeEventListener('change', handleResize);
   }, []);
+
+
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados4 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          with_genres:'9648, 27',
+          "primary_release_date.lte": dataCompleta,
+          language: "pt-br",
+          page: 1,
+        },
+      });
+      setload(false);
+      sethorror(dados4.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey])
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados2 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          "primary_release_date.lte": dataCompleta,
+          with_genres: "12,28",
+          language: "pt-br",
+          page: 1,
+        },
+      });
+
+      setacao(dados2.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey])
+
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados8 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          with_genres: "10749,18",
+          "primary_release_date.lte": dataCompleta,
+          language: "pt-br",
+          page: 1,
+        },
+      });
+      setromance(dados8.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey])
+
+
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados6 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          "primary_release_date.lte": dataCompleta,
+          with_genres: 35,
+          language: "pt-br",
+          page: 1,
+        },
+      });
+      setcomedia(dados6.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey])
+
+
+
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados7 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          with_genres: 18,
+          "primary_release_date.lte": dataCompleta,
+          language: "pt-br",
+          page: 1,
+        },
+      });
+      setanimation(dados7.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey,])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+useEffect(() => {
+  const data = async () => {
+
+    try{
+      const dados5 = await api.get("discover/movie", {
+        params: {
+          api_key: apiKey,
+          with_genres: "14, 878",
+          "primary_release_date.lte": dataCompleta,
+          language: "pt-br",
+          page: 1,
+        },
+      });
+      setfantasia(dados5.data.results);
+    }catch(error){
+
+    }
+  }
+  data()
+},[ dataCompleta, apiKey])
+
+
+
+
+
+
+
+
+
+
+
   useEffect(() => {
     const data = async () => {
       try {
@@ -66,96 +230,20 @@ function FilmePag() {
         });
         setdesc(dados.data.results);
 
-        const dados2 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            "primary_release_date.lte": dataCompleta,
-            with_genres: ac_av.join(","),
-            language: "pt-br",
-            page: 1,
-          },
-        });
+        
 
-        setacao(dados2.data.results);
-
-        const dados3 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            language: "pt-br",
-            "primary_release_date.lte": dataCompleta,
-            sort_by: "popularity.desc",
-            page: Math.floor(Math.random() * 100) + 1,
-          },
-        });
-        const { results } = dados3.data;
-        if (results && results.length > 0) {
-          const FilmeSlide = results[0];
-          setslide(FilmeSlide);
-        } else {
-          console.log("nenhum filme encontrado");
-        }
-
-        const dados4 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            with_genres: tr_su.join(","),
-            "primary_release_date.lte": dataCompleta,
-            language: "pt-br",
-            page: 1,
-          },
-        });
-        setload(false);
-        sethorror(dados4.data.results);
-
-        const dados5 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            with_genres: fc_fn.join(","),
-            "primary_release_date.lte": dataCompleta,
-            language: "pt-br",
-            page: 1,
-          },
-        });
-        setfantasia(dados5.data.results);
-
-        const dados6 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            "primary_release_date.lte": dataCompleta,
-            with_genres: 35,
-            language: "pt-br",
-            page: 1,
-          },
-        });
-        setcomedia(dados6.data.results);
-
-        const dados7 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            with_genres: 16,
-            "primary_release_date.lte": dataCompleta,
-            language: "pt-br",
-            page: 1,
-          },
-        });
-        setanimation(dados7.data.results);
-
-        const dados8 = await api.get("discover/movie", {
-          params: {
-            api_key: apiKey,
-            with_genres: ro_su.join(","),
-            "primary_release_date.lte": dataCompleta,
-            language: "pt-br",
-            page: 1,
-          },
-        });
-        setromance(dados8.data.results);
+        
       } catch (erro) {
         console.log(erro + "filme não encontrado");
       }
     };
     data();
-  }, []);
+  }, [  dataCompleta, apiKey]);
+
+
+
+
+
 
   if (load) {
     return (

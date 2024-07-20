@@ -27,7 +27,7 @@ function Serie() {
       try {
         const resposta = await api.get("/discover/tv", {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             sort_by: "popularity.desc",
             language: "pt-BR",
             "primary_release_date.lte": dataCompleta,
@@ -62,7 +62,7 @@ function Serie() {
         });
         
         setserie(response.data.results);
-        console.log(serie)
+        
       
       } 
       catch(erro) {
@@ -71,7 +71,7 @@ function Serie() {
     };
     fetchData();
 
-  }, []);
+  }, [ apiKey ]);
 
   useEffect(()=>{
     const fetchData2 = async () => {
@@ -91,7 +91,7 @@ function Serie() {
       }
     };
     fetchData2();
-  },[])
+  },[apiKey])
   const settings = {
     dots: false,
     infinite: true,

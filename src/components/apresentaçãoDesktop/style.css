@@ -3,7 +3,7 @@
     justify-content: center;
     display: flex;
     z-index: -1;
-    
+    margin-bottom: 40vh;
   }
   .resumoSlide {
     width: 400px;
@@ -90,3 +90,8 @@
     filter: brightness(1.1);
     transform: scale(1.1);
   }
+ @media (max-width:900px) {
+  .slide{
+    margin-bottom: 0px;
+  }
+ }

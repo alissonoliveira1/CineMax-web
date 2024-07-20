@@ -24,11 +24,12 @@ function Home() {
   const [filmesPorGenero2, setFilmesPorGenero2] = useState([]);
   const [filmesPorGenero, setFilmesPorGenero] = useState([]);
   const [animaFilmes, setAnimaFilmes] = useState([]);
-  const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
+  
   const generoId = 28;
   const acion = 27;
   const anima2 = 16;
   const { authStatus } = useContext(UserContext);
+  const { apiKey } = useContext(UserContext);
   const [series, setseries] = useState([]);
   const [poster, setPoster] = useState("");
   
@@ -72,7 +73,7 @@ function Home() {
       
     };
     fetchData();
-  }, [dataCompleta]);
+  }, [dataCompleta,apiKey]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +96,7 @@ function Home() {
 
     fetchData();
    
-  }, [dataCompleta]);
+  }, [dataCompleta,apiKey]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -117,7 +118,7 @@ function Home() {
     };
 
     fetchData();
-  }, [dataCompleta]);
+  }, [dataCompleta,apiKey]);
 
   useEffect(() => {
     const animation = async () => {
@@ -137,7 +138,7 @@ function Home() {
       }
     };
     animation();
-  },[dataCompleta]);
+  },[dataCompleta, apiKey]);
 
   useEffect(() => {
     const terror = async () => {
@@ -159,7 +160,7 @@ function Home() {
       }
     };
     terror();
-  },[dataCompleta]);
+  },[dataCompleta,apiKey]);
   
   useEffect(() => {
     const tela480 = window.matchMedia("(max-width: 480px)");
