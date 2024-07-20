@@ -47,7 +47,7 @@ let dataCompleta = `${ano}-${mes}-${dia}`;
 
 
    return  (
-     <div clas>
+     <div className="div-mobile-style">
       <Colorbackground imageSrc={`https://image.tmdb.org/t/p//original/${filmeAleatorio.poster_path}`}/>
      </div>
   );

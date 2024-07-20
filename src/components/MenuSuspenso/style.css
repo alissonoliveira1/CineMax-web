@@ -46,7 +46,8 @@ display: block;
     justify-content: center;
     flex-direction: column;
     row-gap: 20px;
-   width: 40%;
+   width: 48%;
+   max-width:100% ;
 }
 .menu-ul-suspenso li{
     margin: 0;

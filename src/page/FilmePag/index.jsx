@@ -4,12 +4,14 @@ import api from "../../services";
 import "./style.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
+import MenuSuspenso from "../../components/MenuSuspenso";
 import "slick-carousel/slick/slick-theme.css";
 import { ReactComponent as Left } from "./icon/left.svg";
 import { ReactComponent as Right } from "./icon/right.svg";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
-
+import ApresentaçãoMobile from "../../components/apresentaçãoMobile";
+import Desktop from "../../components/apresentaçãoDesktop";
 function FilmePag() {
   const [desc, setdesc] = useState([]);
   const [acao, setacao] = useState([]);
@@ -25,12 +27,31 @@ function FilmePag() {
   const ro_su = [10749, 18];
   const fc_fn = [14, 878];
   const tr_su = [9648, 27];
+  const [poster, setPoster] = useState("");
+
+
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
   let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
   let dia = ("0" + dataAtual.getDate()).slice(-2);
   let dataCompleta = `${ano}-${mes}-${dia}`;
 
+  useEffect(() => {
+    const tela480 = window.matchMedia("(max-width: 480px)");
+
+    const handleResize = (e) => {
+      if (e.matches) {
+        setPoster("poster_path");
+      } else {
+        setPoster("backdrop_path");
+      }
+    };
+    handleResize(tela480); 
+    tela480.addEventListener('change', handleResize);
+
+ 
+    return () => tela480.removeEventListener('change', handleResize);
+  }, []);
   useEffect(() => {
     const data = async () => {
       try {
@@ -143,14 +164,45 @@ function FilmePag() {
       </div>
     );
   }
+ 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 8,
     slidesToScroll: 4,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+    variableWidth: true,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 8,
+          slidesToScroll: 4,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          variableWidth: true,
+          slidesToShow: 3,
+          infinite: true,
+          slidesToScroll: 4,
+        },
+      },
+    ],
   };
 
   function CustomPrevArrow({ onClick }) {
@@ -172,35 +224,19 @@ function FilmePag() {
   return (
     <div className="listaPaiFilmes">
       <Header />
+      <MenuSuspenso/>
       <div className="slide">
         <div className="ConjuntoSlide">
-          <div className="textoConjuntoSlide">
-            <div className="tituloSlide">
-              <div>{slide.title}</div>
-            </div>
-            <div className="resumoSlide">{slide.overview}</div>
-            <div className="botoesSlide">
-              <div>
-                <a href={`https://superflixapi.top/filme/${slide.id}`}>
-                  <button className="assistirSlide">Assisir</button>
-                </a>
-              </div>
-              <div>
-                <Link to={`/filme/${slide.id}`}>
-                  <button className="verSlide">Ver Mais</button>
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className="imgSlideDiv">
-            <img
-              alt="capa-filme"
-              className="imgSlide"
-              src={`https://image.tmdb.org/t/p//original/${slide.backdrop_path}`}
-            />
-            <div className="sombra"></div>
-          </div>
+
+  {poster === "poster_path" &&(
+              <ApresentaçãoMobile/>
+            )}
+             {poster === "backdrop_path" &&(
+              <Desktop/>
+            )}
+
         </div>
+    
       </div>
       <div className="tituloCat">
         <span>Filmes</span>

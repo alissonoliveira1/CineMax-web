@@ -16,13 +16,19 @@
     flex-direction: column;
 }
 @media (max-width:480px) {
+    html{
+        height: 100%;
+        max-height: 55px;
+      }
     .container-menu-Mobile{
         position: fixed;
         width: 100%;
         bottom: 0;
         display: flex;
     }
-    
+    .barraespaco{
+        height: 55px;
+    }
     .Pai-menu-mobile{
         display: flex;
      width: 100%;
@@ -78,6 +84,7 @@
         bottom: 0;
         display: flex;
     }
+   
     .Pai-menu-mobile{
         display: flex;
      width: 100%;

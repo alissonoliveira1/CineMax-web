@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../firebaseConnect";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
+import MenuSuspenso from "../../components/MenuSuspenso";
 import { UserContext } from "../../contexts/user";
 import {
   query,
@@ -72,9 +73,11 @@ function Favoritos() {
     }
   }, [user]);
   console.log(novo);
+
   return (
     <div className="PaideTodesFav">
       <Header />
+      <MenuSuspenso/>
       <div className="fav2">
         <h1>Filmes Salvos</h1>
       </div>

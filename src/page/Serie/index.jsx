@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
+import MenuSuspenso from "../../components/MenuSuspenso";
 import api from "../../services";
 import Header from "../../components/header";
 import Slider from "react-slick";
@@ -13,16 +14,48 @@ function Serie() {
   const [serie, setserie] = useState([]);
   const [serieAnime, setserieAnime] = useState([]);
   const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
-  const ac_av = [12,28]
+  const [filmeAleatorio, setFilmeAleatorio] = useState({});
+  let dataAtual = new Date();
+  let ano = dataAtual.getFullYear().toString();
+  let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+  let dia = ("0" + dataAtual.getDate()).slice(-2);
+  let dataCompleta = `${ano}-${mes}-${dia}`;
+  useEffect(() => {
+        
+    
+    const obterFilmeAleatorio = async () => {
+      try {
+        const resposta = await api.get("/discover/tv", {
+          params: {
+            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            sort_by: "popularity.desc",
+            language: "pt-BR",
+            "primary_release_date.lte": dataCompleta,
+            page: Math.floor(Math.random() * 100) + 1,
+          },
+        });
 
+        const { results } = resposta.data;
+        if (results && results.length > 0) {
+          const filmeAleatorio = results[0];
+          setFilmeAleatorio(filmeAleatorio);
+        } else {
+          console.error("Nenhum filme aleatório encontrado.");
+        }
+      } catch (erro) {
+        console.error("Erro ao obter filme aleatório:", erro);
+      }
+    };
+    obterFilmeAleatorio();
+  }, [dataCompleta]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await api.get("discover/tv?", {
+        const response = await api.get("discover/tv", {
           params: {
             api_key: apiKey,
-            with_genres: 28, 
+            with_genres: 16, 
             language: "pt-br",
             page: 1
           }
@@ -30,14 +63,14 @@ function Serie() {
         
         setserie(response.data.results);
         console.log(serie)
+      
       } 
-      catch (error) {
-        console.log(error);
+      catch(erro) {
+        console.log(erro);
       }
     };
     fetchData();
 
-   
   }, []);
 
   useEffect(()=>{
@@ -46,7 +79,7 @@ function Serie() {
         const response2 = await api.get("discover/tv?", {
           params: {
             api_key: apiKey,
-            with_genres: ac_av.join(','),
+            with_genres: 10759,
   
             language: "pt-br",
             page: 1,
@@ -58,7 +91,7 @@ function Serie() {
       }
     };
     fetchData2();
-  },[ac_av])
+  },[])
   const settings = {
     dots: false,
     infinite: true,
@@ -67,6 +100,36 @@ function Serie() {
     slidesToScroll: 4,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+    variableWidth: true,
+
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 8,
+          slidesToScroll: 4,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          variableWidth: true,
+          slidesToShow: 3,
+          infinite: true,
+          slidesToScroll: 4,
+        },
+      },
+    ],
   };
 
   function CustomPrevArrow({ onClick }) {
@@ -85,20 +148,41 @@ function Serie() {
     );
   }
   return (
-    <div>
+    <div className="container2">
       <Header/>
-    <div className="container3">
-      
+      <MenuSuspenso/>
+    <div className="listaPaiFilmes">
+    <div className="slide">
+        <div className="ConjuntoSlide">
+          <div className="textoConjuntoSlide">
+            <div className="tituloSlide">
+              <div>{filmeAleatorio.name}</div>
+            </div>
+            <div className="resumoSlide">{filmeAleatorio.overview}</div>
+            <div className="botoesSlide">
+              <div>
+                <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
+                  <button className="assistirSlide">Assisir</button>
+                </Link>
+              </div>
+              
+            </div>
+          </div>
+  <img src={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`} alt="" />
+             
+    
+        </div>
+      </div>
       <div className="TituloPag">
         <span>Series</span>
       </div>
       <div className="tituloCat">
         <span>Serie de animação</span>
       </div>
-      <Slider className="slides1" {...settings}>
+      <Slider  {...settings}>
         {serie.map((item) => {
           return (
-            <div className="capa-Filme" key={item.id}>
+            <article  key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
                 <img
                 alt="capa-serie"
@@ -106,17 +190,17 @@ function Serie() {
                   src={`https://image.tmdb.org/t/p//original/${item.poster_path}`}
                 />
               </Link>
-            </div>
+            </article>
           );
         })}
       </Slider>
       <div className="tituloCat">
         <span>Serie de animação</span>
       </div>
-      <Slider className="slides1" {...settings}>
+      <Slider  {...settings}>
         {serieAnime.map((item) => {
           return (
-            <div className="capa-Filme" key={item.id}>
+            <article  key={item.id}>
               <Link to={`/SeriePage/${item.id}`}>
                 <img
                 alt="capa-serie"
@@ -124,7 +208,7 @@ function Serie() {
                   src={`https://image.tmdb.org/t/p//original/${item.poster_path}`}
                 />
               </Link>
-            </div>
+            </article>
           );
         })}
       </Slider>

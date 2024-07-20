@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../../services";
 import './style.css'
+import MenuSuspenso from "../../components/MenuSuspenso";
 import axios from "axios";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
@@ -82,6 +83,7 @@ console.log(selectedSeason)
   return (
     <div key={filme.id}>
       <Header/>
+      <MenuSuspenso/>
       <div className="conjunto">
       <img
         className="capa"

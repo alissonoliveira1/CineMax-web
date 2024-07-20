@@ -177,7 +177,7 @@ function Home() {
  
     return () => tela480.removeEventListener('change', handleResize);
   }, []);
-  console.log(poster)
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -254,7 +254,13 @@ function Home() {
               <ApresentaçãoMobile/>
             )}
              {poster === "backdrop_path" &&(
-              <Desktop/>
+              <div className="cataaz">
+                <Desktop/>
+                
+              </div>
+              
+
+              
             )}
             
             
@@ -354,7 +360,7 @@ function Home() {
           {series.slice().map((filme) => {
             return (
               <article className="capa-Filme" key={filme.id}>
-                <Link className="botao" to={`/filme/${filme.id}`}>
+                <Link className="botao" to={`/SeriePage/${filme.id}`}>
                   <img
                     className="imagem"
                     alt={filme.title}

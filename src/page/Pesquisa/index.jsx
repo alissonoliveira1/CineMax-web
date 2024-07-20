@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "../../components/header";
 import erros from "./erro.png";
 import "./style.css";
+import MenuSuspenso from "../../components/MenuSuspenso";
 import MenuMobile from "../../components/MenuMobile";
 function Pesquisa() {
   const location = useLocation();
@@ -10,6 +11,7 @@ function Pesquisa() {
   return (
     <>
   <Header/>
+  <MenuSuspenso/>
     <div className="pesquisa2">
       
        

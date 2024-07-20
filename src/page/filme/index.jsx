@@ -11,6 +11,7 @@ import axios from "axios";
 import { db } from "../../firebaseConnect";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
+import MenuSuspenso from "../../components/MenuSuspenso";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -33,7 +34,7 @@ function Filme() {
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
   const genreIds = filme.genres ? filme.genres.map((genre) => genre.id) : [];
-
+  const [poster, setPoster] = useState("");
   const [user2, setuser2] = useState({});
   const [novo, setnovo] = useState([]);
   const { user } = useContext(UserContext);
@@ -166,7 +167,22 @@ function Filme() {
       });
     }
   }
+  useEffect(() => {
+    const tela480 = window.matchMedia("(max-width: 480px)");
 
+    const handleResize = (e) => {
+      if (e.matches) {
+        setPoster("poster_path");
+      } else {
+        setPoster("backdrop_path");
+      }
+    };
+    handleResize(tela480); 
+    tela480.addEventListener('change', handleResize);
+
+ 
+    return () => tela480.removeEventListener('change', handleResize);
+  }, []);
   const settings = {
     className: "Sliders2",
     dots: false,
@@ -200,9 +216,8 @@ function Filme() {
           variableWidth: true,
           centerMode: false,
           slidesToShow: 3,
-          prevArrow: <CustomPrevArrow />,
-          nextArrow: <CustomNextArrow />,
-          slidesToScroll: 3
+        
+          slidesToScroll: 4
         }
       }
     ]
@@ -235,12 +250,31 @@ function Filme() {
   return (
     <div className="filme_info2">
       <Header />
+      <MenuSuspenso/>
       <div className="conjunto">
-        <img
-          className="capa"
-          alt={filme.title}
-          src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
-        />
+      {poster === "poster_path" &&(
+        <div>
+ <div className="divImgfilme">
+                <img
+              className="capaMobile"
+              alt={filme.title}
+              src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+            />
+            
+              </div>
+              <div className="sombras"></div>
+        </div>
+             
+              
+            )}
+             {poster === "backdrop_path" &&(
+               <img
+               className="capa"
+               alt={filme.title}
+               src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
+             />
+            )}
+       
       </div>
       <div className="info">
         <div className="date-classf-genere">
@@ -281,10 +315,35 @@ function Filme() {
               )}
             </div>
             <h3 className="data">
-              {releaseYear} {hours}hrs {minutes}min
+            <div>{hours}h{minutes}min</div> <div>{releaseYear}</div>
             </h3>
           </div>
-          <div className="generosid">
+          
+        </div>
+     
+        <div>
+          <h1 className="tituloFilme">{filme.title}</h1>
+         
+        </div>
+<div className="buttonPlay"> <Link to={`/FilmePlay/${filme.imdb_id}`}>
+            <button className="trailerPlay">
+              <Play className="playFilme" /> <span>Assistir agora</span>
+            </button>
+          </Link></div>
+        <h3 className="sinopse">
+          <strong>Sinopse</strong>
+        </h3>
+
+        <span className="subtitulo">{filme.overview}</span>
+   
+
+        <div className="buttons">
+         
+          <button onClick={salvarfilme} className="salvar">
+            <Core className="salvarFilme" />
+          </button>
+        </div>
+        <div className="generosid">
           
           <div className="generos">
             {filme.genres.map((e) => {
@@ -296,39 +355,14 @@ function Filme() {
             })}
           </div>
         </div>
-        </div>
-     
-        <div>
-          <h1 className="tituloFilme">{filme.title}</h1>
-         
-        </div>
-
-        <h3 className="sinopse">
-          <strong>Sinopse</strong>
-        </h3>
-
-        <span className="subtitulo">{filme.overview}</span>
-   
-
-        <div className="buttons">
-          <Link to={`/FilmePlay/${filme.imdb_id}`}>
-            <button className="trailer">
-              <Play className="playFilme" />
-            </button>
-          </Link>
-          <button onClick={salvarfilme} className="salvar">
-            <Core className="salvarFilme" />
-          </button>
-        </div>
-
         <div className="titulosSeme2">
           <span>Titulos Semelhantes</span>
         </div>
 
-        <Slider className="slides1" {...settings}>
+        <Slider  {...settings}>
           {genes.slice(0, 10).map((e) => {
             return (
-              <article className="capa-Filme" key={e.id}>
+              <article  key={e.id}>
                 <Link to={`/filme/${e.id}`}>
                   <img
                     className="imagem"
@@ -340,6 +374,7 @@ function Filme() {
             );
           })}
         </Slider>
+
       </div>
       <MenuMobile />
     </div>

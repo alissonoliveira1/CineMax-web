@@ -2,6 +2,7 @@
 import { useState,useEffect } from "react";
 import api from "../../services";
 import './style.css';
+import { ReactComponent as IconPlay } from "../../page/home/icon/icon-play.svg";
 import { Link } from "react-router-dom";
 import Colorbackground from "../ColorBackground";
 function Desktop(){
@@ -52,7 +53,7 @@ const [filmeAleatorio, setFilmeAleatorio] = useState({});
             <div className="botoesSlide">
               <div>
                 <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
-                  <button className="assistirSlide">Assisir</button>
+                  <button className="assistirSlide"><div><IconPlay className="icon-bnt-play"/></div><div className="text-bnt-play"><span>Assisir</span></div></button>
                 </Link>
               </div>
               

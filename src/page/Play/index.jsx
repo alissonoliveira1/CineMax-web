@@ -11,7 +11,7 @@ function Play() {
       <iframe
         className="videoF"
         title="play"
-        src={`https://embedder.net/e/${id}/${season_number}/${episode_number}`}
+        src={` https://superflixapi.dev/serie/${id}/${season_number}/${episode_number}#noLink#noEpList#transparent#color:004aad`}
         scrolling="no"
         frameborder="0"
         allowfullscreen=""
