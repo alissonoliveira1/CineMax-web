@@ -2,6 +2,7 @@
  import Colorbackground from "../ColorBackground";
  import api from "../../services";
 import './style.css';
+import { Link } from "react-router-dom";
  function  ApresentaçãoMobile() {
 const [filmeAleatorio, setFilmeAleatorio] = useState({});
 
@@ -47,9 +48,9 @@ let dataCompleta = `${ano}-${mes}-${dia}`;
 
 
    return  (
-     <div className="div-mobile-style">
+     <Link to={`/FilmePlay/${filmeAleatorio.id}`} className="div-mobile-style">
       <Colorbackground imageSrc={`https://image.tmdb.org/t/p//original/${filmeAleatorio.poster_path}`}/>
-     </div>
+     </Link>
   );
 }
 export default ApresentaçãoMobile;
