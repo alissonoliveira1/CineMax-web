@@ -28,7 +28,7 @@ if(img.complete){
 return(
     <div  className='boxShadow'>
  
-    <div className='div-mobile-color'><img className='imgBackground' ref={imageRef} src={imageSrc} alt="Movie or Show" style={{ boxShadow: `0px 0px 100px 100px ${color}`, backgroundColor:color }}  crossOrigin="anonymous"/></div>
+    <div style={{ boxShadow: `0px 0px 100px 100px ${color}`, backgroundColor:color }} className='div-mobile-color'><img className='imgBackground' ref={imageRef} src={imageSrc} alt="Movie or Show" style={{ backgroundColor:color }}  crossOrigin="anonymous"/></div>
     <div style={{ boxShadow: `0 100px 50px 140px ${color}`, backgroundColor:color }} className='shadow-background-div'></div>
   </div>
 );
