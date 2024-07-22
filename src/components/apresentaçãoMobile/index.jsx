@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function ApresentacaoMobile() {
   const [filmeAleatorio, setFilmeAleatorio] = useState({});
   const [color, setColor] = useState("");
+  const [sombra, setsombra] = useState("");
   const imageRef = useRef(null);
 
   let dataAtual = new Date();
@@ -64,6 +65,7 @@ function ApresentacaoMobile() {
     const colorThief = new ColorThief();
     const color = colorThief.getColor(imgElement);
     setColor(`rgb(${color[0]},${color[1]},${color[2]})`);
+    setsombra(`rgb(${color[0]},${color[1]},${color[2]}.804)`);
   };
 
   return (
@@ -80,7 +82,7 @@ function ApresentacaoMobile() {
       />
      </div>
    
-      <div  className="bnts-mobile-slide">
+      <div  className="bnts-mobile-slide" style={{boxShadow: `inset 0px -60px 50px 5px ${sombra}`}}>
         <div className="bnt-slide ">
           <Link to={`/FilmePlay/${filmeAleatorio.id}`}><button className="bnt-slide-asistir">Assistir</button></Link>
         </div>

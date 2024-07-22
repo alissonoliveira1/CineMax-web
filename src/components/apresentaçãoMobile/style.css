@@ -10,7 +10,7 @@
     border-radius: 20px;
     background-color: transparent;
     justify-content: space-around;
-    box-shadow: inset 0px -60px 50px 5px rgba(0, 0, 0, 0.904);
+    
     
 }
 .bnt-slide{
@@ -23,26 +23,28 @@
     display: flex;
     font-size: 16px;
     align-items: center;
-    border-radius: 5px;
-    color: white;
+    border-radius: 2px;
+    color: black;
     font-style: normal;
     font-weight: 600;
     background-color: transparent;
-    border: 1px solid white;
+    border: none;
+    background-color: white;
     justify-content: center;
 width: 100%;
 height: 30px;
 }
 .bnt-slide-favoritos{
     display: flex;
-    background-color: rgba(255, 255, 255, 0.692);
-    border: 1px solid white;
+    background-color: rgba(148, 148, 148, 0.247);
+   
+    border: none;
     font-size: 16px;
-    color: black;
+    color: rgb(238, 238, 238);
     font-style: normal;
     font-weight: 600;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 2px;
     justify-content: center;
 width: 100%;
 height: 30px;
