@@ -69,14 +69,16 @@ function ApresentacaoMobile() {
   return (
     <div className="div-mobile-style">
     
-      <img
+     <div className="Div-img-Background" style={{ boxShadow: `0px 10px 100px 100px ${color}`, backgroundColor: color }}>
+     <img
       className="imgBackground"
         ref={imageRef}
-        style={{ boxShadow: `0px 10px 100px 100px ${color}`, backgroundColor: color }}
+        
         src={img}
         alt="Poster"
         crossOrigin="anonymous"
       />
+     </div>
    
       <div  className="bnts-mobile-slide">
         <div className="bnt-slide ">
