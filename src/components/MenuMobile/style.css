@@ -47,15 +47,13 @@
         justify-content: center;
         display:flex ;
     }
-    .div-opcoes-mobile a, button {
+    .div-opcoes-mobile a{
 
         font-family: sans-serif;
        color: white;
        
     }
-    .div-opcoes-mobile a, button:hover{
-
-    }
+   
     .icon-menu-Mobile{
         width: 18px;
         height: 18px;

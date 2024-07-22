@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ColorThief from 'colorthief';
 import './style.css';
+
 const Colorbackground = ({imageSrc}) => {
 const [color, setColor] = useState("");
 const imageRef = useRef(null);

@@ -246,6 +246,7 @@ function Home() {
   return (
     <div className="container2">
       <Header />
+      <MenuMobile />
       <MenuSuspenso/>
       <div className="slide">
         <div className="ConjuntoSlide">
@@ -373,7 +374,7 @@ function Home() {
           })}
         </Slider>
       </div>
-      <MenuMobile />
+      
     </div>
   );
 }

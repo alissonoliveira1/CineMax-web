@@ -1,0 +1,88 @@
+.bnts-mobile-slide{
+    width: 90%;
+    position:relative ;
+    height: 70vh;
+    display: flex;
+    align-items: flex-end;
+    top: 0;
+    left: 0;
+    border-radius: 20px;
+    background-color: transparent;
+    justify-content: space-around;
+    box-shadow: inset 0px -60px 50px 5px rgba(0, 0, 0, 0.904);
+    
+}
+.bnt-slide{
+  
+    width: 40%;
+    
+    margin-bottom: 15px;
+}
+.bnt-slide-asistir{
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+    border-radius: 8px;
+    color: white;
+    background-color: transparent;
+    border: 1px solid white;
+    justify-content: center;
+width: 100%;
+height: 30px;
+}
+.bnt-slide-favoritos{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.692);
+    border: 1px solid white;
+    font-size: 16px;
+    color: black;
+    align-items: center;
+    border-radius: 8px;
+    justify-content: center;
+width: 100%;
+height: 30px;
+}
+.div-mobile-style{
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 50px;
+}
+@media (max-width: 480px){
+    .Div-img-Background{
+        box-shadow: 0 5px 15px 1px black ;
+        border-radius: 20px;
+     
+        width: 90%;
+        position:absolute ;
+        height: 70vh;
+        margin: 0;
+     
+    }
+    .imgBackground{
+        box-shadow: 0 5px 150px 10px black ;
+        border-radius: 20px;
+        border: 1px solid rgb(180, 180, 180);
+        width:90%;
+        position:absolute ;
+        height: 70vh;
+        margin: 0;
+        background-size: cover;
+        background-clip: border-box;
+       
+    }
+    .div-mobile-color{
+        width: 90%;
+    }
+    .shadow-background-div{
+        display: none;
+    }
+    .boxShadow{
+     
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+    }
+}
