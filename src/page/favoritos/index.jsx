@@ -77,17 +77,15 @@ function Favoritos() {
   return (
     <div className="PaideTodesFav">
       <Header />
-      <MenuSuspenso/>
+      <MenuSuspenso />
       <div className="fav2">
         <h1>Filmes Salvos</h1>
       </div>
-
-      {novo.length === 1 && (
+      {dados.length === 0 && (
         <span className="vaziofav">
           Voce não adicionou nenhum filme aos favoritos
         </span>
       )}
-
       <div className="center">
         {novo.map((n) => (
           <ul className="pai-fav-ul" key={n.id}>

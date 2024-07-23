@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import MenuMobile from "../../components/MenuMobile";
 import { ReactComponent as Left } from "../home/icon/left.svg";
 import { ReactComponent as Right } from "../home/icon/right.svg";
+import ApresentacaoMobile from "../../components/apresentaçãoMobile";
 function Serie() {
   const [serie, setserie] = useState([]);
   const [serieAnime, setserieAnime] = useState([]);
@@ -152,26 +153,8 @@ function Serie() {
       <Header/>
       <MenuSuspenso/>
     <div className="listaPaiFilmes">
-    <div className="slide">
-        <div className="ConjuntoSlide">
-          <div className="textoConjuntoSlide">
-            <div className="tituloSlide">
-              <div>{filmeAleatorio.name}</div>
-            </div>
-            <div className="resumoSlide">{filmeAleatorio.overview}</div>
-            <div className="botoesSlide">
-              <div>
-                <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
-                  <button className="assistirSlide">Assisir</button>
-                </Link>
-              </div>
-              
-            </div>
-          </div>
-  <img src={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`} alt="" />
-             
-    
-        </div>
+    <div className="">
+<ApresentacaoMobile/>
       </div>
       <div className="TituloPag">
         <span>Series</span>
