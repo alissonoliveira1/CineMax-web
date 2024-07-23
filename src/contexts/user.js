@@ -43,7 +43,7 @@ useEffect(()=>{
               id: doc.id,
               nome: doc.data().nome,
               usuario: doc.data().usuario,
-              
+              favorito: doc.data().favorito,
       
             });
             
@@ -53,7 +53,7 @@ useEffect(()=>{
         }); 
       }
 
-},[])
+},[ user])
 const authStatus = user ? user.emailVerified : null;
     
      
