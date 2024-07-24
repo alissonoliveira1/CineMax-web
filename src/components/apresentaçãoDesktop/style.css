@@ -3,14 +3,41 @@
     justify-content: center;
     display: flex;
     z-index: -1;
-    margin-bottom: 40vh;
+    padding-bottom: 20%;
   }
-  .resumoSlide {
-    width: 400px;
+  .shadow-aleatorio-desk{
+    width: 100%;
+    height: 100%;
+    top: 0;
+
+    opacity: 1;
+    position: absolute;
+    right: 26.09%;
+    z-index: 0;
+    background: linear-gradient(77deg, rgba(0, 0, 0, .6), transparent 85%);
+  }
+  .textoConjuntoSlide {
+    left: 4%;
+    position: absolute;
+    top: 0;
+    bottom: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 1;
+    width: 36%;
+    margin: 0px;
+    cursor: default;
+  }
+  .conjunto-aleatorio-desk{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  .resumoSlide {   
     font-size: 1.2vw;
-   
     color: white;
-  
     display: -webkit-box;
     -webkit-line-clamp: 3;
     overflow: hidden;
@@ -29,6 +56,10 @@
     width: 100%;
     background-image: linear-gradient(180deg, hsla(0, 0%, 8%, 0) 0, hsla(0, 0%, 8%, .15) 15%, hsla(0, 0%, 8%, .35) 29%, hsla(0, 0%, 8%, .58) 44%, #141414 68%, #141414);
   }
+  .title-film-desk{
+    width: 100%;
+  }
+
   .img-desk-film-aleatorio {
     width: 100%;
     
@@ -48,14 +79,7 @@
     margin: 0;
     padding: 0;
   }
-  .textoConjuntoSlide {
-    position: absolute;
-    top: 15vw;
-    z-index: 1;
-    width: 90%;
-    margin: 40px;
-    cursor: default;
-  }
+
   
   
   
@@ -174,6 +198,8 @@
     z-index: 0;
 
 }
+
+
 
 
  @media (max-width:900px) {

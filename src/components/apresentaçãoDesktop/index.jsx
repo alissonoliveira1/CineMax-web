@@ -17,7 +17,8 @@ const [color, setColor] = useState("");
     let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
     let dia = ("0" + dataAtual.getDate()).slice(-2);
     let dataCompleta = `${ano}-${mes}-${dia}`;
-
+    const [logo, setLogo] = useState("");
+  
 
 
 
@@ -76,12 +77,40 @@ const [color, setColor] = useState("");
     
         obterFilmeAleatorio();
       }, [dataCompleta]);
+
+      
+    
+      useEffect(() => {
+        async function fetchLogo() {
+          try {
+            const response = await api.get(`/movie/${filmeAleatorio.id}/images`, {
+              params: {
+                api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+                language: "pt",
+              },
+            });
+    
+            const logos = response.data.logos;
+            console.log(logos);
+            if (logos && logos.length > 0) {
+              setLogo(`https://image.tmdb.org/t/p/original/${logos[0].file_path}`);
+            }
+          } catch (error) {
+            console.error("Erro ao buscar o logotipo do filme: ", error);
+          }
+        }
+    
+        fetchLogo();
+      }, [filmeAleatorio]);
+
+
     return(
         <div className="slide">
         <div className="ConjuntoSlide">
+        <div className="shadow-aleatorio-desk"></div>
           <div className="textoConjuntoSlide">
             <div className="tituloSlide">
-              <div>{filmeAleatorio.title}</div>
+              <div className="div-title-img-desk">  <img className="title-film-desk" alt="title film" src={logo}/> </div>
             </div>
             <div className="resumoSlide">{filmeAleatorio.overview}</div>
             <div className="botoesSlide">
