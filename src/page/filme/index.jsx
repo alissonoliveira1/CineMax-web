@@ -1,12 +1,15 @@
 import "./style.css";
-import { useState, useEffect, useContext,useMemo } from "react";
+import { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
-import { ReactComponent as Core } from "../filme/icon/heart.svg";
+import { ReactComponent as HeartA } from '../../components/apresentaçãoMobile/icon/heart.svg';
+import { ReactComponent as Camera } from './icon/camera-reels.svg';
+import { ReactComponent as HeartB } from '../../components/apresentaçãoMobile/icon/heart-fill.svg';
 import { ReactComponent as Play } from "../filme/icon/play-fill.svg"; 
 import { ReactComponent as Left } from "./icon/left.svg";
 import { ReactComponent as Right } from "./icon/right.svg";
+import { ReactComponent as Share } from "./icon/share.svg";
 import axios from "axios";
 import { db } from "../../firebaseConnect";
 import Header from "../../components/header";
@@ -23,23 +26,23 @@ import {
   collection,
   doc,
   updateDoc,
-  arrayUnion
+  arrayUnion,
+  arrayRemove,
+  getDoc
 } from "firebase/firestore";
 
 function Filme() {
-  const [filme, setfilme] = useState([]);
-  const [genes, setgenes] = useState([]);
-
+  const [filme, setFilme] = useState({});
+  const [genes, setGenes] = useState([]);
   const [certificacao, setCertificacao] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
-  const [load, setload] = useState(true);
+  const [load, setLoad] = useState(true);
   const [poster, setPoster] = useState("");
-  const [user2, setuser2] = useState({});
-  const [novo, setnovo] = useState([]);
-  const { user } = useContext(UserContext);
-  const { apiKey } = useContext(UserContext);
-  
+  const [favoritos, setFavoritos] = useState([]);
+  const { user, apiKey } = useContext(UserContext);
+  const textToShare = `https://cinemg.netlify.app/filme/${id}`
+
   const genreIds = useMemo(() => 
     filme.genres ? filme.genres.map((genre) => genre.id) : [],
     [filme.genres]
@@ -55,9 +58,8 @@ function Filme() {
             append_to_response: "release_dates",
           },
         });
-        setfilme(response.data);
-        setuser2(response.data);
-        setload(false);
+        setFilme(response.data);
+        setLoad(false);
       } catch (error) {
         console.log("filme não encontrado");
         navigate("/", { replace: true });
@@ -65,11 +67,10 @@ function Filme() {
     }
 
     loadFilme();
-  }, [id, navigate,apiKey]);
+  }, [id, navigate, apiKey]);
 
   useEffect(() => {
     async function fetchSimilarMovies() {
-      
       try {
         const response = await api.get("discover/movie", {
           params: {
@@ -78,7 +79,7 @@ function Filme() {
             with_genres: genreIds.join(","),
           },
         });
-        setgenes(response.data.results);
+        setGenes(response.data.results);
       } catch (error) {
         console.log("filme genero nao encontrado");
       }
@@ -128,52 +129,53 @@ function Filme() {
   const minutes = durationInMinutes % 60;
 
   useEffect(() => {
-    async function dadosFav() {
-      
-
+    async function fetchFavoritos() {
       if (user) {
-      
         const tarefaRef = collection(db, "cineData");
+        const q = query(tarefaRef, where("userUid", "==", user.uid));
 
-        const q = query(
-          tarefaRef,
-          where("userUid", "==", user.uid)
-        );
-
-        const unsubscribe = onSnapshot(q, (Snapshot) => {
+        onSnapshot(q, (snapshot) => {
           let lista = [];
-          Snapshot.forEach((doc) => {
-            lista.push({
-              id: doc.id,
-              favorito: doc.data().favorito
-            });
+          snapshot.forEach((doc) => {
+            const data = doc.data().favorito || [];
+            lista = [...lista, ...data.map(fav => fav.id)];
           });
-          setnovo(lista);
+          setFavoritos(lista);
         });
-
-      
-        return () => unsubscribe();
       }
     }
 
-    if (user) {
-      dadosFav();
-    }
+    fetchFavoritos();
   }, [user]);
 
-  const hasfilme = novo.some((novo) => novo.id === filme.id);
+  const isFavorito = favoritos.includes(filme.id);
 
-  async function salvarfilme() {
-    if (hasfilme) {
-      toast.warn("Este filme ja esta Salvo!");
-    } else {
-      toast.success("Filme salvo com sucesso!");
+  const salvarfilme = async () => {
+    try {
       const documentoRef = doc(db, "cineData", user.uid);
-      await updateDoc(documentoRef, {
-        favorito: arrayUnion(user2)
-      });
+
+      if (isFavorito) {
+        await updateDoc(documentoRef, {
+          favorito: arrayRemove({ id: filme.id, ...filme })
+        });
+        console.log("Filme removido dos favoritos:", filme.id);
+      } else {
+        await updateDoc(documentoRef, {
+          favorito: arrayUnion({ id: filme.id, ...filme })
+        });
+        console.log("Filme adicionado aos favoritos:", filme.id);
+      }
+
+      const docSnap = await getDoc(documentoRef);
+      if (docSnap.exists()) {
+        const favoritoArray = docSnap.data().favorito || [];
+        setFavoritos(favoritoArray.map((item) => item.id));
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar favoritos:", error);
     }
-  }
+  };
+
   useEffect(() => {
     const tela480 = window.matchMedia("(max-width: 480px)");
 
@@ -187,9 +189,9 @@ function Filme() {
     handleResize(tela480); 
     tela480.addEventListener('change', handleResize);
 
- 
     return () => tela480.removeEventListener('change', handleResize);
   }, []);
+
   const settings = {
     className: "Sliders2",
     dots: false,
@@ -223,7 +225,6 @@ function Filme() {
           variableWidth: true,
           centerMode: false,
           slidesToShow: 3,
-        
           slidesToScroll: 4
         }
       }
@@ -253,6 +254,16 @@ function Filme() {
       </div>
     );
   }
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(textToShare);
+      toast.success("Texto copiado para a área de transferência!");
+    } catch (err) {
+      console.error("Erro ao copiar texto: ", err);
+      toast.error("Erro ao copiar texto.");
+    }
+  };
 
   return (
     <div className="filme_info2">
@@ -284,6 +295,9 @@ function Filme() {
        
       </div>
       <div className="info">
+      <div className="div-titulofilme">
+          <h1 className="tituloFilme">{filme.title}</h1>
+        </div>
         <div className="date-classf-genere">
         <div className="dateClassf">
             <div className="idadeIndicativa">
@@ -328,28 +342,28 @@ function Filme() {
           
         </div>
      
-        <div>
-          <h1 className="tituloFilme">{filme.title}</h1>
-         
-        </div>
+        
 <div className="buttonPlay"> <Link to={`/FilmePlay/${filme.imdb_id}`}>
             <button className="trailerPlay">
               <Play className="playFilme" /> <span>Assistir agora</span>
             </button>
           </Link></div>
-        <h3 className="sinopse">
-          <strong>Sinopse</strong>
-        </h3>
-
+       
+          <div className="buttons">
+    
+    <button  onClick={salvarfilme} className="bnt-page-infos">
+      <span>
+        {isFavorito ? <div className="icon-name-page"><HeartB className="icon-salvar-page" /> <span className="bnt-text-page">salvo</span></div> : <div className="icon-name-page"><HeartA className="icon-salvar-page"  /><span className="bnt-text-page">salvar</span></div>}
+      </span>
+      
+    </button>
+    <button className="bnt-page-infos" onClick={handleShare}><div><Share className="icon-salvar-page" /></div><div><span className="bnt-text-page">compartilhar</span></div></button>
+  <button className="bnt-page-infos" ><div><Camera className="icon-salvar-page" /></div><div><span className="bnt-text-page">trailer</span></div></button>
+  </div>
         <span className="subtitulo">{filme.overview}</span>
    
 
-        <div className="buttons">
-         
-          <button onClick={salvarfilme} className="salvar">
-            <Core className="salvarFilme" />
-          </button>
-        </div>
+       
         <div className="generosid">
           
           <div className="generos">

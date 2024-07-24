@@ -11,44 +11,17 @@ import MenuMobile from "../../components/MenuMobile";
 import { ReactComponent as Left } from "../home/icon/left.svg";
 import { ReactComponent as Right } from "../home/icon/right.svg";
 import ApresentacaoMobile from "../../components/apresentaçãoMobile";
+import Desktop from "../../components/apresentaçãoDesktop";
 function Serie() {
+  const [poster, setPoster] = useState("");
   const [serie, setserie] = useState([]);
   const [serieAnime, setserieAnime] = useState([]);
   const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
-  const [filmeAleatorio, setFilmeAleatorio] = useState({});
-  let dataAtual = new Date();
-  let ano = dataAtual.getFullYear().toString();
-  let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
-  let dia = ("0" + dataAtual.getDate()).slice(-2);
-  let dataCompleta = `${ano}-${mes}-${dia}`;
-  useEffect(() => {
+
+  
         
     
-    const obterFilmeAleatorio = async () => {
-      try {
-        const resposta = await api.get("/discover/tv", {
-          params: {
-            api_key: apiKey,
-            sort_by: "popularity.desc",
-            language: "pt-BR",
-            "primary_release_date.lte": dataCompleta,
-            page: Math.floor(Math.random() * 100) + 1,
-          },
-        });
-
-        const { results } = resposta.data;
-        if (results && results.length > 0) {
-          const filmeAleatorio = results[0];
-          setFilmeAleatorio(filmeAleatorio);
-        } else {
-          console.error("Nenhum filme aleatório encontrado.");
-        }
-      } catch (erro) {
-        console.error("Erro ao obter filme aleatório:", erro);
-      }
-    };
-    obterFilmeAleatorio();
-  }, [dataCompleta]);
+    
 
   useEffect(() => {
     const fetchData = async () => {
@@ -148,14 +121,57 @@ function Serie() {
       </button>
     );
   }
+
+  useEffect(() => {
+    const tela480 = window.matchMedia("(max-width: 480px)");
+
+    const handleResize = (e) => {
+      if (e.matches) {
+        setPoster("poster_path");
+      } else {
+        setPoster("backdrop_path");
+      }
+    };
+    handleResize(tela480); 
+    tela480.addEventListener('change', handleResize);
+
+ 
+    return () => tela480.removeEventListener('change', handleResize);
+  }, []);
+
+
+ 
+
+
   return (
     <div className="container2">
       <Header/>
       <MenuSuspenso/>
-    <div className="listaPaiFilmes">
-    <div className="">
-<ApresentacaoMobile/>
+
+      <div className="slide">
+        <div className="ConjuntoSlide">
+         
+         
+            {poster === "poster_path" &&(
+              <ApresentacaoMobile/>
+            )}
+             {poster === "backdrop_path" &&(
+              <div className="cataaz">
+                <Desktop/>
+                
+              </div>
+              
+
+              
+            )}
+            
+            
+            
+       
+        </div>
       </div>
+    <div className="listaPaiFilmes">
+
       <div className="TituloPag">
         <span>Series</span>
       </div>
