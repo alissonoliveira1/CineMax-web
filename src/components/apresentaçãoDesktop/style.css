@@ -16,11 +16,24 @@
     overflow: hidden;
     -webkit-box-orient: vertical;
   }
-  .imgSlide {
-    width: 100vw;
+  .sombras-desk{
+    background-color: transparent;
+    background-position: 0 top;
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
+    bottom: -1px;
+    height: 14.7vw;
+    opacity: 1;
+    position: absolute;
+    top: auto;
+    width: 100%;
+    background-image: linear-gradient(180deg, hsla(0, 0%, 8%, 0) 0, hsla(0, 0%, 8%, .15) 15%, hsla(0, 0%, 8%, .35) 29%, hsla(0, 0%, 8%, .58) 44%, #141414 68%, #141414);
+  }
+  .img-desk-film-aleatorio {
+    width: 100%;
+    
+    position: absolute;
     overflow: hidden;
-    height: 50vw;
-  
     z-index: -1;
     filter: brightness(0.9);
   }
@@ -54,25 +67,71 @@
     margin-top: 20px;
   
   }
+  .div-botoesSlide-desk{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
   .assistirSlide {
     width: 100px;
-    height: 30px;
-    border: none;
-    display: flex;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    border-radius: 5px;
  
-    font-weight: 600;
+    border: none;
+    align-items: center;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    opacity: 1;
+    cursor: pointer;
+  }
+  .bnt-infoSlide-desk{
+    width: 150px;
+ 
+    border: none;
+    align-items: center;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    background-color: rgba(109, 109, 110, 0.7);;
+    border-radius: 4px;
+    opacity: 1;
     cursor: pointer;
   }
   .text-bnt-play span{
+    display: flex;
+    height: 30px;
+    align-items: center;
     font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
     color: black;
+  }
+  .text-bnt-info span{
+    display: flex;
+    height: 30px;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(255, 255, 255);
   }
   .icon-bnt-play{
     width: 30px;
     height: 30px;
+    color: black;
+}
+.icon-bnt-info{
+  width: 20px;
+  margin-right: 5px;
+  height: 20px;
+  color: rgb(255, 255, 255);
+}
+.div-desk-icon{
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
   .verSlide {
     cursor: pointer;

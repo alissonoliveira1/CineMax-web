@@ -1,18 +1,52 @@
 
-import { useState,useEffect } from "react";
+import { useState,useEffect, useRef } from "react";
 import api from "../../services";
 import './style.css';
-import { ReactComponent as IconPlay } from "../../page/home/icon/icon-play.svg";
+import ColorThief from 'colorthief';
+import { ReactComponent as IconPlay } from "./icon/play-fill.svg";
+import { ReactComponent as Info } from "./icon/info-circle.svg";
 import { Link } from "react-router-dom";
-import Colorbackground from "../ColorBackground";
-function Desktop(){
-const [filmeAleatorio, setFilmeAleatorio] = useState({});
 
+function Desktop(){
+const [sombra, setSombra] = useState("");
+const [filmeAleatorio, setFilmeAleatorio] = useState({});
+const img = `https://image.tmdb.org/t/p/original/${filmeAleatorio.backdrop_path}`;
+const [color, setColor] = useState("");
     let dataAtual = new Date();
     let ano = dataAtual.getFullYear().toString();
     let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
     let dia = ("0" + dataAtual.getDate()).slice(-2);
     let dataCompleta = `${ano}-${mes}-${dia}`;
+
+
+
+
+   
+    
+      const imageRef = useRef(null);
+      
+      useEffect(() => {
+        const imgElement = imageRef.current;
+        if (imgElement) {
+          const handleLoad = () => extractColor(imgElement);
+          if (imgElement.complete) {
+            handleLoad();
+          } else {
+            imgElement.addEventListener('load', handleLoad);
+            return () => {
+              imgElement.removeEventListener('load', handleLoad);
+            };
+          }
+        }
+      }, [img]);
+    
+      const extractColor = (imgElement) => {
+        const colorThief = new ColorThief();
+        const color = colorThief.getColor(imgElement);
+        setColor(`rgb(${color[0]},${color[1]},${color[2]})`);
+        setSombra(`rgb(${color[0]},${color[1]},${color[2]}, 0.804)`);
+      };
+
     useEffect(() => {
         
     
@@ -51,17 +85,20 @@ const [filmeAleatorio, setFilmeAleatorio] = useState({});
             </div>
             <div className="resumoSlide">{filmeAleatorio.overview}</div>
             <div className="botoesSlide">
-              <div>
+              <div className="div-botoesSlide-desk">
                 <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
-                  <button className="assistirSlide"><div><IconPlay className="icon-bnt-play"/></div><div className="text-bnt-play"><span>Assisir</span></div></button>
+                  <button className="assistirSlide"><div className="div-desk-icon"><IconPlay className="icon-bnt-play"/></div><div className="text-bnt-play"><span>Assistir</span></div></button>
+                </Link>
+                <Link to={`/Filme/${filmeAleatorio.id}`}>
+                  <button className="bnt-infoSlide-desk"><div className="div-desk-icon"><Info className="icon-bnt-info"/></div><div className="text-bnt-info"><span>Mais informações</span></div></button>
                 </Link>
               </div>
               
             </div>
           </div>
   
-              <Colorbackground imageSrc={`https://image.tmdb.org/t/p//original/${filmeAleatorio.backdrop_path}`}/>
-    
+          <div>   <img className="img-desk-film-aleatorio" src={img} alt="" /></div>
+         <div className="sombras-desk"></div>
         </div>
       </div>
     )
