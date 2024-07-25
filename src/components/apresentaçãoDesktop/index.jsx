@@ -1,135 +1,121 @@
-
-import { useState,useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import api from "../../services";
-import './style.css';
-import ColorThief from 'colorthief';
+import "./style.css";
+
 import { ReactComponent as IconPlay } from "./icon/play-fill.svg";
 import { ReactComponent as Info } from "./icon/info-circle.svg";
 import { Link } from "react-router-dom";
 
-function Desktop(){
-const [sombra, setSombra] = useState("");
-const [filmeAleatorio, setFilmeAleatorio] = useState({});
-const img = `https://image.tmdb.org/t/p/original/${filmeAleatorio.backdrop_path}`;
-const [color, setColor] = useState("");
-    let dataAtual = new Date();
-    let ano = dataAtual.getFullYear().toString();
-    let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
-    let dia = ("0" + dataAtual.getDate()).slice(-2);
-    let dataCompleta = `${ano}-${mes}-${dia}`;
-    const [logo, setLogo] = useState("");
-  
+function Desktop() {
+  const [filmeAleatorio, setFilmeAleatorio] = useState({});
+  const [logo, setLogo] = useState("");
+  let dataAtual = new Date();
+  let ano = dataAtual.getFullYear().toString();
+  let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
+  let dia = ("0" + dataAtual.getDate()).slice(-2);
+  let dataCompleta = `${ano}-${mes}-${dia}`;
 
+  useEffect(() => {
+    const obterFilmeAleatorio = async () => {
+      try {
+        const resposta = await api.get("/discover/movie", {
+          params: {
+            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            sort_by: "popularity.desc",
+            language: "pt-BR",
+            "primary_release_date.lte": dataCompleta,
+            page: Math.floor(Math.random() * 100) + 1,
+          },
+        });
 
-
-   
-    
-      const imageRef = useRef(null);
-      
-      useEffect(() => {
-        const imgElement = imageRef.current;
-        if (imgElement) {
-          const handleLoad = () => extractColor(imgElement);
-          if (imgElement.complete) {
-            handleLoad();
-          } else {
-            imgElement.addEventListener('load', handleLoad);
-            return () => {
-              imgElement.removeEventListener('load', handleLoad);
-            };
-          }
+        const { results } = resposta.data;
+        if (results && results.length > 0) {
+          const filmeAleatorio = results[0];
+          setFilmeAleatorio(filmeAleatorio);
+        } else {
+          console.error("Nenhum filme aleatório encontrado.");
         }
-      }, [img]);
-    
-      const extractColor = (imgElement) => {
-        const colorThief = new ColorThief();
-        const color = colorThief.getColor(imgElement);
-        setColor(`rgb(${color[0]},${color[1]},${color[2]})`);
-        setSombra(`rgb(${color[0]},${color[1]},${color[2]}, 0.804)`);
-      };
+      } catch (erro) {
+        console.error("Erro ao obter filme aleatório:", erro);
+      }
+    };
 
-    useEffect(() => {
-        
-    
-        const obterFilmeAleatorio = async () => {
-          try {
-            const resposta = await api.get("/discover/movie", {
-              params: {
-                api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-                sort_by: "popularity.desc",
-                language: "pt-BR",
-                "primary_release_date.lte": dataCompleta,
-                page: Math.floor(Math.random() * 100) + 1,
-              },
-            });
-    
-            const { results } = resposta.data;
-            if (results && results.length > 0) {
-              const filmeAleatorio = results[0];
-              setFilmeAleatorio(filmeAleatorio);
-            } else {
-              console.error("Nenhum filme aleatório encontrado.");
-            }
-          } catch (erro) {
-            console.error("Erro ao obter filme aleatório:", erro);
-          }
-        };
-    
-        obterFilmeAleatorio();
-      }, [dataCompleta]);
+    obterFilmeAleatorio();
+  }, [dataCompleta]);
 
-      
-    
-      useEffect(() => {
-        async function fetchLogo() {
-          try {
-            const response = await api.get(`/movie/${filmeAleatorio.id}/images`, {
-              params: {
-                api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-                language: "pt",
-              },
-            });
-    
-            const logos = response.data.logos;
-            console.log(logos);
-            if (logos && logos.length > 0) {
-              setLogo(`https://image.tmdb.org/t/p/original/${logos[0].file_path}`);
-            }
-          } catch (error) {
-            console.error("Erro ao buscar o logotipo do filme: ", error);
-          }
+  useEffect(() => {
+    async function fetchLogo() {
+      try {
+        const response = await api.get(`/movie/${filmeAleatorio.id}/images`, {
+          params: {
+            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            language: "pt",
+          },
+        });
+
+        const logos = response.data.logos;
+
+        if (logos && logos.length > 0) {
+          setLogo(logos[0].file_path);
         }
-    
-        fetchLogo();
-      }, [filmeAleatorio]);
+      } catch (error) {
+        console.error("Erro ao buscar o logotipo do filme: ", error);
+      }
+    }
 
+    fetchLogo();
+  }, [filmeAleatorio]);
 
-    return(
-        <div className="slide">
-        <div className="ConjuntoSlide">
+  const img = `https://image.tmdb.org/t/p/original/${filmeAleatorio.backdrop_path}`;
+
+  return (
+    <div className="slide">
+      <div className="ConjuntoSlide">
         <div className="shadow-aleatorio-desk"></div>
-          <div className="textoConjuntoSlide">
-            <div className="tituloSlide">
-              <div className="div-title-img-desk">  <img className="title-film-desk" alt="title film" src={logo}/> </div>
-            </div>
-            <div className="resumoSlide">{filmeAleatorio.overview}</div>
-            <div className="botoesSlide">
-              <div className="div-botoesSlide-desk">
-                <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
-                  <button className="assistirSlide"><div className="div-desk-icon"><IconPlay className="icon-bnt-play"/></div><div className="text-bnt-play"><span>Assistir</span></div></button>
-                </Link>
-                <Link to={`/Filme/${filmeAleatorio.id}`}>
-                  <button className="bnt-infoSlide-desk"><div className="div-desk-icon"><Info className="icon-bnt-info"/></div><div className="text-bnt-info"><span>Mais informações</span></div></button>
-                </Link>
-              </div>
-              
+        <div className="textoConjuntoSlide">
+          <div className="tituloSlide">
+            <div className="div-title-img-desk">
+             
+              <img
+                className="title-film-desk"
+                alt="title film"
+                src={`https://image.tmdb.org/t/p/original/${logo}`}
+              />
             </div>
           </div>
-  
-          <div>   <img className="img-desk-film-aleatorio" src={img} alt="" /></div>
-         <div className="sombras-desk"></div>
+          <div className="resumoSlide">{filmeAleatorio.overview}</div>
+          <div className="botoesSlide">
+            <div className="div-botoesSlide-desk">
+              <Link to={`/FilmePlay/${filmeAleatorio.id}`}>
+                <button className="assistirSlide">
+                  <div className="div-desk-icon">
+                    <IconPlay className="icon-bnt-play" />
+                  </div>
+                  <div className="text-bnt-play">
+                    <span>Assistir</span>
+                  </div>
+                </button>
+              </Link>
+              <Link to={`/Filme/${filmeAleatorio.id}`}>
+                <button className="bnt-infoSlide-desk">
+                  <div className="div-desk-icon">
+                    <Info className="icon-bnt-info" />
+                  </div>
+                  <div className="text-bnt-info">
+                    <span>Mais informações</span>
+                  </div>
+                </button>
+              </Link>
+            </div>
+          </div>
         </div>
+
+        <div className="div-img-background-desk">
+          <img className="img-desk-film-aleatorio" src={img} alt="" />
+        </div>
+        <div className="sombras-desk"></div>
       </div>
-    )
+    </div>
+  );
 }
 export default Desktop;

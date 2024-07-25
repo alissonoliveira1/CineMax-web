@@ -12,8 +12,8 @@ body {
   height:100vh ;
   border-radius: 50%;
   
-max-width:45px ;
-max-height:45px ;
+max-width:35px ;
+max-height:35px ;
 }
 .activeSuspenso{
  
@@ -35,23 +35,25 @@ max-height:45px ;
 }
 .MenuLat {
   display: flex;
-  justify-content: space-evenly;
+  gap: 20px;
+  margin-right: 40px;
+  justify-content: space-between;
   align-items: center;
 }
 .icons-menu {
   display: flex;
 
   justify-content: center;
-  width: 65px;
-  height: 65px;
+  width: 35px;
+  height: 35px;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+
 }
 .opcoes-menu {
   color: white;
-  font-size: 12px;
-  font-family: sans-serif;
+  font-size: 10px;
+
 }
 .opcoes-menu2 {
   margin-top: 4px;
@@ -62,14 +64,12 @@ max-height:45px ;
   gap: 30px;
 }
 .icon-menu2 {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   color: rgb(255, 255, 255);
 }
 .icons-menu:hover {
-  border-radius: 60px;
-  background-color: rgba(41, 41, 41, 0.863);
-  transition: 0.2s all;
+
 }
 .menuHamb {
   display: none;
@@ -105,7 +105,7 @@ max-height:45px ;
 }
 .opcoes-menu3 {
   font-size: 16px;
-  font-family: sans-serif;
+  
 }
 .blur {
   filter: blur(10px);

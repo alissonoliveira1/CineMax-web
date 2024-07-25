@@ -14,7 +14,8 @@ html {
   }
 }
 .listaPaiFilmes{
-  z-index: 80; 
+  position: relative;
+  z-index: 30; 
  
   
 }
@@ -66,16 +67,19 @@ align-items: center;
 .imagem:hover {
   background-color: white;
   transition: 0.1s all;
-  z-index: 25;
+ 
   
 }
 .imagem {
+  position: relative;
+
   transition: 0.1s all;
   padding: 2px;
   margin: 3px;
   width: 120px;
   height: 180px;
   border-radius: 10px;
+  z-index: 25;
 }
 .setas {
   display: flex;

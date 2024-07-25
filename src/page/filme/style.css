@@ -21,27 +21,33 @@ html::-webkit-scrollbar-thumb {
 .titulosSeme2 {
   padding: 20px 0;
 }
+.conjunto{
+  display: flex;
+  
 
+
+
+}
 .subtitulo {
   color: white;
-  font-size: 14px;
-
+  font-size: 12px;
+  font-weight: 300;
+  font-style: normal;
   width: 100%;
   display: flex;
 }
 .capa {
   z-index: -1;
-  width: 100vw;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+ top: 0;
+ left: 0;
+ right: 0;
   position: absolute;
-  filter: brightness(0.6);
+  filter: brightness(0.8);
 }
-.conjunto {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 .tituloFilme {
  
   width: 100%;
@@ -83,12 +89,9 @@ html::-webkit-scrollbar-thumb {
 .date-classf-genere{
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
-.generosid span {
-  color: rgb(141, 141, 141);
 
-  font-size: 14px;
-}
 .generos {
   display: flex;
   cursor: default;
@@ -108,7 +111,7 @@ html::-webkit-scrollbar-thumb {
   overflow-x: hidden;
   display: flex;
   border-radius: 8px;
-  margin-top: 80px;
+  margin-top: 130px;
   margin-left: 30px;
   padding: 20px;
 
@@ -116,11 +119,12 @@ html::-webkit-scrollbar-thumb {
   height: 35vw;
   flex-direction: column;
   background-color: rgba(27, 28, 34, 0.87);
+  box-shadow: 0px -10px 30px 30px rgba(27, 28, 34, 0.87);
 }
 .info::-webkit-scrollbar {
   border-radius: 10px;
-  background-color: rgb(27, 28, 34);
-  width: 10px;
+  background-color: rgba(27, 28, 34, 0.63);
+  width: 5px;
 }
 
 .info::-webkit-scrollbar-thumb {
@@ -135,16 +139,45 @@ html::-webkit-scrollbar-thumb {
   color: rgb(173, 173, 173);
 }
 .data {
-  color: rgb(173, 173, 173);
+display: flex;
+gap: 10px;
+}
+.horas-data-page{
   font-style: normal;
   font-weight: 300;
-  font-size: 15px;
+  font-size: 12px;
+  color: rgb(173, 173, 173);
 }
 .avalia {
   color: rgb(173, 173, 173);
 
   font-weight: 200;
   font-size: 17px;
+}
+.bnt-page-infos{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+.bnt-text-page{
+  font-size: 10px;
+  font-weight: 300;
+  font-style: normal;
+  color: white;
+
+}
+.icon-salvar-page{
+  width: 20px;
+  height: 20px;
+  color: white;
 }
 .salvar {
   display: flex;
@@ -162,23 +195,27 @@ html::-webkit-scrollbar-thumb {
 }
 
 .buttons {
-  margin: 10px 0;
-  gap: 30px;
+  margin: 15px 0;
+justify-content: space-evenly;
   display: flex;
+}
+.buttonPlay{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 .trailerPlay {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
+  width: 140px;
   height: 45px;
-  color: rgb(19, 19, 19);
-  border-radius: 10px;
-  border: 1px solid rgb(0, 0, 0);
+  border-radius: 4px;
   background-color: rgb(255, 255, 255);
+  border: none;
 
   cursor: pointer;
-  font-size: 17px;
+  
 }
 a {
   text-decoration: none;
@@ -187,8 +224,15 @@ a {
   width: 20px;
   height: auto;
 }
+.span-play-page{
+  color:black;
+  font-size: 14px;
+  font-weight:500;
+  font-style: normal;
+}
 .playFilme {
   width: 30px;
+  height: 30px;
   height: auto;
 }
 .pai_info {

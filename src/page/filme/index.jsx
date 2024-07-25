@@ -3,10 +3,10 @@ import { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
-import { ReactComponent as HeartA } from '../../components/apresentaçãoMobile/icon/heart.svg';
-import { ReactComponent as Camera } from './icon/camera-reels.svg';
-import { ReactComponent as HeartB } from '../../components/apresentaçãoMobile/icon/heart-fill.svg';
-import { ReactComponent as Play } from "../filme/icon/play-fill.svg"; 
+import { ReactComponent as HeartA } from "../../components/apresentaçãoMobile/icon/heart.svg";
+import { ReactComponent as Camera } from "./icon/camera-reels.svg";
+import { ReactComponent as HeartB } from "../../components/apresentaçãoMobile/icon/heart-fill.svg";
+import { ReactComponent as Play } from "../filme/icon/play-fill.svg";
 import { ReactComponent as Left } from "./icon/left.svg";
 import { ReactComponent as Right } from "./icon/right.svg";
 import { ReactComponent as Share } from "./icon/share.svg";
@@ -28,12 +28,13 @@ import {
   updateDoc,
   arrayUnion,
   arrayRemove,
-  getDoc
+  getDoc,
 } from "firebase/firestore";
 
 function Filme() {
   const [filme, setFilme] = useState({});
   const [genes, setGenes] = useState([]);
+  const [logo, setLogo] = useState("");
   const [certificacao, setCertificacao] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -41,10 +42,10 @@ function Filme() {
   const [poster, setPoster] = useState("");
   const [favoritos, setFavoritos] = useState([]);
   const { user, apiKey } = useContext(UserContext);
-  const textToShare = `https://cinemg.netlify.app/filme/${id}`
+  const textToShare = `https://cinemg.netlify.app/filme/${id}`;
 
-  const genreIds = useMemo(() => 
-    filme.genres ? filme.genres.map((genre) => genre.id) : [],
+  const genreIds = useMemo(
+    () => (filme.genres ? filme.genres.map((genre) => genre.id) : []),
     [filme.genres]
   );
 
@@ -101,10 +102,10 @@ function Filme() {
             },
           }
         );
-        
+
         const { results } = response.data;
         const certificacoes = results.find(
-          (result) => result.iso_3166_1 === "BR"
+          (result) => result.iso_3166_1 === "US"
         );
 
         if (certificacoes) {
@@ -123,7 +124,9 @@ function Filme() {
     buscarCertificacao();
   }, [id, apiKey]);
 
-  const releaseYear = filme.release_date ? filme.release_date.substring(0, 4) : "";
+  const releaseYear = filme.release_date
+    ? filme.release_date.substring(0, 4)
+    : "";
   const durationInMinutes = filme.runtime || 0;
   const hours = Math.floor(durationInMinutes / 60);
   const minutes = durationInMinutes % 60;
@@ -138,7 +141,7 @@ function Filme() {
           let lista = [];
           snapshot.forEach((doc) => {
             const data = doc.data().favorito || [];
-            lista = [...lista, ...data.map(fav => fav.id)];
+            lista = [...lista, ...data.map((fav) => fav.id)];
           });
           setFavoritos(lista);
         });
@@ -156,12 +159,12 @@ function Filme() {
 
       if (isFavorito) {
         await updateDoc(documentoRef, {
-          favorito: arrayRemove({ id: filme.id, ...filme })
+          favorito: arrayRemove({ id: filme.id, ...filme }),
         });
         console.log("Filme removido dos favoritos:", filme.id);
       } else {
         await updateDoc(documentoRef, {
-          favorito: arrayUnion({ id: filme.id, ...filme })
+          favorito: arrayUnion({ id: filme.id, ...filme }),
         });
         console.log("Filme adicionado aos favoritos:", filme.id);
       }
@@ -177,6 +180,28 @@ function Filme() {
   };
 
   useEffect(() => {
+    async function fetchLogo() {
+      try {
+        const response = await api.get(`/movie/${filme.id}/images`, {
+          params: {
+            api_key: apiKey,
+            language: "pt",
+          },
+        });
+
+        const logos = response.data.logos;
+       
+        if (logos && logos.length > 0) {
+          setLogo(logos[0].file_path);
+        }
+      } catch (error) {
+        console.error("Erro ao buscar o logotipo do filme: ", error);
+      }
+    }
+
+    fetchLogo();
+  }, [filme]);
+  useEffect(() => {
     const tela480 = window.matchMedia("(max-width: 480px)");
 
     const handleResize = (e) => {
@@ -186,10 +211,10 @@ function Filme() {
         setPoster("backdrop_path");
       }
     };
-    handleResize(tela480); 
-    tela480.addEventListener('change', handleResize);
+    handleResize(tela480);
+    tela480.addEventListener("change", handleResize);
 
-    return () => tela480.removeEventListener('change', handleResize);
+    return () => tela480.removeEventListener("change", handleResize);
   }, []);
 
   const settings = {
@@ -208,16 +233,16 @@ function Filme() {
           slidesToShow: 4,
           slidesToScroll: 4,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 2,
-          initialSlide: 2
-        }
+          initialSlide: 2,
+        },
       },
       {
         breakpoint: 480,
@@ -225,10 +250,10 @@ function Filme() {
           variableWidth: true,
           centerMode: false,
           slidesToShow: 3,
-          slidesToScroll: 4
-        }
-      }
-    ]
+          slidesToScroll: 4,
+        },
+      },
+    ],
   };
 
   function CustomPrevArrow({ onClick }) {
@@ -265,69 +290,77 @@ function Filme() {
     }
   };
 
+ 
+
   return (
     <div className="filme_info2">
       <Header />
-      <MenuSuspenso/>
+      <MenuSuspenso />
       <div className="conjunto">
-      {poster === "poster_path" &&(
-        <div>
- <div className="divImgfilme">
-                <img
-              className="capaMobile"
-              alt={filme.title}
-              src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
-            />
-            
-              </div>
-              <div className="sombras"></div>
-        </div>
-             
-              
-            )}
-             {poster === "backdrop_path" &&(
-               <img
-               className="capa"
-               alt={filme.title}
-               src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
-             />
-            )}
-       
+        {poster === "poster_path" && (
+          <div>
+            <div className="divImgfilme">
+              <img
+                className="capaMobile"
+                alt={filme.title}
+                src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+              />
+            </div>
+            <div className="sombras"></div>
+          </div>
+        )}
+        {poster === "backdrop_path" && (
+          <img
+            className="capa"
+            alt={filme.title}
+            src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
+          />
+        )}
       </div>
       <div className="info">
-      <div className="div-titulofilme">
-          <h1 className="tituloFilme">{filme.title}</h1>
+        <div className="div-titulofilme">
+        <div className="tituloSlide">
+            <div className="div-title-img-desk">
+             
+              <img
+                className="title-film-desk"
+                alt="title film"
+                src={`https://image.tmdb.org/t/p/original/${logo}`}
+              />
+            </div>
+          </div>
+        
         </div>
         <div className="date-classf-genere">
-        <div className="dateClassf">
+          <div className="dateClassf">
             <div className="idadeIndicativa">
-              {certificacao === "L" && (
-                <div className="BoxL">{certificacao}</div>
+              {certificacao === "G" && (
+                <div className="BoxL">L</div>
               )}
             </div>
             <div className="idadeIndicativa">
-              {certificacao === "10" && (
-                <div className="Box10">{certificacao}</div>
+              {certificacao === "PG" && (
+                <div className="Box10">10</div>
               )}
             </div>
             <div className="idadeIndicativa">
-              {certificacao === "12" && (
-                <div className="Box12">{certificacao}</div>
+              {certificacao === "PG-13" && (
+                <div className="Box12">12</div>
               )}
             </div>
             <div className="idadeIndicativa">
-              {certificacao === "14" && (
-                <div className="Box14">{certificacao}</div>
+              {certificacao === "PG-13" && (
+                <div className="Box14">14</div>
               )}
             </div>
             <div className="idadeIndicativa">
-              {certificacao === "16" && (
-                <div className="Box16">{certificacao}</div>
+              {certificacao === "R" && (
+                <div className="Box16">16</div>
               )}
             </div>
             <div className="idadeIndicativa">
-              {certificacao === "18" && (
-                <div className="Box18">{certificacao}</div>
+              {certificacao === "NC-17" && (
+                <div className="Box18">18</div>
               )}
             </div>
             <div className="idadeIndicativa">
@@ -335,37 +368,60 @@ function Filme() {
                 <div className="BoxI">Classificação Indisponivel</div>
               )}
             </div>
-            <h3 className="data">
-            <div>{hours}h{minutes}min</div> <div>{releaseYear}</div>
-            </h3>
+            <div className="data">
+              <div>
+                <span className="horas-data-page">{hours}h{minutes}min</span>
+              </div>
+              <div><span className="horas-data-page">{releaseYear}</span></div>
+            </div>
           </div>
-          
         </div>
-     
-        
-<div className="buttonPlay"> <Link to={`/FilmePlay/${filme.imdb_id}`}>
-            <button className="trailerPlay">
-              <Play className="playFilme" /> <span>Assistir agora</span>
-            </button>
-          </Link></div>
-       
-          <div className="buttons">
-    
-    <button  onClick={salvarfilme} className="bnt-page-infos">
-      <span>
-        {isFavorito ? <div className="icon-name-page"><HeartB className="icon-salvar-page" /> <span className="bnt-text-page">salvo</span></div> : <div className="icon-name-page"><HeartA className="icon-salvar-page"  /><span className="bnt-text-page">salvar</span></div>}
-      </span>
-      
-    </button>
-    <button className="bnt-page-infos" onClick={handleShare}><div><Share className="icon-salvar-page" /></div><div><span className="bnt-text-page">compartilhar</span></div></button>
-  <button className="bnt-page-infos" ><div><Camera className="icon-salvar-page" /></div><div><span className="bnt-text-page">trailer</span></div></button>
-  </div>
-        <span className="subtitulo">{filme.overview}</span>
-   
 
-       
+        <div className="buttonPlay">
+        
+          <Link to={`/FilmePlay/${filme.imdb_id}`}>
+            <button className="trailerPlay">
+              <Play className="playFilme" /> <span className="span-play-page">Assistir agora</span>
+            </button>
+          </Link>
+        </div>
+
+        <div className="buttons">
+          <button onClick={salvarfilme} className="bnt-page-infos">
+            <span>
+              {isFavorito ? (
+                <div className="icon-name-page">
+                  <HeartB className="icon-salvar-page" />
+                  <div><span className="bnt-text-page">salvo</span></div>
+                </div>
+              ) : (
+                <div className="icon-name-page">
+                  <HeartA className="icon-salvar-page" />
+                  <div><span className="bnt-text-page">salvar</span></div>
+                </div>
+              )}
+            </span>
+          </button>
+          <button className="bnt-page-infos" onClick={handleShare}>
+            <div>
+              <Share className="icon-salvar-page" />
+            </div>
+            <div>
+              <span className="bnt-text-page">compartilhar</span>
+            </div>
+          </button>
+          <button className="bnt-page-infos">
+            <div>
+              <Camera className="icon-salvar-page" />
+            </div>
+            <div>
+              <span className="bnt-text-page">trailer</span>
+            </div>
+          </button>
+        </div>
+        <span className="subtitulo">{filme.overview}</span>
+
         <div className="generosid">
-          
           <div className="generos">
             {filme.genres.map((e) => {
               return (
@@ -380,10 +436,10 @@ function Filme() {
           <span>Titulos Semelhantes</span>
         </div>
 
-        <Slider  {...settings}>
+        <Slider {...settings}>
           {genes.slice(0, 10).map((e) => {
             return (
-              <article  key={e.id}>
+              <article key={e.id}>
                 <Link to={`/filme/${e.id}`}>
                   <img
                     className="imagem"
@@ -395,7 +451,6 @@ function Filme() {
             );
           })}
         </Slider>
-
       </div>
       <MenuMobile />
     </div>

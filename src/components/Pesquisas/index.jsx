@@ -94,7 +94,7 @@ const lupas = document.querySelector(".pesquisa")
         
      
     return(
-        <div >
+        <div className='div-pesquisa-principal' >
   <form className='pesquisa' onSubmit={handleSubmit}>
        <div className='div-input' style={{ width: larguraInput }}> <input
         className='input-pesquisa'
