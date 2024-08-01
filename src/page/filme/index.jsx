@@ -218,12 +218,11 @@ function Filme() {
   }, []);
 
   const settings = {
-    className: "Sliders2",
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToShow: 3,
+    slidesToScroll: 3,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
     responsive: [
@@ -317,20 +316,22 @@ function Filme() {
           />
         )}
       </div>
-      <div className="info">
-        <div className="div-titulofilme">
-        <div className="tituloSlide">
-            <div className="div-title-img-desk">
+    <div className="mobile-scroll">
+    <div className="info">
+      <div className="conjunto-titulo-play">
+       
+            <div className="div-title-img-desk2">
              
               <img
-                className="title-film-desk"
-                alt="title film"
+                className="title-film-desk2"
+                alt={filme.title}
                 src={`https://image.tmdb.org/t/p/original/${logo}`}
               />
-            </div>
-          </div>
+            
+         
         
         </div>
+        <div className="conjuntos-bnt-genero">
         <div className="date-classf-genere">
           <div className="dateClassf">
             <div className="idadeIndicativa">
@@ -384,8 +385,8 @@ function Filme() {
               <Play className="playFilme" /> <span className="span-play-page">Assistir agora</span>
             </button>
           </Link>
+        </div></div>
         </div>
-
         <div className="buttons">
           <button onClick={salvarfilme} className="bnt-page-infos">
             <span>
@@ -453,6 +454,7 @@ function Filme() {
         </Slider>
       </div>
       <MenuMobile />
+    </div>
     </div>
   );
 }

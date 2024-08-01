@@ -78,7 +78,7 @@ function Desktop() {
              
               <img
                 className="title-film-desk"
-                alt="title film"
+                alt={filmeAleatorio.title}
                 src={`https://image.tmdb.org/t/p/original/${logo}`}
               />
             </div>
