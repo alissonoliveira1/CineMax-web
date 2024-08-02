@@ -200,7 +200,7 @@ function Filme() {
     }
 
     fetchLogo();
-  }, [filme]);
+  }, [filme, apiKey]);
   useEffect(() => {
     const tela480 = window.matchMedia("(max-width: 480px)");
 
