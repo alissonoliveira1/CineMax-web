@@ -453,8 +453,9 @@ function Filme() {
           })}
         </Slider>
       </div>
-      <MenuMobile />
-    </div>
+    
+    </div> 
+     <MenuMobile />
     </div>
   );
 }

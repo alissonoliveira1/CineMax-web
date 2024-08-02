@@ -30,7 +30,7 @@ html::-webkit-scrollbar-thumb {
 }
 .subtitulo {
   color: white;
-  font-size: 12px;
+  font-size: 75.5%;
   font-weight: 300;
   font-style: normal;
   width: 100%;
@@ -110,20 +110,22 @@ html::-webkit-scrollbar-thumb {
   justify-content: flex-end;
 }
 
-
-
-
-
 .imagem2{
 width: 100px;
 height: auto;
 display: flex;
 }
+.mobile-scroll{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 100vh;
+}
 .info {
   overflow-x: hidden;
   display: flex;
   border-radius: 8px;
-  margin-top: 160px;
+ 
   margin-left: 30px;
   padding: 20px;
 
@@ -145,12 +147,7 @@ display: flex;
   border-radius: 10px;
 }
 
-.sinopse {
-  width: 100%;
-  font-size: 15px;
 
-  color: rgba(3, 12, 22, 0.76);
-}
 .data {
 display: flex;
 gap: 10px;
@@ -350,7 +347,7 @@ a {
     background-color: transparent;
   }
   .bnt-text-page{
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 300;
     font-style: normal;
     color: white;
@@ -436,8 +433,6 @@ a {
   .divImgfilme{
 width: 100vw;
 height: auto;
-
-
   }
   .sombras{
 display: none;
@@ -445,17 +440,16 @@ display: none;
 box-shadow: 0px -10px 30px 50px rgba(216, 4, 4, 0.5);
   }
   .info {
- 
-    
-   
     display: flex;
+    overflow: visible;
     border-radius: 0px;
     margin:0;
-   
-position: relative;
+    justify-content: flex-end;
+    position: relative;
     padding: 0px;
+    top: 0;
     width: 100vw;
-    height: 70vh;
+    height: 80vh;
     flex-direction: column;
     background-color: rgba(3, 12, 22);
     box-shadow: 0px -30px 40px 30px rgb(3, 12, 22);
@@ -463,8 +457,9 @@ position: relative;
   }
   .conjunto-titulo-play{
     display: flex;
-    margin-top: 70px;
+    margin-top: 30px;
     position: relative;
+    z-index: 10;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -472,18 +467,19 @@ position: relative;
   }
   .div-title-img-desk2{
     display: flex;
-    width:50%;
+    width:55%;
     left: 10px;
-    top: -220px;
+    top: -130px;
 position: absolute;
     justify-content: center;
+    z-index: 10;
   }
   .title-film-desk2{
     width: 100%;
     height: auto;
   }
   .conjuntos-bnt-genero{
-    margin-left: 15px;
+    margin-left: 0px;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -492,19 +488,25 @@ position: absolute;
   
   
   .mobile-scroll{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
     position: relative;
-    z-index: 2;
-    top:65vh;
-    height: 100vh;
+    z-index: 10;
+    top:45vh;
+    height: 90vh;
+    margin-bottom: 0px;
   }
 
   .subtitulo {
     color: white;
     font-size: 16px;
       width: 350px;
+      margin-left: 10px;
      font-weight: 300;
      margin-bottom: 15px;
- 
+    
      font-style: normal;
       display: -webkit-box;
       -webkit-line-clamp: 3;
@@ -530,5 +532,8 @@ position: absolute;
     display: flex;
     cursor: default;
     gap: 1px;
+  }
+  .barraespaco{
+    display: none;
   }
 }
