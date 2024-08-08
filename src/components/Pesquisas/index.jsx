@@ -7,7 +7,7 @@ import api from '../../services';
 
     function Pesquisas() {
       const [valorPesquisa, setValorPesquisa] = useState('');
- 
+    const [poster, setposter] = useState('')
       const navigate = useNavigate();
       const [larguraInput, setLarguraInput] = useState(0);
       const keyApi = '9f4ef628222f7685f32fc1a8eecaae0b';
@@ -62,15 +62,29 @@ import api from '../../services';
       }, []);
 
 
-
+      useEffect(() => {
+        const tela480 = window.matchMedia("(max-width: 480px)");
+    
+        const handleResize = (e) => {
+          if (e.matches) {
+            setposter("220px");
+          } else {
+            setposter("250px");
+          }
+        };
+        handleResize(tela480);
+        tela480.addEventListener("change", handleResize);
+    
+        return () => tela480.removeEventListener("change", handleResize);
+      }, []);
 
 const lupas = document.querySelector(".pesquisa")
       const handleLupa = () => {
         if (larguraInput === '250px') {
-          setLarguraInput('0px');
+          setLarguraInput(poster);
           lupas.classList.add('pesquisaAtiva')
         } else {
-          setLarguraInput('250px');
+          setLarguraInput(poster);
           lupas.classList.add('pesquisaAtiva')
         }
       };
@@ -79,7 +93,7 @@ const lupas = document.querySelector(".pesquisa")
 
         if (larguraInput === '0px') {
           lupas.classList.add('pesquisaAtiva')
-          setLarguraInput('250px');
+          setLarguraInput('poster');
           
       }
         if(valorPesquisa !== ''){
@@ -95,8 +109,8 @@ const lupas = document.querySelector(".pesquisa")
      
     return(
         <div className='div-pesquisa-principal' >
-  <form className='pesquisa' onSubmit={handleSubmit}>
-       <div className='div-input' style={{ width: larguraInput }}> <input
+  <form className='pesquisa ' onSubmit={handleSubmit}>
+       <div className='div-input pesquisamobile' style={{ width: larguraInput }}> <input
         className='input-pesquisa'
           type="text"
           value={valorPesquisa}

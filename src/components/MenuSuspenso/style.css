@@ -1,7 +1,7 @@
 .containerMSuspenso{
     position: fixed;
     top: 0px;
-  
+  display: none;
     
     right: -1400px;
     width: 100vw;
@@ -25,7 +25,12 @@
 .active{
 display: block;
 }
-
+.activeSuspenso{
+   display: block;
+    transform: translateX(-87.5rem);
+    transition: 0.3s all;
+  
+  }
 
 .exit-recovery-js{
     display: none;
@@ -55,11 +60,11 @@ display: block;
     align-items: center;
     background-color: rgb(24, 31, 37);
     display: flex;
-    font-size: 20px;
+    font-size: 17px;
     display: flex;
     justify-content: center;
     border-radius: 10px;
-    height: 50px;
+    height: 40px;
     width: 100%;
     cursor: pointer;
     font-weight: 600;
@@ -99,9 +104,9 @@ display: block;
 }
 .name-usuario{
     margin: 0;
-    padding: 5px 0px 40px 0px;
+    padding: 5px 0px 25px 0px;
     box-sizing: border-box;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     color: #d6d6d6;
     text-align: center;

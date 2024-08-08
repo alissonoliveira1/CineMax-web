@@ -15,12 +15,7 @@ body {
 max-width:35px ;
 max-height:35px ;
 }
-.activeSuspenso{
- 
-  transform: translateX(-87.5rem);
-  transition: 0.3s all;
 
-}
 .div-image-perfil{
   display: flex;
 }
