@@ -341,14 +341,10 @@ function Filme() {
             </div>
             <div className="idadeIndicativa">
               {certificacao === "PG" && (
-                <div className="Box10">10</div>
+                <div className="Box10">12</div>
               )}
             </div>
-            <div className="idadeIndicativa">
-              {certificacao === "PG-13" && (
-                <div className="Box12">12</div>
-              )}
-            </div>
+            
             <div className="idadeIndicativa">
               {certificacao === "PG-13" && (
                 <div className="Box14">14</div>
