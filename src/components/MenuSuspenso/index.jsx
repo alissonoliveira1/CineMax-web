@@ -12,6 +12,7 @@ function MenuSuspenso() {
     function handdleDelete(){
       const deletar = document.querySelector('.deletar-conta22')
       deletar.classList.add('active')
+      document.querySelector('.recovery-div-suspenso').classList.remove('active')
     }
     async function handleSair(){
         await signOut(auth)
@@ -19,6 +20,7 @@ function MenuSuspenso() {
       function handdleRecovery(){
         const recovery = document.querySelector('.recovery-div-suspenso')
         recovery.classList.add('active')
+        document.querySelector('.deletar-conta22').classList.remove('active')
       }
       function haddleExit2(){
         document.querySelector('.containerMSuspenso').classList.remove('activeSuspenso')
@@ -27,10 +29,13 @@ function MenuSuspenso() {
   
   return (
     <div className="containerMSuspenso">
-         <div onClick={haddleExit2} className='exit-recovery2'><span>Voltar</span></div>
-        <div className="recovery-div-suspenso"><Recoverysenha /></div>
-        <div className="deletar-conta22"><DeleteConta/></div>
         
+      
+        <div  className="center-susp">
+
+        
+      <div className="center-susp-filho">
+      <div onClick={haddleExit2} className='exit-recovery2'><span>Voltar</span></div>
       <div>{photo.map((e, index)=>{
         return(
           <div key={index} className="icon-name-menuSusp">
@@ -48,6 +53,12 @@ function MenuSuspenso() {
         <li onClick={handleSair} >Sair</li>
         
       </ul>
+      </div>
+      </div>
+      </div>
+      <div className="telas-opcoes">
+      <div className="recovery-div-suspenso"><Recoverysenha /></div>
+      <div className="deletar-conta22"><DeleteConta/></div>
       </div>
     </div>
   )

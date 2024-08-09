@@ -23,10 +23,11 @@
  display: none;
 }
 .active{
-display: block;
+display:block;
 }
 .activeSuspenso{
-   display: block;
+    display: grid;
+    grid-template-columns: 50% 50%;
     transform: translateX(-87.5rem);
     transition: 0.3s all;
   
@@ -39,8 +40,11 @@ display: block;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-
+    justify-content: flex-start;
+    
+}
+.center-susp-filho{
+    width: 50%;
 }
 .menu-ul-suspenso{
     margin: 0;
@@ -51,24 +55,36 @@ display: block;
     justify-content: center;
     flex-direction: column;
     row-gap: 20px;
-   width: 48%;
+   width: 100%;
+   align-items: center;
    max-width:100% ;
 }
 .menu-ul-suspenso li{
     margin: 0;
     color: #c0c0c0;
-    align-items: center;
-    background-color: rgb(24, 31, 37);
+    align-items: flex-end;
+    
     display: flex;
     font-size: 17px;
     display: flex;
-    justify-content: center;
-    border-radius: 10px;
+    justify-content: flex-start;
+    
     height: 40px;
-    width: 100%;
+    width: 60%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.089);
     cursor: pointer;
     font-weight: 600;
     font-family: sans-serif;
+}
+.menu-ul-suspenso li:hover{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.349);
+    color: #ffffff;
+
+}
+.telas-opcoes{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
 }
 .exit-recovery2{
     z-index: 50;
@@ -89,19 +105,22 @@ display: block;
   
 
 }
+.center-susp{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border-right: 1px solid rgba(255, 255, 255, 0.055);
+}
 .icon-name-menuSusp{
     margin-top: 10px;
     display: flex;
     gap: 5px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
 }
-.menu-ul-suspenso li:hover{
-    background-color: rgb(32, 38, 43);
-    color: #ffffff;
 
-}
 .name-usuario{
     margin: 0;
     padding: 5px 0px 25px 0px;

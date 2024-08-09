@@ -1,7 +1,7 @@
 .container-recovery{
-    position: absolute;
-    top: 0px;
-    left: 0vw;
+    position: relative;
+  
+  
     width: 100vw;
     height: 100vh;
     max-width: 300px;
