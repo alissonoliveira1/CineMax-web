@@ -11,7 +11,7 @@ body {
   width: 100vw;
   height:100vh ;
   border-radius: 50%;
-  
+  cursor: pointer;
 max-width:35px ;
 max-height:35px ;
 }
@@ -51,19 +51,20 @@ max-height:35px ;
   border-bottom: 1px solid white;
   & .opcoes-menu {
     transition: 0.3s ease-out;
-    color: rgb(255, 255, 255);
+    color: rgb(201, 201, 201);
     font-size: 14px;
   
   }
 }
 .opcoes-menu {
-  color: rgb(201, 201, 201);
+  color: rgb(235, 235, 235);
   font-size: 14px;
   transition: 0.3s ease-out;
   font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    
 }
 .opcoes-menu2 {
   margin-top: 4px;

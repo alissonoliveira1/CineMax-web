@@ -24,7 +24,7 @@ function Desktop() {
             sort_by: "popularity.desc",
             language: "pt-BR",
             "primary_release_date.lte": dataCompleta,
-            page: Math.floor(Math.random() * 100) + 1,
+            page: Math.floor(Math.random() * 10) + 1,
           },
         });
 
