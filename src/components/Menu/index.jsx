@@ -1,9 +1,6 @@
 import './style.css';
 import { Link } from 'react-router-dom';
-import { ReactComponent as House2 } from '../Menu/icon/house.svg';
-import { ReactComponent as Like } from '../Menu/icon/heart.svg';
-import { ReactComponent as Serie } from '../Menu/icon/collection-play.svg';
-import { ReactComponent as Filmes } from '../Menu/icon/film.svg';
+
 import { UserContext }  from '../../contexts/user'
 import { useContext } from 'react';
 function Menu() {
