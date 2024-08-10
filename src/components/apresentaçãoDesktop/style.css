@@ -21,7 +21,7 @@
   .textoConjuntoSlide {
     left: 4%;
     position: absolute;
-    top: 0;
+    top: 22%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -29,7 +29,7 @@
     width: 36%;
     margin: 0px;
     cursor: default;
-    bottom: 35%;
+  
   }
   .conjunto-aleatorio-desk{
     display: flex;
@@ -105,9 +105,6 @@
     padding: 0;
   }
 
-  
-  
-  
   .botoesSlide {
     width: 90%;
     gap: 20px;
@@ -214,6 +211,7 @@
     top: 100vh;
 
 }
+
 .imgBackground-desktop{
     width: 100%;
     height: auto;
@@ -227,9 +225,6 @@
     left: 0;
     bottom: 0;
 }
-
-
-
 
  @media (max-width:900px) {
   .slide{
