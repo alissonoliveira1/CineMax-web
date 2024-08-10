@@ -21,7 +21,7 @@
   .textoConjuntoSlide {
     left: 4%;
     position: absolute;
-    top: 22%;
+    top: 24%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -56,6 +56,7 @@
   }
   .title-film-desk{
     width: 100%;
+    margin-bottom: 10px;
     display: flex;
   }
   .sombras-desk{
@@ -121,12 +122,12 @@
     gap: 20px;
   }
   .assistirSlide {
-    width: 100px;
+    
  
     border: none;
     align-items: center;
     display: flex;
-    height: 30px;
+    height: 2.5rem;
     justify-content: center;
     background-color: rgb(255, 255, 255);
     padding-left: 2rem;
@@ -136,12 +137,12 @@
     cursor: pointer;
   }
   .bnt-infoSlide-desk{
-    width: 150px;
- 
+    width: 15rem;
+   
     border: none;
     align-items: center;
     display: flex;
-    height: 30px;
+    height: 2.5rem;
     justify-content: center;
     background-color: rgba(109, 109, 110, 0.7);;
     border-radius: 4px;
@@ -151,8 +152,9 @@
   .text-bnt-play span{
     display: flex;
     height: 30px;
+    font-family: "Montserrat", sans-serif;
     align-items: center;
-    font-size: 13px;
+    font-size: 1.1rem;
     font-weight: 500;
     font-style: normal;
     color: black;
@@ -160,25 +162,27 @@
   .text-bnt-info span{
     display: flex;
     height: 30px;
+    width: 100%;
+    font-size: 1.1rem;
     align-items: center;
-    font-size: 13px;
     font-weight: 500;
+    font-family: "Montserrat", sans-serif;
     font-style: normal;
     color: rgb(255, 255, 255);
   }
   .icon-bnt-play{
-    width: 30px;
-    height: 30px;
+    width: 2.5rem;
+    height: 2.5rem;
     color: black;
 }
 .icon-bnt-info{
-  width: 20px;
+  width: 1.8rem;
+  height: 1.8rem;
   margin-right: 5px;
-  height: 20px;
   color: rgb(255, 255, 255);
 }
 .div-desk-icon{
-  height: 30px;
+
   display: flex;
   align-items: center;
 }
@@ -186,7 +190,7 @@
     cursor: pointer;
     width: 200px;
     height: 40px;
-   
+    
     font-weight: bold;
     font-size: 16px;
     color: white;
