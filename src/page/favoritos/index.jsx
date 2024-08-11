@@ -93,36 +93,27 @@ function Favoritos() {
               <li key={item.id}>
                 <div className="paifav">
                   <div className="imgfav">
-                    {item.backdrop_path ? (
+                    {item.poster_path ? (
+                      <Link to={`/filme/${item.id}`} >
                       <img
                         alt="capa-favorito"
-                        src={`https://image.tmdb.org/t/p/original/${item.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
                       />
+                        </Link>
                     ) : (
                       <p>Imagem não disponível</p>
                     )}
-                  </div>
-                  <div>
-                    <span className="titulofav2">{item.title}</span>
-                  </div>
-                  <div className="detalhesfav">
-                    <div>
-                      <Link
-                        className="detalhesfavbutton2"
-                        to={`/filme/${item.id}`}
-                      >
-                        Detalhes
-                      </Link>
-                    </div>
-                    <div>
+
+                 <div className="bnt-div-excluir">
                       <button
                         onClick={() => excluirf(item.id)}
                         className="buttonfav"
                       >
-                        Excluir
+                        Remover
                       </button>
                     </div>
                   </div>
+               
                 </div>
               </li>
             ))}
