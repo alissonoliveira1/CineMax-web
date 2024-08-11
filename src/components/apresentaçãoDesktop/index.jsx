@@ -24,7 +24,7 @@ function Desktop() {
             sort_by: "popularity.desc",
             language: "pt-BR",
             "primary_release_date.lte": dataCompleta,
-            page: Math.floor(Math.random() * 50) + 1,
+            page: Math.floor(Math.random() * 10) + 1,
           },
         });
 
@@ -73,13 +73,15 @@ function Desktop() {
       <div className="ConjuntoSlide">
         <div className="shadow-aleatorio-desk"></div>
         <div className="textoConjuntoSlide">
-          <div className="div-title-img-desk">
+          <div className="div-title-conjunto-desk">
             {logo ? (
-              <img
+             <div className="div-title-img-desk">
+               <img
                 className="title-film-desk"
                 alt={filmeAleatorio.title}
                 src={`https://image.tmdb.org/t/p/original/${logo}`}
               />
+             </div>
             ) : (
               <div className="div-title-film">
                 <span className="title-film">{filmeAleatorio.title}</span>

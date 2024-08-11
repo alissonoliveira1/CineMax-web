@@ -37,6 +37,12 @@
     align-items: center;
 
 }
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .fav2{
     padding-top: 80px;
     color: rgb(107, 107, 107);
