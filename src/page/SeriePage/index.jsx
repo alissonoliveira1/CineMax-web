@@ -254,7 +254,7 @@ function SeriePage() {
                 />
               </div>
             ) : (
-              <div>
+              <div className="titulo-filme">
                 <span>{filme.title}</span>
               </div>
             )}
