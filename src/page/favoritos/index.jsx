@@ -41,7 +41,7 @@ function Favoritos() {
     };
     fetchData();
   }, [user]);
-
+console.log(novo)
   async function excluirf(itemId) {
     try {
       const novoArray = dados.filter((item) => item.id !== itemId);
@@ -94,7 +94,7 @@ function Favoritos() {
                 <div className="paifav">
                   <div className="imgfav">
                     {item.poster_path ? (
-                      <Link to={`/filme/${item.id}`} >
+                      <Link to={`/${item.video === false ? 'filme' : 'SeriePage'}/${item.id}`} >
                       <img
                         alt="capa-favorito"
                         src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
