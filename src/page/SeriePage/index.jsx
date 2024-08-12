@@ -40,7 +40,7 @@ function SeriePage() {
       await api
         .get(`/tv/${id}`, {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             language: "pt-BR",
           },
         })
@@ -59,7 +59,7 @@ function SeriePage() {
     loadFilme();
 
     return () => {};
-  }, [navegate, id]);
+  }, [navegate, id, apiKey]);
 
   const [seasons, setSeasons] = useState([]);
   const handleSeasonChange = (event) => {
@@ -76,7 +76,7 @@ function SeriePage() {
           }`,
           {
             params: {
-              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+              api_key: apiKey,
               language: "pt-br",
             },
           }
@@ -88,7 +88,7 @@ function SeriePage() {
     }
     loadEpisodes();
     console.log(seasons);
-  }, [id, seasons]);
+  }, [id, seasons, apiKey]);
 
   useEffect(() => {
     async function fetchFavoritos() {
