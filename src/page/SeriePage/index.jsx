@@ -113,7 +113,7 @@ function SeriePage() {
     }
 
     fetchLogo();
-  }, [filme, apiKey]);
+  }, [ apiKey,id]);
   useEffect(() => {
     async function fetchFavoritos() {
       if (user) {
@@ -161,7 +161,7 @@ function SeriePage() {
     }
 
     buscarCertificacao();
-  }, [id, apiKey, api]);
+  }, [id, apiKey]);
 
  
   const salvarfilme = async () => {
