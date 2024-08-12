@@ -328,6 +328,12 @@ a {
   justify-content: center;
   background-color: rgb(0, 0, 0);
 }
+.titulo-filme span{
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  color: white;
+}
 .sombras{
   display: none;
 }

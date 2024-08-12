@@ -82,7 +82,7 @@ function Filme() {
         });
         setGenes(response.data.results);
       } catch (error) {
-        console.log("filme genero nao encontrado");
+        console.log(error);
       }
     }
 
@@ -182,7 +182,7 @@ function Filme() {
   useEffect(() => {
     async function fetchLogo() {
       try {
-        const response = await api.get(`/movie/${filme.id}/images`, {
+        const response = await api.get(`/movie/${id}/images`, {
           params: {
             api_key: apiKey,
             language: "pt",
@@ -200,7 +200,7 @@ function Filme() {
     }
 
     fetchLogo();
-  }, [filme, apiKey]);
+  }, [id, apiKey]);
   useEffect(() => {
     const tela480 = window.matchMedia("(max-width: 480px)");
 
@@ -320,17 +320,19 @@ function Filme() {
     <div className="info">
       <div className="conjunto-titulo-play">
        
-            <div className="div-title-img-desk2">
+            <div>
+              {logo ? (<div className="div-title-img-desk2">
              
-              <img
-                className="title-film-desk2"
-                alt={filme.title}
-                src={`https://image.tmdb.org/t/p/original/${logo}`}
-              />
-            
-         
+             <img
+               className="title-film-desk2"
+               alt={filme.title}
+               src={`https://image.tmdb.org/t/p/original/${logo}`}
+             />
+           
         
-        </div>
+       
+       </div>):(<div className="titulo-filme"><span>{filme.title}</span></div>)}
+            </div>
         <div className="conjuntos-bnt-genero">
         <div className="date-classf-genere">
           <div className="dateClassf">
@@ -416,7 +418,7 @@ function Filme() {
             </div>
           </button>
         </div>
-        <span className="subtitulo">{filme.overview}</span>
+        <div><span className="subtitulo">{filme.overview}</span></div>
 
         <div className="generosid">
           <div className="generos">

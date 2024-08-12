@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import api from "../../services";
 import "./style.css";
 
@@ -9,39 +9,37 @@ import { Link } from "react-router-dom";
 function Desktop() {
   const [filmeAleatorio, setFilmeAleatorio] = useState({});
   const [logo, setLogo] = useState("");
-  let dataAtual = new Date();
-  let ano = dataAtual.getFullYear().toString();
-  let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
-  let dia = ("0" + dataAtual.getDate()).slice(-2);
-  let dataCompleta = `${ano}-${mes}-${dia}`;
 
-  useEffect(() => {
-    const obterFilmeAleatorio = async () => {
-      try {
-        const resposta = await api.get("/discover/movie", {
-          params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
-            sort_by: "popularity.desc",
-            language: "pt-BR",
-            "primary_release_date.lte": dataCompleta,
-            page: Math.floor(Math.random() * 10) + 1,
-          },
-        });
-
-        const { results } = resposta.data;
-        if (results && results.length > 0) {
-          const filmeAleatorio = results[0];
-          setFilmeAleatorio(filmeAleatorio);
-        } else {
-          console.error("Nenhum filme aleatório encontrado.");
+    const dataCompleta = useMemo(() => {
+      return new Date().toISOString().split('T')[0];
+    }, []);
+  
+    useEffect(() => {
+      const obterFilmeAleatorio = async () => {
+        try {
+          const resposta = await api.get("/discover/movie", {
+            params: {
+              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+              sort_by: "popularity.desc",
+              language: "pt-BR",
+              "primary_release_date.lte": dataCompleta,
+              page: Math.floor(Math.random() * 10) + 1,
+            },
+          });
+  
+          const { results } = resposta.data;
+          if (results && results.length > 0) {
+            setFilmeAleatorio(results[0]);
+          } else {
+            console.error("Nenhum filme aleatório encontrado.");
+          }
+        } catch (erro) {
+          console.error("Erro ao obter filme aleatório:", erro);
         }
-      } catch (erro) {
-        console.error("Erro ao obter filme aleatório:", erro);
-      }
-    };
-
-    obterFilmeAleatorio();
-  }, [dataCompleta]);
+      };
+  
+      obterFilmeAleatorio();
+    }, [dataCompleta]);
 
   useEffect(() => {
     async function fetchLogo() {
@@ -59,7 +57,7 @@ function Desktop() {
           setLogo(logos[0].file_path);
         }
       } catch (error) {
-        console.error("Erro ao buscar o logotipo do filme: ", error);
+       
       }
     }
 

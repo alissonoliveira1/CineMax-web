@@ -61,7 +61,7 @@ function ApresentacaoMobile() {
     obterFilmeAleatorio();
   }, [dataCompleta]);
 
-  // Efeito para extrair a cor da imagem
+  
   useEffect(() => {
     const imgElement = imageRef.current;
     if (imgElement) {
@@ -83,7 +83,7 @@ function ApresentacaoMobile() {
     setColor(`rgb(${color[0]},${color[1]},${color[2]})`);
     setSombra(`rgb(${color[0]},${color[1]},${color[2]}, 0.804)`);
   };
-console.log(color)
+
   
   useEffect(() => {
     const fetchFilmeIds = async () => {
