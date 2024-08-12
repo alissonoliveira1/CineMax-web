@@ -29,11 +29,14 @@ function SeriePage() {
   const navegate = useNavigate();
   const [load, setload] = useState(true);
   const [filme, setfilme] = useState([]);
+  const [logo, setLogo] = useState("");
   const [selectedSeason, setSelectedSeason] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const { user, apiKey } = useContext(UserContext);
+  const [certificacao, setCertificacao] = useState("");
   const textToShare = `https://cinemg.netlify.app/tv/${id}`;
+  const [poster, setPoster] = useState("");
   const isFavorito = favoritos.includes(filme.id);
   useEffect(() => {
     async function loadFilme() {
@@ -87,9 +90,30 @@ function SeriePage() {
       }
     }
     loadEpisodes();
-    console.log(seasons);
+   
   }, [id, seasons, apiKey]);
+  useEffect(() => {
+    async function fetchLogo() {
+      try {
+        const response = await api.get(`/tv/${id}/images`, {
+          params: {
+            api_key: apiKey,
+            language: "pt",
+          },
+        });
 
+        const logos = response.data.logos;
+
+        if (logos && logos.length > 0) {
+          setLogo(logos[0].file_path);
+        }
+      } catch (error) {
+      
+      }
+    }
+
+    fetchLogo();
+  }, [filme, apiKey]);
   useEffect(() => {
     async function fetchFavoritos() {
       if (user) {
@@ -109,6 +133,37 @@ function SeriePage() {
 
     fetchFavoritos();
   }, [user]);
+  const releaseYear = filme.first_air_date
+    ? filme.first_air_date.substring(0, 4)
+    : "";
+  useEffect(() => {
+    async function buscarCertificacao() {
+      try {
+        const response = await api.get(`/tv/${id}/content_ratings`, {
+          params: {
+            api_key: apiKey,
+          },
+        });
+
+        const { results } = response.data;
+        const certificacoes = results.find(
+          (result) => result.iso_3166_1 === "BR"
+        );
+
+        if (certificacoes) {
+          if (certificacoes.rating) {
+            setCertificacao(certificacoes.rating);
+          }
+        }
+      } catch (error) {
+  
+      }
+    }
+
+    buscarCertificacao();
+  }, [id, apiKey, api]);
+
+ 
   const salvarfilme = async () => {
     try {
       const documentoRef = doc(db, "cineData", user.uid);
@@ -117,12 +172,12 @@ function SeriePage() {
         await updateDoc(documentoRef, {
           favorito: arrayRemove({ id: filme.id, ...filme }),
         });
-        console.log("Filme removido dos favoritos:", filme.id);
+ 
       } else {
         await updateDoc(documentoRef, {
           favorito: arrayUnion({ id: filme.id, ...filme }),
         });
-        console.log("Filme adicionado aos favoritos:", filme.id);
+     
       }
 
       const docSnap = await getDoc(documentoRef);
@@ -143,6 +198,21 @@ function SeriePage() {
       toast.error("Erro ao copiar texto.");
     }
   };
+  useEffect(() => {
+    const tela480 = window.matchMedia("(max-width: 480px)");
+
+    const handleResize = (e) => {
+      if (e.matches) {
+        setPoster("poster_path");
+      } else {
+        setPoster("backdrop_path");
+      }
+    };
+    handleResize(tela480);
+    tela480.addEventListener("change", handleResize);
+
+    return () => tela480.removeEventListener("change", handleResize);
+  }, []);
   if (load) {
     return <div className="detalhes">Carregando detalhes...</div>;
   }
@@ -152,95 +222,164 @@ function SeriePage() {
       <Header />
       <MenuSuspenso />
       <div className="conjunto">
-        <img
-          className="capa"
-          alt={filme.name}
-          src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
-        />
+        {poster === "poster_path" && (
+          <div>
+            <div className="divImgfilme">
+              <img
+                className="capaMobile"
+                alt={filme.title}
+                src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+              />
+            </div>
+            <div className="sombras"></div>
+          </div>
+        )}
+        {poster === "backdrop_path" && (
+          <img
+            className="capa"
+            alt={filme.title}
+            src={`https://image.tmdb.org/t/p//original/${filme.backdrop_path}`}
+          />
+        )}
       </div>
-      <div className="mobile-scroll">
-      <div className="info">
-        <h1 className="tituloFilme">{filme.name}</h1>
-        <div className="buttons">
-          <button onClick={salvarfilme} className="bnt-page-infos">
-            <span>
-              {isFavorito ? (
-                <div className="icon-name-page">
-                  <HeartB className="icon-salvar-page" />
-                  <div><span className="bnt-text-page">salvo</span></div>
-                </div>
-              ) : (
-                <div className="icon-name-page">
-                  <HeartA className="icon-salvar-page" />
-                  <div><span className="bnt-text-page">salvar</span></div>
-                </div>
-              )}
-            </span>
-          </button>
-          <button className="bnt-page-infos" onClick={handleShare}>
-            <div>
-              <Share className="icon-salvar-page" />
-            </div>
-            <div>
-              <span className="bnt-text-page">compartilhar</span>
-            </div>
-          </button>
-          <button className="bnt-page-infos">
-            <div>
-              <Camera className="icon-salvar-page" />
-            </div>
-            <div>
-              <span className="bnt-text-page">trailer</span>
-            </div>
-          </button>
-        </div>
-        <span className="subtitulo">{filme.overview}</span>
-        <div className="paiSelect">
-          <select
-            className="selectTemp"
-            value={selectedSeason}
-            onChange={handleSeasonChange}
-          >
-            {filme.seasons.map((i) => {
-              return (
-                <option value={i.season_number} key={i.id}>
-                  {i.name}
-                </option>
-              );
-            })}
-          </select>
-        </div>
-        <div className="titleEps">
-          <h2>Episodios</h2>
-        </div>
-
-        <ul className="paiEps">
-          {episodes.map((episode) => (
-            <Link
-              to={`/Play/${filme.id}/${episode.season_number}/${episode.episode_number}`}
-            >
-              <li className="listaEps" key={episode.id}>
+      <div className="mobile-scrollSerie">
+        <div className="infoSerie">
+          <div className="conjunto-titulo-play">
+            {logo ? (
+              <div className="div-title-img-desk2">
                 <img
-                  className="imagemSerie"
-                  alt="capa-epsode"
-                  src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}
+                  className="title-film-desk2"
+                  alt={filme.title}
+                  src={`https://image.tmdb.org/t/p/original/${logo}`}
                 />
-                <div>
-                  <div className="pai_ep_time">
-                    <span className="nomeEps">{episode.episode_number}. {episode.name}</span>
-                    <span className="timeEps">{episode.runtime}min</span>
+              </div>
+            ) : (
+              <div>
+                <span>{filme.title}</span>
+              </div>
+            )}
+            <div className="conjuntos-bnt-genero">
+              <div className="date-classf-genere">
+                <div className="dateClassf">
+                  <div className="idadeIndicativa">
+                    {certificacao === "L" && <div className="BoxL">L</div>}
                   </div>
-                  <div className="descEps">
-                    <span>{episode.overview}</span>
+                  <div className="idadeIndicativa">
+                    {certificacao === "12" && <div className="Box10">12</div>}
+                  </div>
+
+                  <div className="idadeIndicativa">
+                    {certificacao === "14" && <div className="Box14">14</div>}
+                  </div>
+                  <div className="idadeIndicativa">
+                    {certificacao === "16" && <div className="Box16">16</div>}
+                  </div>
+                  <div className="idadeIndicativa">
+                    {certificacao === "18" && <div className="Box18">18</div>}
+                  </div>
+                  <div className="idadeIndicativa">
+                    {certificacao < 1 && (
+                      <div className="BoxI">Classificação Indisponivel</div>
+                    )}
+                  </div>
+                  <div className="data">
+                    <div className="temp-data-class">
+                      <div className="horas-data-page"><span>{filme.number_of_seasons} temporadas</span>  <span>{releaseYear}</span></div>
+                    </div>
                   </div>
                 </div>
-              </li>
-            </Link>
-          ))}
-        </ul>
+              </div>
+            </div>
+          </div>
+          <div className="buttons">
+            <button onClick={salvarfilme} className="bnt-page-infos">
+              <span>
+                {isFavorito ? (
+                  <div className="icon-name-page">
+                    <HeartB className="icon-salvar-page" />
+                    <div>
+                      <span className="bnt-text-page">salvo</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="icon-name-page">
+                    <HeartA className="icon-salvar-page" />
+                    <div>
+                      <span className="bnt-text-page">salvar</span>
+                    </div>
+                  </div>
+                )}
+              </span>
+            </button>
+            <button className="bnt-page-infos" onClick={handleShare}>
+              <div>
+                <Share className="icon-salvar-page" />
+              </div>
+              <div>
+                <span className="bnt-text-page">compartilhar</span>
+              </div>
+            </button>
+            <button className="bnt-page-infos">
+              <div>
+                <Camera className="icon-salvar-page" />
+              </div>
+              <div>
+                <span className="bnt-text-page">trailer</span>
+              </div>
+            </button>
+          </div>
+          <div><span className="subtituloSerie">{filme.overview}</span></div>
+          <div className="paiSelect">
+            <select
+              className="selectTemp"
+              value={selectedSeason}
+              onChange={handleSeasonChange}
+            >
+              {filme.seasons.map((i) => {
+                return (
+                  <option value={i.season_number} key={i.id}>
+                    {i.name}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="titleEps">
+            <span>Episodios</span>
+          </div>
+
+          <ul className="paiEps">
+            {episodes.map((episode) => (
+              <Link
+              key={episode.id}
+                to={`/Play/${filme.id}/${episode.season_number}/${episode.episode_number}`}
+              >
+                <li className="listaEps" >
+                  <img
+                    className="imagemSerie"
+                    alt="capa-epsode"
+                    src={`https://image.tmdb.org/t/p//original/${episode.still_path}`}
+                  />
+                  <div>
+                    <div className="pai_ep_time">
+                      <span className="nomeEps">
+                        {episode.episode_number}. {episode.name}
+                      </span>
+                      <span className="timeEps">{episode.runtime}min</span>
+                    </div>
+                    <div className="descEps">
+                      <span>{episode.overview}</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+            ))}
+          </ul>
+        </div>
       </div>
+      <div>
+
       </div>
-      <div></div>
       <MenuMobile />
     </div>
   );
