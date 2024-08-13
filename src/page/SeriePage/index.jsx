@@ -50,7 +50,7 @@ function SeriePage() {
         .then((response) => {
           setfilme(response.data);
 
-          setload(false);
+          
         })
         .catch(() => {
           console.log("filme não encontrado");
@@ -85,6 +85,7 @@ function SeriePage() {
           }
         );
         setEpisodes(response.data.episodes);
+        setload(false);
       } catch (error) {
         console.error("Erro ao carregar os episódios:", error);
       }
@@ -213,6 +214,7 @@ function SeriePage() {
 
     return () => tela480.removeEventListener("change", handleResize);
   }, []);
+
   if (load) {
     return <div className="detalhes">Carregando detalhes...</div>;
   }
@@ -248,6 +250,7 @@ function SeriePage() {
             {logo ? (
               <div className="div-title-img-desk2">
                 <img
+
                   className="title-film-desk2"
                   alt={filme.title}
                   src={`https://image.tmdb.org/t/p/original/${logo}`}
