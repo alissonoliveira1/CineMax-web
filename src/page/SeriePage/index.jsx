@@ -351,7 +351,8 @@ function SeriePage() {
             <span>Episodios</span>
           </div>
 
-          <ul className="paiEps">
+        <div>
+        <ul className="paiEps">
             {episodes.map((episode) => (
               <Link
               key={episode.id}
@@ -378,6 +379,7 @@ function SeriePage() {
               </Link>
             ))}
           </ul>
+        </div>
         </div>
       </div>
       <div>
