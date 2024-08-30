@@ -266,12 +266,12 @@ font-size: 16px;
       justify-content: flex-end;
     
       padding: 0px;
-      top: 10rem;
+
       width: 100vw;
       height: 100%;
       flex-direction: column;
       background-color: rgba(3, 12, 22);
-      
+      box-shadow: none;
       
     }
     .paiEps{
@@ -318,10 +318,10 @@ font-size: 16px;
     .mobile-scrollSerie{
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-end;
+      align-items: flex-start;
+      justify-content: flex-start;
       position: relative;
-      z-index: 70;
+      z-index: 10;
       top:25rem;
       height: 100%;
       width: 100vw;

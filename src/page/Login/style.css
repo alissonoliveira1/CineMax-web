@@ -1,64 +1,89 @@
+
+.container-login{
+    background: linear-gradient(87deg,#5dbde6 00%, #0b2a54 95%);
+}
+
+
 .GoogleLoginIcon{
-    
-    
-    width: 40px;
+       cursor: pointer;
+   width: 25px;
+   height: 25px;
+   margin-left: 12px;
+   margin-right: 10px;
 }
 .textLoginGG{
     font-size: 16px;
     color: rgb(255, 255, 255);
     font-family: sans-serif;
-    padding-bottom: 15px;
+  
 }
 .iconGoogleDiv{
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+    width: 55%;
     display: flex;
-    border-radius: 50%;
+    height: 50px;
+    align-items: center;
+    cursor: pointer;
+& span{
+    font-size: 14px;
+    font-family: "Roboto", system-ui;
+  font-weight: 500;
+  font-style: normal;
+  color: #1F1F1F;
+}
+    
    
 }
-.image-login{
-    width: 100vw;
+.img-login{
+    width: 100%;
     height: 100vh;
     display: flex;
- 
-  background-size: cover;
-   
-    align-items: center;
-    justify-content: center;
+}
+.img-login img{
+    width: 100%;
+  
+    background-repeat: no-repeat;
+    background-size: cover;
 
 }
-.containerLoginGg{
-    margin-top: 60px;
+.image-login{
+   display: grid;
+   grid-template-columns: 60% 40%;
+
+}
+.div-form{
+    width: 100%;
     display: flex;
-    flex-direction: column;
+ 
+    justify-content: center;
+}
+.containerLoginGg{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    
 }
 .form-login-div{
     align-items: center;
-    border-radius: 100px 0;
-    border: 1px solid white;
    display: flex;
+   justify-content: space-around;
    flex-direction: column;
-padding: 60px;
 width: 100%;
-color: rgb(97, 97, 97);
-max-width: 300px;
+
+color: rgb(255, 255, 255);
 height: 100vh;
-max-height: 370px;
-background-color: rgba(0, 0, 0, 0.123);
+box-shadow: 0px 0px 70px 80px #335e86;
+
 
 }
 .form-login{
-height: 100%;
+ width: 80%;
 
 }
 .entrar{
-  margin-bottom: 30px;  
+  margin-bottom: 10px;  
 }
 .entrar span{
     
@@ -68,12 +93,27 @@ color: white;
 font-family: sans-serif;
 }
 .form-login input::placeholder{
-    color: rgb(151, 151, 151);
+    color: rgb(255, 255, 255);
+}
+.title-login span{
+color: #5dbde6;
+font-size: 3.4rem;
+font-weight: bold;
+cursor: default;
+}
+.title-login {
+
+   width: 100%;
+   position: relative;
+   top: 0px;
+   text-align: center;
+   justify-content: center;
+   
 }
 .form-login input{
     border-radius: 8px;
     padding: 5px;
-    background-color: rgb(0, 17, 53);
+    background-color: #e58f83;
     border: none;
     outline: none;
     color: rgb(255, 255, 255);
@@ -82,38 +122,43 @@ font-family: sans-serif;
     font-family: sans-serif;
 width: 100%;
 margin-bottom: 30px;
-max-width: 100%;
+max-width: 80%;
 height: 100%;
-max-height: 35px;
+max-height: 50px;
 }
-
-.form-login button{
+.div-bnt-login{
+    width: 40%;
+    height: 50px;
+}
+.div-bnt-login button{
     cursor: pointer;
-    background-color: rgb(2, 70, 134);
+    background-color: #e58f83;
     color: white;
     font-weight: 500;
     border: none;
     border-radius: 8px;
     font-family: sans-serif;
     font-size: 17px;
-    margin-top: 20px;
     cursor: pointer;
  width: 100%;
-margin-bottom: 10px;
-max-width: 315px;
 height: 100%;
-max-height: 40px;
 }
 .cad-login{
-    margin-top: 20px;
+
+  display: flex;
+  justify-content: center;
+   
 }
 .cad-login span{
     font-size: 16px;
-    font-family: sans-serif;
+    font-family: "Roboto", system-ui;
 }
 .link-span{
     font-weight: 600;
-    color: rgb(45, 82, 202);
+    color: rgb(199, 199, 199);
+}
+.link-span:hover{
+    color: rgb(255, 255, 255);
 }
 .texto-link{
  color: rgb(255, 255, 255);   

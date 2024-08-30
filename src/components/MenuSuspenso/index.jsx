@@ -47,10 +47,10 @@ function MenuSuspenso() {
       })}</div>
       <div className="menu-ul-suspenso-div">
       <ul className="menu-ul-suspenso">
-      <li >Editar perfil</li>
+      <li >Editar seu perfil</li>
         <li onClick={handdleDelete}>Deletar conta</li>
-        <li onClick={handdleRecovery}>redefinir a senha</li>
-        <li onClick={handleSair} >Sair</li>
+        <li onClick={handdleRecovery}>Redefinir a senha</li>
+        <li onClick={handleSair} >Sair da conta</li>
         
       </ul>
       </div>

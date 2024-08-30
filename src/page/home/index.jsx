@@ -26,7 +26,7 @@ function Home() {
   const [animaFilmes, setAnimaFilmes] = useState([]);
   
   const generoId = 28;
-  const acion = 27;
+
   const anima2 = 16;
   const { authStatus } = useContext(UserContext);
   const { apiKey } = useContext(UserContext);
@@ -143,13 +143,13 @@ function Home() {
   useEffect(() => {
     const terror = async () => {
       try {
-        const response2 = await api.get("/discover/movie", {
+        const response2 = await api.get("search/multi", {
           params: {
-            with_genres: acion,
+            query: "marvel",
             api_key: apiKey,
             language: "pt-BR",
             "primary_release_date.lte": dataCompleta,
-            page: 1,
+            page: 3,
           },
         });
         setAnimaFilmes(response2.data.results);

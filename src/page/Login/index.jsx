@@ -8,7 +8,7 @@ import { provider } from "../../firebaseConnect";
 import { getAuth, signInWithPopup} from "firebase/auth";
 import { UserContext }  from '../../contexts/user'
 import { useContext } from 'react';
-const Img = require("./imagemNet.jpg");
+const Img = require("./front-login.png");
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -63,9 +63,16 @@ console.log(error)
   return (
 
     <div className="container-login">
-      <div className="image-login" style={{ backgroundImage: `url(${Img})` }}>
-        <div className="form-login-div">
-          <form className="form-login" onSubmit={handleSubmit}>
+      <div className="image-login">
+       <div className="img-login">
+         
+            <img src={Img} alt="" />
+                
+       </div>
+       <div className="form-login-div">
+        <div className="title-login"><span>CineMax</span></div>
+         <div className="div-form">
+         <form className="form-login" onSubmit={handleSubmit}>
             <div className="entrar">
               <span>Entrar</span>
             </div>
@@ -82,19 +89,26 @@ console.log(error)
               onChange={(e) => setSenha(e.target.value)}
               type="password"
             />
-
-            <button type="submit">Entrar</button>
-          </form>
-          <div className="containerLoginGg">
-            <span className="textLoginGG">Login com:</span>
-            <div onClick={loginGoogle} className="iconGoogleDiv">
-              <Google className="GoogleLoginIcon" />
+ <div className="containerLoginGg">
+          
+          <div onClick={loginGoogle} className="iconGoogleDiv">
+            <Google className="GoogleLoginIcon" />
+            <div>
+              <span>Login com o Google</span>
             </div>
           </div>
+          <div className="div-bnt-login">
+          <button type="submit">Entrar</button>
+          </div>
+        </div>
+            
+          </form>
+         </div>
+         
           <div className="cad-login">
             <span className="texto-link">
               É novo aqui?
-              <Link to={"/MetodoLogin"}>
+              <Link to={"/Cadastro"}>
                 <span className="link-span"> assine agora!</span>
               </Link>
             </span>

@@ -1,18 +1,22 @@
 import { useState } from "react";
 import "./style.css";
 import { toast } from "react-toastify";
+import { provider } from "../../firebaseConnect";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, sendEmailVerification, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, getAuth,signInWithPopup } from "firebase/auth";
+import { ReactComponent as Google } from "../Login/icon/google.svg";
 const Img = require("./imagemNet.jpg");
-
 export default function Cadastro() {
   const navegador = useNavigate();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const auth = getAuth();
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
-   
+ 
     if (email === "" && senha === "") {
       toast.warn("Email e senha não preenchidos!");
     } else if (senha === "") {
@@ -44,12 +48,20 @@ export default function Cadastro() {
         });
     }
   }
+  async function loginGoogle() {
+    signInWithPopup(auth, provider)
+  .then(() => {
+    navegador('/perfil')
 
+  }).catch((error) => {
+console.log(error)
+  });
+  }
   return (
     <div className="container-login">
-      <div className="image-login" style={{ backgroundImage: `url(${Img})` }}>
+      <div className="image-loginC" style={{ backgroundImage: `url(${Img})` }}>
         <div className="form-login-div7">
-          <form className="form-login" onSubmit={handleSubmit}>
+          <form className="form-loginC" onSubmit={handleSubmit}>
             <div className="entrar2">
               <span>Cadastro</span>
             </div>
@@ -66,8 +78,19 @@ export default function Cadastro() {
               onChange={(e) => setSenha(e.target.value)}
               type="password"
             />
-
-            <button type="submit">Entrar</button>
+ <div className="containerLoginGgCad">
+          
+          <div onClick={loginGoogle} className="iconGoogleDivCad">
+            <Google className="GoogleLoginIcon" />
+            <div>
+              <span>Cadastrar conta Google</span>
+            </div>
+          </div>
+          <div className="div-bnt-loginCad">
+          <button type="submit">Entrar</button>
+          </div>
+        </div>
+          
           </form>
 
           <div className="cad-login2">

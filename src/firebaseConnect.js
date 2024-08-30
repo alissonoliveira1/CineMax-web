@@ -7,7 +7,7 @@ import { GithubAuthProvider } from "firebase/auth";
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAr3Bml2M0-2mW2Jv1lLolpz01bgrw8jCo",
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: "cinemagic-77a09.firebaseapp.com",
     projectId: "cinemagic-77a09",
     storageBucket: "cinemagic-77a09.appspot.com",
@@ -22,4 +22,6 @@ const firebaseConfig = {
   const firebaseApp = initializeApp(firebaseConfig)
   const auth = getAuth(firebaseApp)
   const db = getFirestore(firebaseApp)
+
+
   export {db,auth,provider,git,firebaseConfig}

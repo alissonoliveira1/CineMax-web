@@ -1,120 +1,109 @@
-.GoogleLoginIcon{
-    
-    
-    width: 40px;
-}
-.textLoginGG{
-    font-size: 16px;
-    color: rgb(255, 255, 255);
-    font-family: sans-serif;
-    padding-bottom: 15px;
-}
-.iconGoogleDiv{
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border-radius: 50%;
-   
-}
-.image-login{
-    width: 100vw;
-    height: 100vh;
-    display: flex;
- 
+.image-loginC {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
   background-size: cover;
-   
-    align-items: center;
-    justify-content: center;
-
+  align-items: center;
+  justify-content: center;
 }
-.containerLoginGg{
- 
+
+.form-login-div7 {
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+  padding: 60px;
+  width: 100%;
+  color: rgb(97, 97, 97);
+  max-width: 800px;
+  height: 100vh;
+  max-height: 370px;
+  background-color: rgba(0, 0, 0, 0.123);
+}
+.containerLoginGgCad {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .iconGoogleDivCad {
+    background-color: white;
+    border-radius: 10px;
+    width: 55%;
     display: flex;
-    flex-direction: column;
+    height: 50px;
     align-items: center;
-}
-.form-login-div7{
-    align-items: center;
-    border-radius: 100px;
-    border: 1px solid white;
-   display: flex;
-   flex-direction: column;
-padding: 60px;
-width: 100%;
-color: rgb(97, 97, 97);
-max-width: 300px;
-height: 100vh;
-max-height: 370px;
-background-color: rgba(0, 0, 0, 0.123);
-
-}
-.form-login{
-height: 100%;
-
-}
-.entrar2{
-  margin-bottom: 30px;  
-}
-.entrar2 span{
-    
-font-size: 20px;
-font-weight: 700;
-color: white;
-font-family: sans-serif;
-}
-.form-login input::placeholder{
-    color: rgb(151, 151, 151);
-}
-.form-login input{
-    border-radius: 8px;
-    padding: 5px;
-    background-color: rgb(0, 17, 53);
-    border: none;
-    outline: none;
-    color: rgb(255, 255, 255);
-    padding-left: 10px;
-    font-size: 16px;
-    font-family: sans-serif;
-width: 100%;
-margin-bottom: 30px;
-max-width: 100%;
-height: 100%;
-max-height: 35px;
-}
-
-.form-login button{
     cursor: pointer;
-    background-color: rgb(2, 70, 134);
-    color: white;
-    font-weight: 500;
-    border: none;
-    border-radius: 8px;
-    font-family: sans-serif;
-    font-size: 17px;
-    margin-top: 20px;
- width: 100%;
- cursor: pointer;
-margin-bottom: 10px;
-max-width: 315px;
-height: 100%;
-max-height: 40px;
+    & span {
+      font-size: 14px;
+      font-family: "Roboto", system-ui;
+      font-weight: 500;
+      font-style: normal;
+      color: #1f1f1f;
+    }
+  }
+  & .div-bnt-loginCad {
+    width: 40%;
+    height: 50px;
+
+    & button {
+      cursor: pointer;
+      background-color: #e58f83;
+      color: white;
+      font-weight: 500;
+      border: none;
+      border-radius: 8px;
+      font-family: sans-serif;
+      font-size: 17px;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
-.cad-login2{
-    margin-top: 20px;
+
+.entrar2 {
+  margin-bottom: 10px;
 }
-.cad-login2 span{
-    font-size: 16px;
-    font-family: sans-serif;
+.entrar2 span {
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  font-family: sans-serif;
 }
-.link-span2{
-    font-weight: 600;
-    color: rgb(45, 82, 202);
+.form-loginC {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
 }
-.texto-link2{
- color: rgb(255, 255, 255);   
+.form-loginC input {
+  border-radius: 8px;
+  padding: 5px;
+  background-color: #e58f83;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  padding-left: 10px;
+  font-size: 16px;
+  font-family: sans-serif;
+  width: 100%;
+  margin-bottom: 30px;
+  height: 50px;
+}
+
+.cad-login2 {
+  margin-top: 20px;
+}
+.cad-login2 span {
+  font-size: 16px;
+  font-family: sans-serif;
+}
+.link-span2 {
+  font-weight: 600;
+  color: rgb(45, 82, 202);
+}
+.texto-link2 {
+  color: rgb(255, 255, 255);
 }
