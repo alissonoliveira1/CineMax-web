@@ -8,7 +8,7 @@ import { provider } from "../../firebaseConnect";
 import { getAuth, signInWithPopup} from "firebase/auth";
 import { UserContext }  from '../../contexts/user'
 import { useContext } from 'react';
-const Img = require("./front-login.png");
+const Img = require("../../assets/images/image-login.jpg");
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -89,7 +89,14 @@ console.log(error)
               onChange={(e) => setSenha(e.target.value)}
               type="password"
             />
- <div className="containerLoginGg">
+          
+          <button className="bnt-entrar" type="submit">Entrar</button>
+        
+          
+            
+          </form>
+          <div className="ou"><span>OU</span></div>
+          <div className="containerLoginGg">
           
           <div onClick={loginGoogle} className="iconGoogleDiv">
             <Google className="GoogleLoginIcon" />
@@ -97,15 +104,9 @@ console.log(error)
               <span>Login com o Google</span>
             </div>
           </div>
-          <div className="div-bnt-login">
-          <button type="submit">Entrar</button>
-          </div>
-        </div>
-            
-          </form>
-         </div>
          
-          <div className="cad-login">
+        </div>
+         <div className="cad-login">
             <span className="texto-link">
               É novo aqui?
               <Link to={"/Cadastro"}>
@@ -113,6 +114,9 @@ console.log(error)
               </Link>
             </span>
           </div>
+         </div>
+         
+         
         </div>
       </div>
     </div>

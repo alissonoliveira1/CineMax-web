@@ -1,0 +1,74 @@
+.botao{
+    display: flex;
+   
+  }
+  .imagem:hover {
+    background-color: white;
+    transition: 0.1s all;
+   
+    
+  }
+  .imagemD {
+    position: relative;
+  
+    transition: 0.1s all;
+    padding: 2px;
+    margin: 3px;
+    width: 120px;
+  height: 180px;
+  
+  
+    border-radius: 10px;
+    z-index: 25;
+  }
+  .imagemD:hover {
+    background-color: white;
+    transition: 0.1s all;
+   
+    
+  }
+  .botaoD{
+    display: flex;
+   
+  }
+  .SlideD{
+    width: 100%;
+  }
+.custom-prev-arrow{
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  background-color: #00000069;
+  cursor: pointer;
+  z-index: 30;
+  border: none;
+  width: 40px;
+  height: 180px;
+}
+.custom-next-arrow {
+  right: 0;
+  top: 5px;
+  width: 40px;
+  height: 180px;
+  z-index: 30;
+  background-color: #00000080;
+  border: none;
+  display: flex;
+  position: absolute;
+align-items: center;
+  cursor: pointer;
+}
+.setas:active{
+  transform: scale(0.8);
+
+}
+.custom-prev-arrow:hover{
+
+  background-color: #0000008e;
+}
+.custom-next-arrow:hover {
+  background-color: #0000008e;
+}
+
+ 

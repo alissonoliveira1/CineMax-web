@@ -1,6 +1,6 @@
 
 .container-login{
-    background: linear-gradient(87deg,#5dbde6 00%, #0b2a54 95%);
+    background: linear-gradient(87deg,rgb(5, 8, 2) 00%, rgb(10, 17, 4) 95%);
 }
 
 
@@ -19,10 +19,14 @@
 }
 .iconGoogleDiv{
     background-color: white;
-    border-radius: 10px;
-    width: 55%;
+    border-radius: 5px;
+   
     display: flex;
-    height: 50px;
+   
+    width: 84%;
+    height:44px;
+    max-width: 100vw;
+    max-height: 100vw;
     align-items: center;
     cursor: pointer;
 & span{
@@ -42,7 +46,6 @@
 }
 .img-login img{
     width: 100%;
-  
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -54,32 +57,32 @@
 }
 .div-form{
     width: 100%;
-    display: flex;
- 
+
+    flex-direction: column;
     justify-content: center;
 }
 .containerLoginGg{
-    width: 80%;
+   width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     
 }
 .form-login-div{
-    align-items: center;
-   display: flex;
-   justify-content: space-around;
-   flex-direction: column;
-width: 100%;
-
-color: rgb(255, 255, 255);
-height: 100vh;
-box-shadow: 0px 0px 70px 80px #335e86;
+    padding-left: 80px;
+    
+    display: flex;
+    row-gap: 50px;
+    flex-direction: column;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 70px 80px rgb(10, 17, 4);
 
 
 }
 .form-login{
+    
  width: 80%;
+ height: auto;
 
 }
 .entrar{
@@ -96,7 +99,7 @@ font-family: sans-serif;
     color: rgb(255, 255, 255);
 }
 .title-login span{
-color: #5dbde6;
+color: #00ceb2;
 font-size: 3.4rem;
 font-weight: bold;
 cursor: default;
@@ -106,51 +109,64 @@ cursor: default;
    width: 100%;
    position: relative;
    top: 0px;
-   text-align: center;
+
    justify-content: center;
    
 }
 .form-login input{
-    border-radius: 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(168, 168, 168);
     padding: 5px;
-    background-color: #e58f83;
-    border: none;
+    background-color: #000000;
     outline: none;
     color: rgb(255, 255, 255);
     padding-left: 10px;
     font-size: 16px;
     font-family: sans-serif;
-width: 100%;
-margin-bottom: 30px;
-max-width: 80%;
-height: 100%;
-max-height: 50px;
+    margin-bottom: 30px;
+    width: 80%;
+    height:40px;
+    max-width: 100vw;
+    max-height: 100vw;
 }
-.div-bnt-login{
-    width: 40%;
-    height: 50px;
-}
-.div-bnt-login button{
+.bnt-entrar{
     cursor: pointer;
-    background-color: #e58f83;
-    color: white;
-    font-weight: 500;
+    background-color: #00ceb2;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     font-family: sans-serif;
     font-size: 17px;
     cursor: pointer;
- width: 100%;
-height: 100%;
+    width: 84%;
+    height:44px;
+    max-width: 100vw;
+    max-height: 100vw;
+}
+.ou{
+    width: 67%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    
+    
+}
+.ou span{
+    font-size: 16px;
+    font-family: sans-serif;
+    color: rgb(255, 255, 255);
+
 }
 .cad-login{
-
+    width: 67%;
   display: flex;
   justify-content: center;
-   
+  margin-top: 20px;
 }
 .cad-login span{
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Roboto", system-ui;
 }
 .link-span{

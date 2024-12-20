@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 import MenuSuspenso from "../../components/MenuSuspenso";
@@ -8,15 +8,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MenuMobile from "../../components/MenuMobile";
-import { ReactComponent as Left } from "../home/icon/left.svg";
-import { ReactComponent as Right } from "../home/icon/right.svg";
+import { ReactComponent as Left } from "../../assets/icons/left.svg";
+import { ReactComponent as Right } from "../../assets/icons/right.svg";
 import ApresentacaoMobile from "../../components/apresentaçãoMobile";
 import Desktop from "../../components/apresentaçãoDesktop";
+import { UserContext } from "../../contexts/user";
 function Serie() {
   const [poster, setPoster] = useState("");
   const [serie, setserie] = useState([]);
   const [serieAnime, setserieAnime] = useState([]);
-  const apiKey = '9f4ef628222f7685f32fc1a8eecaae0b'
+  const {apiKey} = useContext(UserContext)
 
   
         

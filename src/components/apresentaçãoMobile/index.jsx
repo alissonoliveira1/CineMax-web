@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { ReactComponent as HeartA } from './icon/heart.svg';
-import { ReactComponent as HeartB } from './icon/heart-fill.svg';
+import { ReactComponent as HeartA } from '../../assets/icons/heart.svg';
+import { ReactComponent as HeartB } from '../../assets/icons/heart-fill.svg';
 import {
   query,
   where,
@@ -24,7 +24,7 @@ function ApresentacaoMobile() {
   const [sombra, setSombra] = useState("");
   const imageRef = useRef(null);
   const [filmeIds, setFilmeIds] = useState([]);
-  const { user } = useContext(UserContext);
+  const { user,apiKey } = useContext(UserContext);
   
   const dataAtual = new Date();
   const ano = dataAtual.getFullYear().toString();
@@ -39,7 +39,7 @@ function ApresentacaoMobile() {
       try {
         const resposta = await api.get("/discover/movie", {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             sort_by: "popularity.desc",
             language: "pt-BR",
             "primary_release_date.lte": dataCompleta,

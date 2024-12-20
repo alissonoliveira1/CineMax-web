@@ -13,7 +13,7 @@ const UserContext = createContext();
 const UserProvider = ({children}) => {
     const [user,setuser] = useState(null)
     const [photo, setphoto] = useState([])
-    const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b"
+    const apiKey = process.env.REACT_APP_TMDB_API_KEY || "";
 useEffect(()=>{
     const userdatalhes = localStorage.getItem("@usuario");
       onAuthStateChanged(auth, (usuario) => {

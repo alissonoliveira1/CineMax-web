@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../contexts/user";
 import api from "../../services";
 import "./style.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import MenuSuspenso from "../../components/MenuSuspenso";
 import "slick-carousel/slick/slick-theme.css";
-import { ReactComponent as Left } from "./icon/left.svg";
-import { ReactComponent as Right } from "./icon/right.svg";
+import { ReactComponent as Left } from "../../assets/icons/left.svg";
+import { ReactComponent as Right } from "../../assets/icons/right.svg";
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
 import ApresentaçãoMobile from "../../components/apresentaçãoMobile";
@@ -21,8 +22,8 @@ function FilmePag() {
   const [animation, setanimation] = useState([]);
   const [fantasia, setfantasia] = useState([]);
   const [romance, setromance] = useState([]);
-  const apiKey = "9f4ef628222f7685f32fc1a8eecaae0b";
-  
+ 
+  const {apiKey} = useContext(UserContext);
  
  
   const [poster, setPoster] = useState("");

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Menu from '../Menu';
 import { useState, useEffect} from 'react';
 import Pesquisas from '../Pesquisas';
-import Logo from '../header/CineMax.png'
-import LogoMobile from '../header/logoMobile.png'
+import Logo from '../../assets/images/CineMax.png'
+import LogoMobile from '../../assets/images/logoMobile.png'
 function Header(){
   const [poster, setPoster] = useState("");
     const [isScrolled, setIsScrolled] = useState(false);

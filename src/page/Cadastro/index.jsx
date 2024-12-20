@@ -5,7 +5,7 @@ import { provider } from "../../firebaseConnect";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth,signInWithPopup } from "firebase/auth";
 import { ReactComponent as Google } from "../Login/icon/google.svg";
-const Img = require("./imagemNet.jpg");
+const Img = require("../../assets/images/img-cadastro.jpg");
 export default function Cadastro() {
   const navegador = useNavigate();
   const [email, setEmail] = useState("");
@@ -60,7 +60,8 @@ console.log(error)
   return (
     <div className="container-login">
       <div className="image-loginC" style={{ backgroundImage: `url(${Img})` }}>
-        <div className="form-login-div7">
+      <div className="container-loginC">
+      <div className="form-login-div7">
           <form className="form-loginC" onSubmit={handleSubmit}>
             <div className="entrar2">
               <span>Cadastro</span>
@@ -102,6 +103,7 @@ console.log(error)
             </span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

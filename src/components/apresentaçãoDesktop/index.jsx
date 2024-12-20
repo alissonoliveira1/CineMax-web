@@ -1,15 +1,16 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo,memo,useContext } from "react";
+import { UserContext } from "../../contexts/user";
 import api from "../../services";
 import "./style.css";
 
-import { ReactComponent as IconPlay } from "./icon/play-fill.svg";
-import { ReactComponent as Info } from "./icon/info-circle.svg";
+import { ReactComponent as IconPlay } from "../../assets/icons/play-fill.svg";
+import { ReactComponent as Info } from "../../assets/icons/info-circle.svg";
 import { Link } from "react-router-dom";
 
-function Desktop() {
+const Desktop = () => {
+  const { apiKey } = useContext(UserContext);
   const [filmeAleatorio, setFilmeAleatorio] = useState({});
   const [logo, setLogo] = useState("");
-
     const dataCompleta = useMemo(() => {
       return new Date().toISOString().split('T')[0];
     }, []);
@@ -19,7 +20,7 @@ function Desktop() {
         try {
           const resposta = await api.get("/discover/movie", {
             params: {
-              api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+              api_key: apiKey,
               sort_by: "popularity.desc",
               language: "pt-BR",
               "primary_release_date.lte": dataCompleta,
@@ -42,11 +43,11 @@ function Desktop() {
     }, [dataCompleta]);
 
   useEffect(() => {
-    async function fetchLogo() {
+     const fetchLogo = async () => {
       try {
         const response = await api.get(`/movie/${filmeAleatorio.id}/images`, {
           params: {
-            api_key: "9f4ef628222f7685f32fc1a8eecaae0b",
+            api_key: apiKey,
             language: "pt",
           },
         });
@@ -122,4 +123,4 @@ function Desktop() {
     </div>
   );
 }
-export default Desktop;
+export default memo(Desktop);

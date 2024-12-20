@@ -1,0 +1,21 @@
+.botao{
+    display: flex;
+   
+  }
+  .imagem:hover {
+    background-color: white;
+    transition: 0.1s all;
+   
+    
+  }
+  .imagem {
+    position: relative;
+  
+    transition: 0.1s all;
+    padding: 2px;
+    margin: 3px;
+    width: 120px;
+    height: 180px;
+    border-radius: 10px;
+    z-index: 25;
+  }

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import './style.css'
-import { ReactComponent as House2 } from './icon/house.svg';
-import { ReactComponent as Like } from './icon/heart.svg';
-import { ReactComponent as Serie } from './icon/collection-play.svg';
-import { ReactComponent as Filmes } from './icon/film.svg';
+import { ReactComponent as House2 } from '../../assets/icons/house.svg';
+import { ReactComponent as Like } from '../../assets/icons/heart.svg';
+import { ReactComponent as Serie } from '../../assets/icons/collection-play.svg';
+import { ReactComponent as Filmes } from '../../assets/icons/film.svg';
 
 
 import { UserContext }  from '../../contexts/user'

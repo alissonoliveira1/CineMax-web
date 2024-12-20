@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
+import { UserContext } from "../../contexts/user";
 import "./style.css";
-import { ReactComponent as Lupa } from "./search.svg";
+import { ReactComponent as Lupa } from "../../assets/icons/search.svg";
 import api from "../../services";
 
 function Pesquisas() {
@@ -9,7 +10,7 @@ function Pesquisas() {
   const [poster, setposter] = useState("");
   const navigate = useNavigate();
   const [larguraInput, setLarguraInput] = useState(0);
-  const keyApi = "9f4ef628222f7685f32fc1a8eecaae0b";
+ const {apiKey} = useContext(UserContext);
 
   let dataAtual = new Date();
   let ano = dataAtual.getFullYear().toString();
@@ -24,7 +25,7 @@ function Pesquisas() {
       const response = await api.get("search/multi", {
         params: {
           query: pesquisa,
-          api_key: keyApi,
+          api_key: apiKey,
           "primary_release_date.lte": dataCompleta,
           language: "pt-br",
         },
