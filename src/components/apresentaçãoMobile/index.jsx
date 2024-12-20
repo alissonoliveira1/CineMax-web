@@ -59,7 +59,7 @@ function ApresentacaoMobile() {
     };
 
     obterFilmeAleatorio();
-  }, [dataCompleta]);
+  }, [dataCompleta,apiKey]);
 
   
   useEffect(() => {

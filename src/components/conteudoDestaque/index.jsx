@@ -92,7 +92,7 @@ function ContDestaque({genero}){
         };
     
         fetchData();
-      }, [dataCompleta,apiKey]);
+      }, [dataCompleta,apiKey,genero]);
 return(
     <Slider className="SlideD" {...settings}>
     {filmesPorGenero.slice().map((filme) => {

@@ -40,7 +40,7 @@ const Desktop = () => {
       };
   
       obterFilmeAleatorio();
-    }, [dataCompleta]);
+    }, [dataCompleta,apiKey]);
 
   useEffect(() => {
      const fetchLogo = async () => {
@@ -63,7 +63,7 @@ const Desktop = () => {
     }
 
     fetchLogo();
-  }, [filmeAleatorio]);
+  }, [filmeAleatorio, apiKey]);
 
   const img = `https://image.tmdb.org/t/p/original/${filmeAleatorio.backdrop_path}`;
 

@@ -15,7 +15,7 @@ import ContDestaque from "../../components/conteudoDestaque";
 
 function Home() {
 
-  const [load, setLoad] = useState(true);
+ 
   const { authStatus } = useContext(UserContext);
   const [poster, setPoster] = useState("");
   useEffect(() => {
@@ -42,16 +42,7 @@ function Home() {
     return () => tela480.removeEventListener("change", handleResize);
   }, []);
 
-useEffect(() => {
-  setLoad(false);
-})
-  if (load) {
-    return (
-      <div className="load">
-        <div className="loadd"></div>
-      </div>
-    );
-  }
+
 
   return (
     <div className="container2">

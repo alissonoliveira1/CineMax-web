@@ -92,7 +92,7 @@ function ContGenero ({genero}){
         };
     
         fetchData();
-      }, [dataCompleta,apiKey]);
+      }, [dataCompleta,apiKey, genero]);
 return(
     <Slider {...settings}>
     {filmesPorGenero.slice().map((filme) => {
