@@ -109,7 +109,7 @@ console.log(error)
          <div className="cad-login">
             <span className="texto-link">
               É novo aqui?
-              <Link to={"/Cadastro"}>
+              <Link to={"/"}>
                 <span className="link-span"> assine agora!</span>
               </Link>
             </span>

@@ -6,9 +6,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth,signInWithPopup } from "firebase/auth";
 import { ReactComponent as Google } from "../Login/icon/google.svg";
 const Img = require("../../assets/images/img-cadastro.jpg");
-export default function Cadastro() {
+export default function Cadastro(conta) {
   const navegador = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(conta);
   const [senha, setSenha] = useState("");
   const auth = getAuth();
 

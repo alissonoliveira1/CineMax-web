@@ -1,0 +1,269 @@
+.imgAC{
+    width: 100vw;
+    height: 110vh;
+    object-fit: cover;
+    
+    z-index: 1;
+    position: relative;
+}
+.div.img{
+    z-index: 5;
+    position: relative;
+}
+.navebar-AC{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+    padding-left: 130px;
+    padding-right: 130px;
+    align-items: center;
+
+}
+.div-bnt-login{
+    display: flex;
+    width: 100px;
+    height:30px;
+    max-width: 100%;
+    max-height: 100%;
+}
+.login-bnt{
+    
+    
+    outline: none;
+    border: none;
+    
+    font-size: 17px;
+    border-radius: 4px;
+    background-color: #00ceb2;
+    color: rgb(255, 255, 255);
+    width: 100%;
+    height:100%;
+   
+}
+.logo-AC{
+    width: 220px;
+    height: 50px;
+    object-fit: cover;
+    
+}
+.backgroundImgAC{
+    position: absolute;
+    width: 100vw;
+    height: 110vh;
+    background-color: rgba(0, 0, 0, 0.349);
+    z-index: 10;
+    top: 0;
+}
+.containerTextImputAC{
+    position: absolute;
+    width: 100vw;
+    height: 110vh;
+ 
+    z-index: 11;
+    top: 0;
+}
+.containerTextAC{
+    display: flex;
+    height: 70%;
+    
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.div-title-AC{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 800px;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+.span-title-AC{
+    text-align: center;
+    font-size: 4rem;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+.div-descricao-AC{
+   
+    margin-bottom: 15px;
+}
+.span-descricao-AC{
+    text-align: center;
+    font-size: 1rem;
+    color: rgb(236, 236, 236);
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.form-input-AC{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+.div-input-AC{
+    
+}
+.arrow-Button-AC{
+    width: 40px;
+  height: 40px;
+
+}
+.input-AC{
+    width: 350px;
+    height: 50px;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 4px;
+    border: 1px solid rgb(185, 185, 185);
+    outline: none;
+    padding-left: 20px;
+    margin-right: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: rgba(10, 17, 4, 0.863);
+}
+.div-bnt-cadastro-AC{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 54px;
+    max-width: 100%;
+    max-height: 100%;
+}
+.bnt-cadastro-AC{
+   width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    background-color: #00ceb2;
+    color: white;
+}
+.containerAC{
+    display: flex;
+    position: relative;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(50% 500% at 50% -420%, rgba(64, 220, 231, 0.4) 50%, rgba(0, 43, 0, 0.1) 100%), rgb(4, 46, 0);
+    background-color: rgb(10, 17, 4);
+    height: 100vh;
+    width: 100vw;
+    clip-path: ellipse(100% 70% at 50% 70%);
+    z-index: 10;
+}
+.boxAC{
+width: 100vw;
+padding-top: 30px;
+padding-left: 20px;
+padding-right: 20px;
+height: 100vh;
+border-radius: 1rem;
+max-width: 220px ;
+max-height: 320px;
+background: linear-gradient(0deg, 
+    rgb(0, 68, 57) 0%,      /* Cor inicial */
+     rgb(0, 43, 18) 0%,  /* Cor do meio */
+     rgb(0, 68, 57) 100%     /* Cor final */
+);
+}
+
+.div-img-Box1{
+    position: relative;
+    width: 100%;
+    height: 65%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+   
+}
+.div-img-Box2{
+    position: relative;
+    width: 100%;
+    height: 55%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+   
+}
+.div-img-Box3{
+    position: relative;
+    width: 100%;
+    height: 55%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+   
+   
+}
+.div-img-Box4{
+    position: relative;
+    width: 100%;
+    height: 48%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+   
+   
+}
+.div-filho-box{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+   
+}
+.img-Box{
+
+    width: 50%;
+    height: 50%;
+    
+    object-fit: cover;
+
+}
+.titleAcBOX{
+    display: flex;
+   
+    font-size: 1.5em;
+    color: white;
+    font-weight:500;
+    
+}
+.descricaoBox{
+    display: flex;
+    margin-top: 20px;
+    font-size: 1em;
+    color: rgb(185, 185, 185);
+    font-weight:400;
+   
+}
+.containerAC2{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3px;
+    background: linear-gradient(180deg, 
+    rgb(0, 255, 34) 0%,      /* Cor inicial */
+     rgb(0, 43, 2) 20%,  /* Cor do meio */
+     rgb(0, 255, 34) 100%     /* Cor final */
+);
+    height: 100vh;
+    width: 100vw;
+    bottom: 10vh;
+    clip-path: ellipse(100% 70% at 50% 70%);
+    z-index: 10;
+}
