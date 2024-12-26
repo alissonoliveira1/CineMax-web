@@ -1,9 +1,7 @@
 import "./style.css";
 import { useState } from "react";
 import { auth } from "../../firebaseConnect";
-
 import { useNavigate } from "react-router-dom";
-import Cadastro from "../Cadastro";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 import { ReactComponent as Arrow } from "../../assets/icons/arrow-right.svg";
 const Img = require("../../assets/images/img.jpg");
@@ -13,7 +11,7 @@ const perfil = require("../../assets/images/perfil-AC.png");
 const telescopio = require("../../assets/images/teles-AC.png");
 const logo = require("../../assets/images/CineMax.png");
 function ApresentacaoCadastro() {
-  const [email, setConta] = useState();
+  const [email, setConta] = useState("");
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate("/Login");
@@ -22,12 +20,13 @@ function ApresentacaoCadastro() {
   const handleVerifica = async (e) => {
     e.preventDefault();
     try {
+      
       const conta = await fetchSignInMethodsForEmail(auth, email);
       if (conta.length > 0) {
-        navigate("/Login");
+        navigate("/Login", { state: { email } });
       } else {
-        navigate("/Cadastro");
-        Cadastro('email');
+        navigate("/Cadastro", { state: { email } });
+        
       }
     } catch (error) {
       console.log(error);

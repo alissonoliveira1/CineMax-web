@@ -1,31 +1,34 @@
 import { useState } from "react";
 import "./style.css";
+
 import { toast } from "react-toastify";
 import { provider } from "../../firebaseConnect";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { createUserWithEmailAndPassword, sendEmailVerification, getAuth,signInWithPopup } from "firebase/auth";
 import { ReactComponent as Google } from "../Login/icon/google.svg";
 const Img = require("../../assets/images/img-cadastro.jpg");
-export default function Cadastro(conta) {
+export default function Cadastro() {
+  const location = useLocation();
+  const {email} = location.state || {};
   const navegador = useNavigate();
-  const [email, setEmail] = useState(conta);
+  const [email2, setEmail] = useState(email);
   const [senha, setSenha] = useState("");
   const auth = getAuth();
-
+ 
 
 
   async function handleSubmit(e) {
     e.preventDefault();
  
-    if (email === "" && senha === "") {
+    if (email2 === "" && senha === "") {
       toast.warn("Email e senha não preenchidos!");
     } else if (senha === "") {
       toast.warn("Senha não preenchida!");
-    } else if (email === "") {
+    } else if (email2 === "") {
       toast.warn("Email não preenchido!");
     } else { 
       const auth = getAuth();
-      await createUserWithEmailAndPassword(auth, email, senha)
+      await createUserWithEmailAndPassword(auth, email2, senha)
         .then(() => {
           
           sendEmailVerification(auth.currentUser)
@@ -68,7 +71,7 @@ console.log(error)
             </div>
             <input
               placeholder="Email"
-              value={email}
+              value={email2}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
             />

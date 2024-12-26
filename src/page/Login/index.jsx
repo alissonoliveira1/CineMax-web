@@ -1,7 +1,7 @@
 import "./style.css";
 import {  useState } from "react";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import { ReactComponent as Google } from "./icon/google.svg";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { provider } from "../../firebaseConnect";
@@ -11,7 +11,9 @@ import { useContext } from 'react';
 const Img = require("../../assets/images/image-login.jpg");
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+    const location = useLocation();
+    const {email} = location.state || {};
+  const [email1, setEmail] = useState(email);
   const [senha, setSenha] = useState("");
   const navegador = useNavigate();
 
@@ -22,14 +24,14 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (email === "" && senha === "") {
+    if (email1 === "" && senha === "") {
       toast.warn("Digite seu email e a senha!");
-    } else if (email === "") {
+    } else if (email1 === "") {
       toast.warn("Email não preenchido!");
     } else if (senha === "") {
       toast.warn("Senha não preenchida!");
     } else {
-      await signInWithEmailAndPassword(auth, email, senha)
+      await signInWithEmailAndPassword(auth, email1, senha)
         .then(() => {
           setEmail("");
           setSenha("");
@@ -78,7 +80,7 @@ console.log(error)
             </div>
             <input
               placeholder="Email"
-              value={email}
+              value={email1}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
             />
