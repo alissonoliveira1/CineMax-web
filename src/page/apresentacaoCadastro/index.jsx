@@ -4,13 +4,16 @@ import { auth } from "../../firebaseConnect";
 import { useNavigate } from "react-router-dom";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 import { ReactComponent as Arrow } from "../../assets/icons/arrow-right.svg";
+import { useStepContext } from "../../contexts/contxPassos";
 const Img = require("../../assets/images/img.jpg");
 const project = require("../../assets/images/projet-AC.png");
 const tv = require("../../assets/images/tv-AC.png");
 const perfil = require("../../assets/images/perfil-AC.png");
 const telescopio = require("../../assets/images/teles-AC.png");
 const logo = require("../../assets/images/CineMax.png");
+
 function ApresentacaoCadastro() {
+  const { setEmailCX } = useStepContext();
   const [email, setConta] = useState("");
   const navigate = useNavigate();
   const handleNavigate = () => {
@@ -25,7 +28,8 @@ function ApresentacaoCadastro() {
       if (conta.length > 0) {
         navigate("/Login", { state: { email } });
       } else {
-        navigate("/Cadastro", { state: { email } });
+        navigate("/Cadastro" );
+        setEmailCX(email);
         
       }
     } catch (error) {

@@ -8,7 +8,6 @@ import { useContext } from "react";
 import { 
     doc,
     setDoc,
-  
     collection,
     onSnapshot,
     query,
@@ -40,9 +39,6 @@ const perfil = async () =>{
            settuser3(doc.data().icons) 
          
       });
-    
-    
-
 }
 perfil()
 },[])

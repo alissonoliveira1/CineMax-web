@@ -47,7 +47,7 @@ function Header(){
 
     return(
         <div className={appClasses}>
-       <header >
+       <header className='headerHR' >
         {poster === 'poster_path' && (
            <Link  to="/home"><div className='logoMobile'><img alt='logo' src={LogoMobile}/></div></Link>
           )}

@@ -1,190 +1,75 @@
-.image-loginC {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-
-  background-size: cover;
-  align-items: center;
-  justify-content: center;
-  position: relative;
+.header-cadastro{
+width: 100vw;
+height: 80px;
+border-bottom: 1px solid #e7e7e7;
+}
+.header-cadastro nav{
+display: flex;
+justify-content: space-between;
+padding-top: 10px;
+padding-bottom: 5px;
+padding-right: 30px;
+padding-left: 30px;
+align-items: center;
+}
+.img-cadastro-logo{
+width: 220px;
+height: 50px;
+object-fit: cover;
+}
+.bnt-entrar-cadastro{
+width: 100%;
+height: 100%;
+font-weight: 600;
+font-size: 16px;
+border: none;
+background-color: #63afff;
+border-radius: 4px;
+color: white;
+cursor: pointer;
+}
+.div-entrar-cadastro{
  
+width: 100px;
+height: 30px;
 }
-.container-loginC{
-  width: 100vw;
-  background-color: #00000052;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.form-login-div7 {
+
+.container-cadastro{
   
-  position: relative;
-
-  align-items: center;
-  border-radius: 100px;
-  border: 1px solid white;
-  display: flex;
-  flex-direction: column;
-  padding: 60px;
-  width: 100%;
-  color: rgb(97, 97, 97);
-  max-width: 700px;
+  width: 100vw;
+  background: linear-gradient(90deg,#e7ffff 0%,#ffffff 50%,#e7ffff 100%);
   height: 100vh;
-  max-height: 370px;
-  background-color: rgba(0, 0, 0, 0.253);
-}
-.containerLoginGgCad {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
- 
-
-  & .iconGoogleDivCad {
-    background-color: white;
-    border-radius: 5px;
-    width: 55%;
-    display: flex;
-    height: 50px;
-    align-items: center;
-    cursor: pointer;
-    & span {
-      font-size: 14px;
-      font-family: "Roboto", system-ui;
-      font-weight: 500;
-      font-style: normal;
-      color: #1f1f1f;
-    }
-  }
-  & .div-bnt-loginCad {
-    width: 40%;
-    height: 50px;
-
-    & button {
-      cursor: pointer;
-      background-color: #00ceb2;
-      color: white;
-      font-weight: 500;
-      border: none;
-      border-radius: 5px;
-      font-family: sans-serif;
-      font-size: 17px;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-
-.entrar2 {
-  margin-bottom: 10px;
-}
-.entrar2 span {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  font-family: sans-serif;
-}
-.form-loginC {
   display: flex;
   flex-direction: column;
-  width: 60%;
-  height: 100%;
 }
-.form-loginC input {
-  border-radius: 5px;
-  padding: 5px;
-  background-color: #000000;
-  border: 1px solid rgb(168, 168, 168);
-  outline: none;
-  color: rgb(255, 255, 255);
-  padding-left: 10px;
-  font-size: 16px;
-  font-family: sans-serif;
- 
-  margin-bottom: 30px;
-  height: 50px;
+.passos-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Esconde os passos fora da tela */
 }
 
-.cad-login2 {
-  margin-top: 20px;
+.passo {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+  opacity: 0;
+  transform: translateX(100%); /* Começa fora da tela pela direita */
 }
-.cad-login2 span {
-  font-size: 16px;
-  font-family: sans-serif;
+
+.passo.active {
+  transform: translateX(0); /* No centro */
+  opacity: 1;
 }
-.link-span2 {
-  font-weight: 600;
-  color: rgb(43, 157, 233);
+
+.passo.left {
+  transform: translateX(-100%); /* Sai para a esquerda */
+  opacity: 0;
 }
-.texto-link2 {
-  color: rgb(255, 255, 255);
-}
-@media (max-width:900px) {
-    .form-loginC {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-      }
-    .form-login-div7 {
-        align-items: center;
-        border-radius: 100px;
-        border: none;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        width: 100%;
-        color: rgb(97, 97, 97);
-        max-width: 100%;
-        height: 100vh;
-        max-height: 370px;
-        background-color: transparent;
-      }
-    .containerLoginGgCad {
-        width: 100%;
-        display: flex;
-        gap: 10px;
-        flex-direction: column-reverse;
-        justify-content: space-between;
-        align-items: center;
-      
-        & .iconGoogleDivCad {
-          background-color: white;
-          border-radius: 10px;
-          width: 100%;
-          display: flex;
-          height: 50px;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          & span {
-            font-size: 1.1rem;
-            font-family: "Roboto", system-ui;
-            font-weight: 500;
-            font-style: normal;
-            color: #1f1f1f;
-          }
-        }
-        & .div-bnt-loginCad {
-          width: 100%;
-          height: 50px;
-      
-          & button {
-            cursor: pointer;
-            background-color: #e58f83;
-            color: white;
-            font-weight: 500;
-            border: none;
-            border-radius: 8px;
-            font-family: sans-serif;
-            font-size: 1.3rem;
-            cursor: pointer;
-            width: 100%;
-            height: 100%;
-          }
-        }
-      }
-      
+
+.passo.right {
+  transform: translateX(100%); /* Sai para a direita */
+  opacity: 0;
 }

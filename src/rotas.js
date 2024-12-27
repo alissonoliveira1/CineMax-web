@@ -13,7 +13,7 @@ import FilmePlay from "./page/FilmePlay";
 import Login from "./page/Login";
 import Cadastro from "./page/Cadastro";
 import Priv from "./Priv";
-import MetodoLogin from "./page/MetodoLogin";
+
 import Perfil from "./page/perfil";
 import ApresentacaoCadastro from "./page/apresentacaoCadastro";
 
@@ -32,7 +32,7 @@ function Rotas() {
               </Priv>
             }
           />
-          <Route path="/MetodoLogin" element={<MetodoLogin />} />
+         
           <Route path="/Cadastro" element={<Cadastro />} />
           <Route
             path="/home"

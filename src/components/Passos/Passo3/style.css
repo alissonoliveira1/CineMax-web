@@ -1,0 +1,75 @@
+.container-passo3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+.container-filho-passo3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;
+}
+.title-passo3{
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.form-passo3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.form-passo3 input{
+    width: 75%;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+.div-pai-perfil-passo3{
+    width: 100%;
+    flex-flow: wrap;
+    display:flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.div-perfil-passo3{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.div-perfil-passo3 img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid #464646
+
+}
+.div-perfil-passo3 img:hover{
+    filter: brightness(0.9);
+
+}
+.bnt-passo3{
+    width: 75%;
+    height: 40px;
+   font-size: 20px;
+   font-weight: 600;
+    background-color: #008cff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+
+}

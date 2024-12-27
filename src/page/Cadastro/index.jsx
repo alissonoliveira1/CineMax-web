@@ -1,113 +1,33 @@
-import { useState } from "react";
 import "./style.css";
-
-import { toast } from "react-toastify";
-import { provider } from "../../firebaseConnect";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import { createUserWithEmailAndPassword, sendEmailVerification, getAuth,signInWithPopup } from "firebase/auth";
-import { ReactComponent as Google } from "../Login/icon/google.svg";
-const Img = require("../../assets/images/img-cadastro.jpg");
+import { useStepContext } from "../../contexts/contxPassos";
+import PassosMenu from "../../components/Passos/PassosMenu/passos";
+import Passo1 from "../../components/Passos/Passo1/passo1";
+import Passo2 from "../../components/Passos/Passo2/passo2";
+import Passo3 from "../../components/Passos/Passo3/Passo3";
+const Img = require("../../assets/images/CineMax.png");
 export default function Cadastro() {
-  const location = useLocation();
-  const {email} = location.state || {};
-  const navegador = useNavigate();
-  const [email2, setEmail] = useState(email);
-  const [senha, setSenha] = useState("");
-  const auth = getAuth();
- 
+  const { step } = useStepContext();
 
-
-  async function handleSubmit(e) {
-    e.preventDefault();
- 
-    if (email2 === "" && senha === "") {
-      toast.warn("Email e senha não preenchidos!");
-    } else if (senha === "") {
-      toast.warn("Senha não preenchida!");
-    } else if (email2 === "") {
-      toast.warn("Email não preenchido!");
-    } else { 
-      const auth = getAuth();
-      await createUserWithEmailAndPassword(auth, email2, senha)
-        .then(() => {
-          
-          sendEmailVerification(auth.currentUser)
-        
-          setEmail("");
-          setSenha("");
-          toast.success("Conta Cadastrada!");
-          navegador("/perfil", { replace: true });
-        })
-        .catch((error) => {
-          if (error.code === "auth/email-already-in-use") {
-            toast.warn("este email ja existe!");
-          }
-          if (error.code === "auth/weak-password") {
-            toast.warn("senha fraca!");
-          }
-          if (error.code === "auth/network-request-failed") {
-            toast.warn("Ha um problema na conexão !");
-          }
-        });
-    }
-  }
-  async function loginGoogle() {
-    signInWithPopup(auth, provider)
-  .then(() => {
-    navegador('/perfil')
-
-  }).catch((error) => {
-console.log(error)
-  });
-  }
   return (
-    <div className="container-login">
-      <div className="image-loginC" style={{ backgroundImage: `url(${Img})` }}>
-      <div className="container-loginC">
-      <div className="form-login-div7">
-          <form className="form-loginC" onSubmit={handleSubmit}>
-            <div className="entrar2">
-              <span>Cadastro</span>
-            </div>
-            <input
-              placeholder="Email"
-              value={email2}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-            />
+    <div className="container-cadastro">
+      <header className="header-cadastro">
+        <nav className="nav-cadastro">
+          <div>
+            <img className="img-cadastro-logo" src={Img} alt="img" />
+          </div>
 
-            <input
-              placeholder="Senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              type="password"
-            />
- <div className="containerLoginGgCad">
-          
-          <div onClick={loginGoogle} className="iconGoogleDivCad">
-            <Google className="GoogleLoginIcon" />
-            <div>
-              <span>Cadastrar conta Google</span>
-            </div>
+          <div className="div-entrar-cadastro">
+            <button className="bnt-entrar-cadastro">Entrar</button>
           </div>
-          <div className="div-bnt-loginCad">
-          <button type="submit">Entrar</button>
-          </div>
-        </div>
-          
-          </form>
-
-          <div className="cad-login2">
-            <span className="texto-link2">
-              Já tem conta?{" "}
-              <Link to={"/"}>
-                <span className="link-span2">Acesse sua conta!</span>
-              </Link>
-            </span>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
+        </nav>
+      </header>
+      <PassosMenu />
+      
+      <div className="passos-container">
+        <div className={`passo ${step === 1 ? "active" : step < 1 ? "left" : "right"}`}>{step === 1 && <Passo1 />}</div>
+        <div className={`passo ${step === 2 ? "active" : step < 2 ? "right" : "left"}`}>{step === 2 && <Passo2 />}</div>
+        <div className={`passo ${step === 3 ? "active" : step < 3 ? "right" : "left"}`}>{step === 3 && <Passo3 />}</div>
+      </div></div>
+  
   );
 }
