@@ -59,7 +59,7 @@ const Passo1 = () => {
   async function loginGoogle() {
     signInWithPopup(auth, provider)
       .then(() => {
-        navegador("/perfil");
+        setStep(3);
       })
       .catch((error) => {
         console.log(error);
