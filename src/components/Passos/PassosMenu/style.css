@@ -24,3 +24,11 @@ align-items: center;
     height: 2px;
     background-color: #5a5858;
 }
+@media screen and (max-width: 768px){
+    .passos-menu-container{
+        margin-top: 20%;
+        height: 70px;
+    }
+    
+    
+}

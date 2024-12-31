@@ -16,7 +16,7 @@ const Desktop = () => {
     }, []);
   
     useEffect(() => {
-      const obterFilmeAleatorio = async () => {
+      const obterFilmeComLogo = async () => {
         try {
           const resposta = await api.get("/discover/movie", {
             params: {
@@ -27,43 +27,42 @@ const Desktop = () => {
               page: Math.floor(Math.random() * 10) + 1,
             },
           });
-  
+    
           const { results } = resposta.data;
+    
           if (results && results.length > 0) {
-            setFilmeAleatorio(results[0]);
+            // Verifica logo para cada filme
+            for (const filme of results) {
+              try {
+                const logoResponse = await api.get(`/movie/${filme.id}/images`, {
+                  params: {
+                    api_key: apiKey,
+                    language: "pt",
+                  },
+                });
+    
+                const logos = logoResponse.data.logos;
+                if (logos && logos.length > 0) {
+                  // Atualiza estados com filme e logo
+                  setFilmeAleatorio(filme);
+                  setLogo(logos[0].file_path);
+                  break; // Sai do loop após encontrar o primeiro filme válido
+                }
+              } catch (erroLogo) {
+                console.error(`Erro ao buscar logo para o filme ${filme.id}:`, erroLogo);
+              }
+            }
           } else {
-            console.error("Nenhum filme aleatório encontrado.");
+            console.error("Nenhum filme encontrado.");
           }
         } catch (erro) {
-          console.error("Erro ao obter filme aleatório:", erro);
+          console.error("Erro ao obter filmes:", erro);
         }
       };
-  
-      obterFilmeAleatorio();
-    }, [dataCompleta,apiKey]);
-
-  useEffect(() => {
-     const fetchLogo = async () => {
-      try {
-        const response = await api.get(`/movie/${filmeAleatorio.id}/images`, {
-          params: {
-            api_key: apiKey,
-            language: "pt",
-          },
-        });
-
-        const logos = response.data.logos;
-
-        if (logos && logos.length > 0) {
-          setLogo(logos[0].file_path);
-        }
-      } catch (error) {
-       
-      }
-    }
-
-    fetchLogo();
-  }, [filmeAleatorio, apiKey]);
+    
+      obterFilmeComLogo();
+    }, [dataCompleta, apiKey]);
+    
 
   const img = `https://image.tmdb.org/t/p/original/${filmeAleatorio.backdrop_path}`;
 

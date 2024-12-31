@@ -14,6 +14,8 @@ html {
   }
 }
 .listaPaiFilmes{
+  
+  margin-top: 25px;
   position: relative;
   z-index: 30; 
  
@@ -23,94 +25,6 @@ html {
   z-index: -1;
 }
 
-.custom-prev-arrow{
-  display: flex;
-  position: absolute;
-  left: 0;
-  top: 5px;
-  background-color: #00000069;
-  cursor: pointer;
-  z-index: 30;
-  border: none;
-  width: 40px;
-  height: 180px;
-}
-.custom-next-arrow {
-  right: 0;
-  top: 5px;
-  width: 40px;
-  height: 180px;
-  z-index: 30;
-  background-color: #00000080;
-  border: none;
-  display: flex;
-  position: absolute;
-align-items: center;
-  cursor: pointer;
-}
-.setas:active{
-  transform: scale(0.8);
-
-}
-.custom-prev-arrow:hover{
-
-  background-color: #0000008e;
-}
-.custom-next-arrow:hover {
-  background-color: #0000008e;
-}
-
- 
-
-
-
-.imagem:hover {
-  background-color: white;
-  transition: 0.1s all;
- 
-  
-}
-.imagem {
-  position: relative;
-
-  transition: 0.1s all;
-  padding: 2px;
-  margin: 3px;
-  width: 120px;
-  height: 180px;
-  border-radius: 10px;
-  z-index: 25;
-}
-.setas {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  color: rgb(255, 255, 255);
-  cursor: pointer;
-}
-.left{
-  background-color: #00000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  left: 0;
-  width: 60px;
-  height: 200px;
-position: absolute;
-
-z-index: 90;
-}
-.right{
-  align-items: center;
-  justify-content: center;
-  background-color: #00000065;
-  display: flex;
-  width: 60px;
-  height: 200px;
-  position: absolute;
-  z-index: 30;
-  right: 0;
-}
 .paitexto {
   display: flex;
   

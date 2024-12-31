@@ -127,9 +127,9 @@ const Passo1 = () => {
                   </div>
                   <div className="subtitle-passo1-p2">
                     <span>
-                      Sua conta criada, aperte o botão para continuar!
+                      Sua conta criada, aperte o botão para continuar! 
                     </span>
-                    <span style={{ fontWeight: "600" }}>{emailCX}</span>
+                    <span style={{ fontWeight: "600" }}> {emailCX}</span>
                   </div>
                 </div>
                 <div className="div-bnt-passo1-p2">

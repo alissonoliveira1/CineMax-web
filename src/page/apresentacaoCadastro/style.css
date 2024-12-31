@@ -12,6 +12,7 @@
 }
 .navebar-AC{
     display: flex;
+    width: 100vw;
     margin-top: 10px;
     justify-content: space-between;
     padding-left: 130px;
@@ -19,26 +20,22 @@
     align-items: center;
 
 }
-.div-bnt-login{
+.div-bnt-login-AC{
     display: flex;
     width: 100px;
     height:30px;
     max-width: 100%;
     max-height: 100%;
 }
-.login-bnt{
-    
-    
+.login-bnt-AC{
     outline: none;
     border: none;
-    
     font-size: 17px;
     border-radius: 4px;
     background-color: #00ceb2;
     color: rgb(255, 255, 255);
     width: 100%;
     height:100%;
-   
 }
 .logo-AC{
     width: 220px;
@@ -65,7 +62,6 @@
 .containerTextAC{
     display: flex;
     height: 70%;
-    
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -86,7 +82,6 @@
     font-weight: bold;
 }
 .div-descricao-AC{
-   
     margin-bottom: 15px;
 }
 .span-descricao-AC{
@@ -103,9 +98,7 @@
     
    
 }
-.div-input-AC{
-    
-}
+
 .arrow-Button-AC{
     width: 40px;
   height: 40px;
@@ -227,12 +220,9 @@ background: linear-gradient(0deg,
    
 }
 .img-Box{
-
     width: 50%;
     height: 50%;
-    
     object-fit: cover;
-
 }
 .titleAcBOX{
     display: flex;
@@ -266,4 +256,209 @@ background: linear-gradient(0deg,
     bottom: 10vh;
     clip-path: ellipse(100% 70% at 50% 70%);
     z-index: 10;
+}
+@media screen and (max-width: 768px){
+    .navebar-AC{
+        display: flex;
+        width: 100vw;
+        margin-top: 10px;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        align-items: center;
+    
+    }
+    .form-input-AC{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .div-bnt-login-AC{
+        display: flex;
+        width: 100px;
+        height:30px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .login-bnt-AC{
+        outline: none;
+        border: none;
+        font-size: 17px;
+        border-radius: 3px;
+        background-color: #00ceb2;
+        color: rgb(255, 255, 255);
+        width: 100%;
+        height:100%;
+    }
+    .logo-AC{
+        width: 160px;
+        height: 30px;
+        object-fit: cover;
+        
+    }
+    .span-title-AC{
+        text-align: center;
+        font-size: 2rem;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+    }
+    .div-title-AC{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .div-descricao-AC{
+        width: 90%;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .span-descricao-AC{
+        text-align: center;
+        font-size: 16px;
+        color: rgb(236, 236, 236);
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .containerTextAC{
+        display: flex;
+        height: 50%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .div-bnt-cadastro-AC{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 150px;
+        height: 50px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .bnt-cadastro-AC{
+       width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 4px;
+        border: none;
+        outline: none;
+        padding-left: 20px;
+        font-size: 1.3rem;
+        font-weight: 500;
+        background-color: #00ceb2;
+        color: white;
+    }
+    .input-AC{
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .containerAC2{
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        padding-top: 3px;
+        background: linear-gradient(180deg, 
+        rgb(0, 255, 34) 0%,      /* Cor inicial */
+         rgb(0, 43, 2) 20%,  /* Cor do meio */
+         rgb(0, 255, 34) 100%     /* Cor final */
+    );
+        height: 130vh;
+        width: 100vw;
+        bottom: 30vh;
+        clip-path: ellipse(150% 70% at 50% 70%);
+        z-index: 10;
+    }
+    .containerAC{
+        display: flex;
+        position: relative;
+        gap: 20px;
+        
+        padding-top: 60%;
+        
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: radial-gradient(50% 500% at 50% -420%, rgba(64, 220, 231, 0.4) 50%, rgba(0, 43, 0, 0.1) 100%), rgb(4, 46, 0);
+        background-color: rgb(10, 17, 4);
+        height: 130vh;
+        width: 100vw;
+        clip-path: ellipse(150% 70% at 50% 70%);
+        z-index: 10;
+    }
+    .boxAC{
+        width: 100vw; 
+        height: 600px;
+        max-width:320px;
+        max-height: 900px;
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 1rem;
+        background: linear-gradient(0deg, 
+            rgb(0, 68, 57) 0%,      /* Cor inicial */
+             rgb(0, 43, 18) 0%,  /* Cor do meio */
+             rgb(0, 68, 57) 100%     /* Cor final */
+        );
+        }
+        
+        .div-filho-box{
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            
+           
+        }
+        .img-Box{
+            width: 30%;
+            height: 30%;
+            object-fit: cover;
+        }
+        
+.div-img-Box1{
+    position: relative;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+   
+}
+.div-img-Box2{
+    position: relative;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+   
+}
+.div-img-Box3{
+    position: relative;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+   
+   
+}
+.div-img-Box4{
+    position: relative;
+    width: 100%;
+    height: 38%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+   
+}
 }

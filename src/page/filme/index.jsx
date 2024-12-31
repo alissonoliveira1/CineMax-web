@@ -3,15 +3,13 @@ import { useState, useEffect, useContext, useMemo } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import api from "../../services";
 import { toast } from "react-toastify";
-import { ReactComponent as HeartA } from "../../assets/icons/heart.svg";
 import { ReactComponent as Camera } from "../../assets/icons/camera-reels.svg";
-import { ReactComponent as HeartB } from "../../assets/icons/heart-fill.svg";
 import { ReactComponent as Play } from "../../assets/icons/play-fill.svg";
 import { ReactComponent as Left } from "../../assets/icons/left.svg";
 import { ReactComponent as Right } from "../../assets/icons/right.svg";
 import { ReactComponent as Share } from "../../assets/icons/share.svg";
 import axios from "axios";
-import { db } from "../../firebaseConnect";
+
 import Header from "../../components/header";
 import MenuMobile from "../../components/MenuMobile";
 import MenuSuspenso from "../../components/MenuSuspenso";
@@ -19,17 +17,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { UserContext } from "../../contexts/user";
-import {
-  query,
-  where,
-  onSnapshot,
-  collection,
-  doc,
-  updateDoc,
-  arrayUnion,
-  arrayRemove,
-  getDoc,
-} from "firebase/firestore";
+
+import AddFav from "../../components/addFav";
 
 function Filme() {
   const [filme, setFilme] = useState({});
@@ -40,8 +29,8 @@ function Filme() {
   const navigate = useNavigate();
   const [load, setLoad] = useState(true);
   const [poster, setPoster] = useState("");
-  const [favoritos, setFavoritos] = useState([]);
-  const { user, apiKey } = useContext(UserContext);
+ 
+  const { apiKey } = useContext(UserContext);
   const textToShare = `https://cinemg.netlify.app/filme/${id}`;
 
   const genreIds = useMemo(
@@ -131,53 +120,9 @@ function Filme() {
   const hours = Math.floor(durationInMinutes / 60);
   const minutes = durationInMinutes % 60;
 
-  useEffect(() => {
-    async function fetchFavoritos() {
-      if (user) {
-        const tarefaRef = collection(db, "cineData");
-        const q = query(tarefaRef, where("userUid", "==", user.uid));
 
-        onSnapshot(q, (snapshot) => {
-          let lista = [];
-          snapshot.forEach((doc) => {
-            const data = doc.data().favorito || [];
-            lista = [...lista, ...data.map((fav) => fav.id)];
-          });
-          setFavoritos(lista);
-        });
-      }
-    }
 
-    fetchFavoritos();
-  }, [user]);
-
-  const isFavorito = favoritos.includes(filme.id);
-
-  const salvarfilme = async () => {
-    try {
-      const documentoRef = doc(db, "cineData", user.uid);
-
-      if (isFavorito) {
-        await updateDoc(documentoRef, {
-          favorito: arrayRemove({ id: filme.id, ...filme }),
-        });
-        console.log("Filme removido dos favoritos:", filme.id);
-      } else {
-        await updateDoc(documentoRef, {
-          favorito: arrayUnion({ id: filme.id, ...filme }),
-        });
-        console.log("Filme adicionado aos favoritos:", filme.id);
-      }
-
-      const docSnap = await getDoc(documentoRef);
-      if (docSnap.exists()) {
-        const favoritoArray = docSnap.data().favorito || [];
-        setFavoritos(favoritoArray.map((item) => item.id));
-      }
-    } catch (error) {
-      console.error("Erro ao atualizar favoritos:", error);
-    }
-  };
+ 
 
   useEffect(() => {
     async function fetchLogo() {
@@ -386,21 +331,7 @@ function Filme() {
         </div></div>
         </div>
         <div className="buttons">
-          <button onClick={salvarfilme} className="bnt-page-infos">
-            <span>
-              {isFavorito ? (
-                <div className="icon-name-page">
-                  <HeartB className="icon-salvar-page" />
-                  <div><span className="bnt-text-page">salvo</span></div>
-                </div>
-              ) : (
-                <div className="icon-name-page">
-                  <HeartA className="icon-salvar-page" />
-                  <div><span className="bnt-text-page">salvar</span></div>
-                </div>
-              )}
-            </span>
-          </button>
+          <AddFav id={filme.id}/>
           <button className="bnt-page-infos" onClick={handleShare}>
             <div>
               <Share className="icon-salvar-page" />

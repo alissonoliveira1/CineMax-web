@@ -47,8 +47,8 @@ function ApresentacaoCadastro() {
             <div>
               <img className="logo-AC" src={logo} alt="" />
             </div>
-            <div className="div-bnt-login">
-              <button onClick={handleNavigate} className="login-bnt">
+            <div className="div-bnt-login-AC">
+              <button onClick={handleNavigate} className="login-bnt-AC">
                 Entrar
               </button>
             </div>
@@ -91,7 +91,7 @@ function ApresentacaoCadastro() {
         </div>
       </div>
       <div className="containerAC2">
-        <div className="containerAC">
+        <div onScroll={false} className="containerAC">
           <div className="boxAC">
             <div>
               <span className="titleAcBOX">Assista onde quiser</span>

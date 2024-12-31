@@ -1,11 +1,13 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState,useContext,useCallback } from "react";
+import React from "react";
+
 import { UserContext } from "../../contexts/user";
 import Slider from "react-slick";
 import api from "../../services";
 import { Link } from "react-router-dom";
 import { ReactComponent as Left } from "../../assets/icons/left.svg";
 import { ReactComponent as Right } from "../../assets/icons/right.svg";
-
+import './style.css'
 function ContGenero ({genero}){
     const { apiKey } = useContext(UserContext);
     const [filmesPorGenero, setFilmesPorGenero] = useState([]);
@@ -15,6 +17,32 @@ function ContGenero ({genero}){
     let mes = ("0" + (dataAtual.getMonth() + 1)).slice(-2);
     let dia = ("0" + dataAtual.getDate()).slice(-2);
     let dataCompleta = `${ano}-${mes}-${dia}`;
+
+    const fetchData = useCallback(async () => {
+      try {
+        const response = await api.get("/discover/movie", {
+          params: {
+            api_key: apiKey,
+            with_genres: genero,
+            language: "pt-br",
+            "primary_release_date.lte": dataCompleta,
+            page: 1,
+          },
+        });
+  
+        setFilmesPorGenero(response.data.results);
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      }
+    }, [apiKey, genero, dataCompleta]);
+  
+    useEffect(() => {
+      fetchData();
+    }, [fetchData]);
+
+
+
+
 
     function CustomPrevArrow({ onClick }) {
         return (
@@ -72,27 +100,7 @@ function ContGenero ({genero}){
         ],
       };
     
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const response = await api.get("/discover/movie", {
-              params: {
-                api_key: apiKey,
-                with_genres: genero,
-                language: "pt-br",
-                "primary_release_date.lte": dataCompleta,
-                page: 1,
-              },
-            });
     
-            setFilmesPorGenero(response.data.results);
-        } catch (error) {
-            console.error("Erro ao buscar dados da API:", error);
-          }
-        };
-    
-        fetchData();
-      }, [dataCompleta,apiKey, genero]);
 return(
     <Slider {...settings}>
     {filmesPorGenero.slice().map((filme) => {
@@ -104,7 +112,7 @@ return(
                 className="imagem"
                 alt={filme.title}
 
-                src={`https://image.tmdb.org/t/p//original/${filme.poster_path}`}
+                src={`https://image.tmdb.org/t/p//w500/${filme.poster_path}`}
               />
             </div>
           </Link>
@@ -114,4 +122,4 @@ return(
   </Slider>
 )
 }
-export default ContGenero;
+export default React.memo(ContGenero);

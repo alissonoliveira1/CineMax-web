@@ -65,7 +65,7 @@ function Home() {
           <span>Em alta</span>
         </div>
         <div>
-          <ContDestaque genero={80} />
+          <ContGenero genero={80} />
         </div>
 
         <div className="tituloCat">
