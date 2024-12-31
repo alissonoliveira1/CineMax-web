@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { provider } from "../../../firebaseConnect";
-import { useNavigate } from "react-router-dom";
+
 import { useStepContext } from "../../../contexts/contxPassos";
 import {
   createUserWithEmailAndPassword,
@@ -17,7 +17,7 @@ const Passo1 = () => {
   const { setStep, emailCX, setIsAccountCreated, isAccountCreated } =
     useStepContext();
 
-  const navegador = useNavigate();
+ 
   const [email2, setEmail] = useState(emailCX);
   const [senha, setSenha] = useState("");
   const auth = getAuth();
