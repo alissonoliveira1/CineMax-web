@@ -17,7 +17,6 @@ const Passo1 = () => {
   const { setStep, emailCX, setIsAccountCreated, isAccountCreated } =
     useStepContext();
 
- 
   const [email2, setEmail] = useState(emailCX);
   const [senha, setSenha] = useState("");
   const auth = getAuth();
@@ -127,15 +126,13 @@ const Passo1 = () => {
                   </div>
                   <div className="subtitle-passo1-p2">
                     <span>
-                      Sua conta criada, aperte o botão para continuar! 
+                      Sua conta criada, aperte o botão para continuar!
                     </span>
                     <span style={{ fontWeight: "600" }}> {emailCX}</span>
                   </div>
                 </div>
                 <div className="div-bnt-passo1-p2">
-                  <button onClick={handlProx} >
-                    Próximo
-                  </button>
+                  <button onClick={handlProx}>Próximo</button>
                 </div>
               </div>
             </>

@@ -23,14 +23,12 @@ function ApresentacaoCadastro() {
   const handleVerifica = async (e) => {
     e.preventDefault();
     try {
-      
       const conta = await fetchSignInMethodsForEmail(auth, email);
       if (conta.length > 0) {
         navigate("/Login", { state: { email } });
       } else {
-        navigate("/Cadastro" );
+        navigate("/Cadastro");
         setEmailCX(email);
-        
       }
     } catch (error) {
       console.log(error);

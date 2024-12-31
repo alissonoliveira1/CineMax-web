@@ -1,172 +1,165 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+}
+.container-passo1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.div-passo1-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 430px;
+}
+.container-passo1-titulo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.title-passo1 {
+  font-size: 33px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: rgb(71, 71, 71);
+}
+.subtitle-passo1 {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: rgb(71, 71, 71);
+}
+.form-passo1 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  width: 100%;
+}
+.form-passo1 input {
+  width: 100%;
+  height: 50px;
+  border: 1px solid #8d8d8d;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.div-bnt-passo1 {
+  width: 600rem;
+  max-width: 100%;
+  height: 50px;
+  margin-top: 10px;
+}
+.div-bnt-passo1 button {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  background-color: #007bff;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-Google-passo1 {
+  width: 100%;
+  height: 50px;
+  font-weight: 600;
+  color: #363636;
+  background-color: #f8f8f8;
+  border: 1px solid #8d8d8d;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.div-ou-passo1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 2px;
+  margin-bottom: 2px;
+  width: 100%;
+}
+.icon-check-passo1 {
+  width: 90px;
+  height: 90px;
+  color: rgb(0, 182, 15);
+}
+.container-passo1-p2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+.title-passo1-p2 {
+  font-weight: 600;
+  font-size: 33px;
+  color: rgb(71, 71, 71);
+  margin-bottom: 50px;
+}
+.subtitle-passo1-p2 {
+  font-weight: 400;
+  font-size: 18px;
+  color: rgb(71, 71, 71);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.div-bnt-passo1-p2 {
+  width: 600rem;
+  max-width: 100%;
+  height: 50px;
+  margin-top: 10px;
+}
+.div-bnt-passo1-p2 button {
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  background-color: #007bff;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+}
+@media screen and (max-width: 768px) {
+  .form-passo1 {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 90%;
   }
-.container-passo1{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-.div-passo1-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 430px;
-}
-.container-passo1-titulo{
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-    
-}
-.title-passo1{
+  .container-passo1 {
+    margin-top: 20%;
+  }
+  .container-passo1-titulo {
+    width: 90%;
+  }
+  .container-passo1-p2 {
+    width: 90%;
+  }
+  .title-passo1-p2 {
+    font-weight: 600;
     font-size: 33px;
-    font-weight: 600;
-    margin-bottom: 20px;
     color: rgb(71, 71, 71);
-}
-.subtitle-passo1{
-    font-size: 16px;
-    font-weight: 400;
     margin-bottom: 20px;
-    color: rgb(71, 71, 71);
-}
-.form-passo1{
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    width: 100%;
-}
-.form-passo1 input{
-    width: 100%;
-    height: 50px;
-    border: 1px solid #8d8d8d;
-    border-radius: 5px;
-    padding-left: 10px;
-    font-size: 16px;
+  }
+  .subtitle-passo1-p2 {
     font-weight: 400;
-}
-.div-bnt-passo1{
-   
-    width: 600rem;
-    max-width: 100%;
-    height: 50px;
-    margin-top: 10px;
-}
-.div-bnt-passo1 button{
-    width: 100%;
- cursor: pointer;
-    height: 100%;
-    background-color: #007bff;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-}
-
-.button-Google-passo1{
-width: 100%;
-height: 50px;
-font-weight: 600;
-color: #363636;
-background-color: #f8f8f8;
-border: 1px solid #8d8d8d;
-border-radius: 5px;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-
-}
-.div-ou-passo1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-   
-    margin-top: 2px;
-    margin-bottom:2px;
-    width: 100%;
-}
-.icon-check-passo1{
-    width: 90px;
-    height: 90px;
-    color: rgb(0, 182, 15);
-}
-.container-passo1-p2{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    text-align: center;
-}
-.title-passo1-p2{
-font-weight: 600;
-font-size: 33px;
-color: rgb(71, 71, 71);
-margin-bottom: 50px;
-}
-.subtitle-passo1-p2{
-    font-weight: 400;
-    font-size: 18px;
+    font-size: 19px;
     color: rgb(71, 71, 71);
     margin-top: 10px;
     margin-bottom: 10px;
-}
-.div-bnt-passo1-p2{
-   
-    width: 600rem;
-    max-width: 100%;
-    height: 50px;
-    margin-top: 10px;
-}
-.div-bnt-passo1-p2 button{
-    width: 100%;
- cursor: pointer;
-    height: 100%;
-    background-color: #007bff;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-}
-@media screen and (max-width: 768px){
- 
-    .form-passo1{
-        display: flex;
-        flex-direction: column;
-        row-gap: 10px;
-        width: 90%;
-    }
-    .container-passo1{
-       margin-top: 20%;
-    }
-    .container-passo1-titulo{
-        width: 90%;
-        
-    }
-    .container-passo1-p2{
-        width: 90%;
-
-    }
-    .title-passo1-p2{
-        font-weight: 600;
-        font-size: 33px;
-        color: rgb(71, 71, 71);
-        margin-bottom: 20px;
-        }
-        .subtitle-passo1-p2{
-            font-weight: 400;
-            font-size: 19px;
-            color: rgb(71, 71, 71);
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
+  }
 }

@@ -22,12 +22,30 @@ export default function Cadastro() {
         </nav>
       </header>
       <PassosMenu />
-      
+
       <div className="passos-container">
-        <div className={`passo ${step === 1 ? "active" : step < 1 ? "left" : "right"}`}>{step === 1 && <Passo1 />}</div>
-        <div className={`passo ${step === 2 ? "active" : step < 2 ? "right" : "left"}`}>{step === 2 && <Passo2 />}</div>
-        <div className={`passo ${step === 3 ? "active" : step < 3 ? "right" : "left"}`}>{step === 3 && <Passo3 />}</div>
-      </div></div>
-  
+        <div
+          className={`passo ${
+            step === 1 ? "active" : step < 1 ? "left" : "right"
+          }`}
+        >
+          {step === 1 && <Passo1 />}
+        </div>
+        <div
+          className={`passo ${
+            step === 2 ? "active" : step < 2 ? "right" : "left"
+          }`}
+        >
+          {step === 2 && <Passo2 />}
+        </div>
+        <div
+          className={`passo ${
+            step === 3 ? "active" : step < 3 ? "right" : "left"
+          }`}
+        >
+          {step === 3 && <Passo3 />}
+        </div>
+      </div>
+    </div>
   );
 }
