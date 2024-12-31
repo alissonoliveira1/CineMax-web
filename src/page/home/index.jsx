@@ -10,7 +10,7 @@ import { auth } from "../../firebaseConnect";
 import MenuSuspenso from "../../components/MenuSuspenso";
 import ApresentaçãoMobile from "../../components/apresentaçãoMobile";
 import Desktop from "../../components/apresentaçãoDesktop";
-import ContDestaque from "../../components/conteudoDestaque";
+
 //movie/now_playing?api_key=9f4ef628222f7685f32fc1a8eecaae0b&language=pt-br
 
 function Home() {

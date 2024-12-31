@@ -52,7 +52,7 @@ const AddFav = ({ id }) => {
     });
 
     return () => unsubscribe();
-  }, [id, user.uid]);
+  }, [id, user.uid,docRef]);
 console.log('repeticao')
 
   const salvarFilme = async () => {
